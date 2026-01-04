@@ -129,7 +129,7 @@ body.rsvp {
     margin: 0;
 }
 
-.rsvp-card {
+.rsvp-box {
     background: var(--card-bg);
     padding: 40px;
     border-radius: 15px;

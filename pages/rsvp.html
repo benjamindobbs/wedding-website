@@ -20,53 +20,48 @@
             <a href="../pages/wedding-party.html" class="nav-tab">Wedding Party</a>
         </nav>
     </div>
-    <div class="rsvp-card">
-        <h1>Confirm Your Attendance</h1>
-        <p>Please let us know if you can make it by filling out the details below.</p>
-
-        <form action="https://formspree.io/f/xeeokded" method="POST" id="rsvp-form">
+    <div class="rsvp-box">
+        <div id="code-entry-section">
+            <h3>Enter Your Group Code</h3>
             <div class="form-group">
-                <label for="full-name-1">Full Name</label>
-                <input type="text" id="full-name-1" name="name-1" required placeholder="Enter your name">
+                <input type="text" id="group-code-input" maxlength="4" placeholder="e.g. DOE1"
+                    style="text-transform: uppercase;">
+                <button type="button" id="verify-code-btn">Next</button>
+                <p id="code-error" style="color: red; display: none;">Invalid code. Please try again.</p>
             </div>
+        </div>
 
-            <div class="form-group">
-                <label for="email">Email Address</label>
-                <input type="email" id="email" name="email" required placeholder="email@example.com">
-            </div>
-
-            <div class="form-group">
-                <label for="attendance">Will you be attending?</label>
-                <select id="attendance" name="attendance-1" class="attendance-check" required>
-                    <option value="" disabled selected>Choose an option</option>
-                    <option value="yes">Yes, I'll be there!</option>
-                    <option value="no">Sadly, I can't make it</option>
-                </select>
-            </div>
-            <div id="food-questions" style="display: none;">
+        <form id="rsvp-form" style="display: none;">
+            <div class="form-container">
                 <div class="form-group">
-                    <label for="Entree Options">Select your entree</label>
-                    <select id="entree-choice" name="entree-choice" required>
+                    <label for="full-name-1">Primary Guest Name</label>
+                    <select id="full-name-1" name="name-1" required>
+                        <option value="" disabled selected>-- Select Your Name --</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Will you attend?</label>
+                    <select name="attendance-1" class="attendance-check" required>
                         <option value="" disabled selected>Choose an option</option>
+                        <option value="yes">Yes</option>
+                        <option value="no">No</option>
+                    </select>
+                </div>
+
+                <div class="food-section" style="display: none;">
+                    <label>Entree Choice</label>
+                    <select name="entree-1">
                         <option value="Beef">Steak</option>
                         <option value="Chicken">Chicken</option>
-                        <option value="Vegetarian">Vegetarian</option>
                     </select>
                 </div>
             </div>
 
             <div id="additional-guests-container"></div>
             <button type="button" id="add-guest-btn">+ Add Another Guest</button>
-            <hr>
-            <div class="form-group">
-                <label for="message">Message for the Host (Optional)</label>
-                <textarea id="message" name="message" rows="3" placeholder="Dietary requirements, etc."></textarea>
-            </div>
-
-            <button type="submit" class="submit-btn">Submit RSVP</button>
+            <button type="submit">Submit RSVP</button>
         </form>
-
-        <a href="../index.html" class="back-link">← Back to Home</a>
     </div>
     <script src="../scripts/rsvp-logic.js"></script>
     <script src="../scripts/guest-iterator.js"></script>

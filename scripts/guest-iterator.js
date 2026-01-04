@@ -1,25 +1,45 @@
-const guestRelations = {
-    "Liv LaRosa": ["Will"],
-    "Susan Bushman": ["Mark Bushman", "Ethan Bushman", "Owen Bushman"],
+//add dietary restrictions
+//flowery language
+const groupDatabase = {
+    "LIV1": ["Liv LaRosa","Will L"],
+    "BUSH": ["Susan Bushman","Mark Bushman", "Ethan Bushman", "Owen Bushman"],
     "Default": ["Please enter primary name first"]
 };
 let guestCount = 1;
 
 document.addEventListener('DOMContentLoaded', () => {
+    const codeBtn = document.getElementById('verify-code-btn');
     const addBtn = document.getElementById('add-guest-btn');
     const container = document.getElementById('additional-guests-container');
+    const codeInput = document.getElementById('group-code-input');
+    const rsvpForm = document.getElementById('rsvp-form');
+    const primarySelect = document.getElementById('full-name-1');
+    const codeSection = document.getElementById('code-entry-section');
     const primaryNameInput = document.getElementById('full-name-1');
 
-    // 1. Helper: Get all names currently selected in the form
-    const getSelectedNames = () => {
-        const selections = [];
-        if (primaryNameInput.value) selections.push(primaryNameInput.value);
+    codeBtn.addEventListener('click', () => {
+        const code = codeInput.value.toUpperCase();
+        const familyList = groupDatabase[code];
 
-        document.querySelectorAll('.guest-name-select').forEach(select => {
-            if (select.value) selections.push(select.value);
-        });
-        return selections;
-    };
+        if (familyList) {
+            // Populate the primary name dropdown
+            primarySelect.innerHTML = '<option value="" disabled selected>-- Select Your Name --</option>';
+            familyList.forEach(name => {
+                const opt = document.createElement('option');
+                opt.value = name;
+                opt.textContent = name;
+                primarySelect.appendChild(opt);
+            });
+
+            // Switch views
+            codeSection.style.display = 'none';
+            rsvpForm.style.display = 'block';
+        } else {
+            document.getElementById('code-error').style.display = 'block';
+        }
+    });
+
+
     // FUNCTION: Create and append the new guest UI
     const renderNewGuest = (availableNames) => {
         guestCount++;
@@ -83,20 +103,23 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         // Deduplication Logic
-        const family = guestRelations[primaryNameInput.value] || [];
-        const used = getSelectedNames();
-        const available = family.filter(n => !used.includes(n));
+        const getAvailableNames = () => {
+            const code = codeInput.value.toUpperCase();
+            const familyList = groupDatabase[code] || [];
+            const usedNames = [];
+            
+            // Collect all currently selected values
+            document.querySelectorAll('select[name^="name-"]').forEach(sel => {
+                if (sel.value) usedNames.push(sel.value);
+            });
 
-        if (available.length === 0) {
-            addBtn.disabled = true;
-            addBtn.innerText = "All guests added";
-            return;
-        }
+            return familyList.filter(name => !usedNames.includes(name));
+        };
 
-        renderNewGuest(available);
+        renderNewGuest(getAvailableNames());
 
         // Auto-disable if that was the last possible family member
-        if (available.length === 1) {
+        if (getAvailableNames().length === 1) {
             addBtn.disabled = true;
             addBtn.innerText = "All guests added";
         }
