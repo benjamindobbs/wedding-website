@@ -77,7 +77,15 @@ document.addEventListener('DOMContentLoaded', () => {
                     </select>
                 </div>
             </div>
-            
+            <div class="transport-section" style="display: none;">
+                <label>Transportation</label>
+                <select name="tranport-1">
+                    <option value="" disabled selected>Choose an option</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                    <option value="Undecided">Undecided</option>
+                </select>
+            </div>
             <button type="button" class="remove-btn">Remove Guest</button>
         `;
         container.appendChild(guestDiv);
@@ -136,6 +144,9 @@ document.addEventListener('DOMContentLoaded', () => {
             // Find the food section inside that wrapper
             const foodSection = wrapper.querySelector('.food-section');
             const foodSelect = foodSection ? foodSection.querySelector('select') : null;
+            
+            const transportSection = wrapper.querySelector('.transport-section');
+            const transportSelect = transportSection ? transportSection.querySelector('select') : null;
 
             if (foodSection && foodSelect) {
                 if (e.target.value === 'yes') {
@@ -145,6 +156,17 @@ document.addEventListener('DOMContentLoaded', () => {
                     foodSection.style.display = 'none';
                     foodSelect.required = false;
                     foodSelect.value = ""; // Clear selection if they change to 'No'
+                }
+            }
+
+            if(transportSection && transportSelect){
+                if(e.target.value == 'yes') {
+                    transportSection.style.display = 'block';
+                    transportSelect.required = true;
+                } else {
+                    transportSection.style.display='none';
+                    transportSelect.required = false;
+                    transportSelect.value=""; //Clear selection if they change to 'No'
                 }
             }
         }
