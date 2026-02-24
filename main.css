@@ -1,430 +1,340 @@
-:root{
+/* --- 1. DESIGN TOKENS --- */
+:root {
     --text-main: rgb(39, 39, 39);
     --bg-color: #f0f0f0;
     --card-bg: #ffffff;
-    --shadow-color: #f0f0f0;
-    --accent-color: #007bff;
+    --accent: #007bff;
+    --pill-bg: #e1efff; /* Soft blue for info pills */
+    --pill-text: #0056b3;
 }
 
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(20px); /* Starts slightly lower */
-    }
-    to {
-        opacity: 0.9; /* Your requested 90% opacity */
-        transform: translateY(0);    /* Moves to final position */
-    }
-}
-
-.nav-container {
-    padding: 1rem;
-} 
-
-.navbar {
-    display: flex;
-    justify-content: center; /* Centers the tabs */
-    gap: 20px;               /* Space between tabs */
-}
-
-.nav-tab {
-    color: rgb(39, 39, 39);
-    text-decoration: none;
-    font-family: sans-serif;
-    font-weight: 500;
-    padding: 8px 16px;
-    transition: background 0.3s ease;
-    border-radius: 4px;
-    border-bottom: 2px solid transparent;
-    transition: border-color 0.3s ease, color 0.3s ease;
-}
-
-.date-location{
-    font-family: "Croissant One", serif;
-    font-weight: 100;
-    font-style: normal;
-    font-size: 2em;
-    text-align: center;
+/* --- 2. GLOBAL RESET --- */
+body {
+    background-color: var(--bg-color);
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
     color: var(--text-main);
 }
-.nav-tab:hover {
-    border-bottom: 2px solid #000000; /* Shows the underline */
-    color: black; /* Accent color on hover */
+
+
+/* --- 3. TYPOGRAPHY & HEADERS --- */
+.page-wrapper {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: var(--bg-color);
 }
 
 .header {
     font-family: "Croissant One", serif;
     font-weight: 200;
-    font-style: normal;
     font-size: 5em;
     text-align: center;
     color: var(--text-main);
-}
-.page-wrapper {
-    background-color: var(--bg-color);
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* Centers all content horizontally */
-}
-.landing-photo{
-    width: 80%;
-    aspect-ratio: 1 / 1; /* Forces square shape */
-    margin: 20px auto;   /* Adds space between countdown and nav */
-    border-radius: 4em;
-    max-height: 60vh;
-    
-    background-image: url('./images/landing-page.jpg');
-    background-size: cover;
-    background-position: center 20%;
-    
-    opacity: 0.9; /* 90% Opacity */
-
-    /* Feathered Edges Effect */
-    /* Adjust the 60px/40px to make the fade softer or sharper */
-    box-shadow: inset 0 0 60px 40px var(--bg-color), 
-                0 0 60px 40px var(--bg-color);
-    animation: fadeInUp 1.5s ease-out forwards;
-
+    margin: 20px 0 0 0;
 }
 
-.countdown-container {
+.date-location {
+    font-family: "Croissant One", serif;
+    font-weight: 100;
+    font-size: 2em;
     text-align: center;
     color: var(--text-main);
-    margin-top: 5px;
-    font-family: "Croissant One", serif;
+    margin-bottom: 10px;
+}
+
+/* --- 4. COUNTDOWN (Fixed Centering & Font) --- */
+.countdown-container {
+    text-align: center;
+    width: 100%;
+    margin: 10px 0;
 }
 
 #countdown {
     display: flex;
     justify-content: center;
-    gap: 20px;
+    align-items: baseline;
+    gap: 15px;
+    font-family: "Croissant One", serif; /* Restored Font */
+    color: var(--text-main);
+}
+
+.header, .date-location, .countdown-container, .nav-container {
+    position: relative;
+    z-index: 20; /* Stays above the absolute photo */
 }
 
 .time-box {
-    border-radius: 8px;
-    
-    /* This aligns the number and text on the same line */
     display: flex;
-    align-items: baseline; /* Aligns text along their bottom edge */
-    gap: 10px;             /* Space between number and text */
+    align-items: baseline;
+    gap: 8px;
 }
 
 .time-box span {
     font-size: 2em;
     font-weight: 100;
-    display: block;
 }
 
-
-body.rsvp {
-    background-color: var(--bg-color);
-    color: var(--text-main);
-    font-family: 'Segoe UI', Arial, sans-serif;
+/* --- 5. CRITICAL INFO BANNER (Fixed Centering & Alignment) --- */
+#critical-info-banner {
+    position: relative;
+    z-index: 10;
+    width: 90%;
+    max-width: 1200px; /* Capped tighter */
+    margin: 20px auto;
+    
+    background: rgba(255, 255, 255, 0.65);
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+    
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 20px; /* Slightly tighter corners for smaller scale */
+    padding: 22px 10px; /* Reduced from 35px */
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
+}
+.info-section {
+    flex: 1;
     display: flex;
     flex-direction: column;
-    justify-content: top;
     align-items: center;
-    min-height: 100vh;
-    margin: 0;
+    gap: 6px; /* Tighter spacing */
 }
-
-.rsvp-box {
-    background: var(--card-bg);
-    padding: 40px;
-    border-radius: 15px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-    width: 90%;
-    max-width: 450px;
-    text-align: center;
-    /* Animation from previous steps */
-    animation: fadeIn 0.8s ease-out;
+/* Line 1: Labels (Ceremony / Reception) */
+.line-1 {
+    font-size: 0.72rem; /* Shrunk from 0.85rem */
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--text-main);
+    margin-bottom: 5px;
 }
-
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
+.info-pill {
+    background: var(--pill-bg);
+    color: var(--pill-text);
+    padding: 10px 22px; /* Reduced from 14px/32px */
+    border-radius: 100px;
+    text-decoration: none !important;
+    font-size: 0.85rem; /* Reduced font size */
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
 }
-
-h1 { margin-bottom: 10px; font-size: 1.8rem; }
-p { color: #666; margin-bottom: 30px; }
-
-.form-group {
-    text-align: left;
-    margin-bottom: 20px;
-}
-
-label {
-    display: block;
-    font-weight: 600;
-    margin-bottom: 8px;
-    font-size: 0.9rem;
-}
-
-input, select, textarea {
-    width: 100%;
-    padding: 12px;
-    border: 1px solid var(--input-border);
-    border-radius: 8px;
-    font-size: 1rem;
-    box-sizing: border-box; /* Ensures padding doesn't affect width */
-}
-
-input:focus {
-    outline: none;
-    border-color: var(--brand-accent);
-    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
-}
-
-.submit-btn {
-    width: 100%;
-    background-color: var(--brand-accent);
-    color: rgb(43, 43, 43);
-    border: solid;
-    padding: 14px;
-    border-radius: 8px;
-    font-size: 1.1rem;
-    font-weight: bold;
-    cursor: pointer;
-    transition: transform 0.2s, background 0.3s;
-}
-
-.submit-btn:hover {
-    background-color: #0056b3;
+.info-pill:hover {
     transform: translateY(-2px);
 }
-
-.back-link {
-    display: inline-block;
-    margin-top: 20px;
-    text-decoration: none;
-    color: var(--brand-accent);
-    font-size: 0.9rem;
-}
-.guest-entry {
-    background: #f9f9f9;
-    padding: 20px;
-    border-radius: 8px;
-    margin-bottom: 20px;
-    border-left: 4px solid var(--brand-accent);
+.info-pill i.material-icons {
+    font-size: 16px !important; /* Scaled down icon */
 }
 
-.extra-guest {
-    border-left-color: #666; /* Different color for added guests */
+/* Optional: Vertical divider between sections */
+.info-divider {
+    width: 1px;
+    height: 40px;
+    background-color: #eee;
 }
 
-#add-guest-btn {
-    background: transparent;
-    border: 2px dashed var(--brand-accent);
-    color: var(--brand-accent);
-    padding: 10px;
-    width: 100%;
-    cursor: pointer;
-    font-weight: bold;
-    margin-bottom: 20px;
-}
-
-.remove-btn {
-    background: none;
-    border: none;
-    color: #ff4d4d;
-    cursor: pointer;
-    font-size: 0.8rem;
-    padding: 0;
-    text-decoration: underline;
-}
-
-body {
-    background-color: var(--bg-color);
-    margin: 0;
-    font-family: 'Segoe UI', sans-serif;
-}
-
-.gallery-wrapper {
+/* --- 6. LANDING PHOTO (Restored 80% Width) --- */
+.landing-photo {
+    position: absolute;
+    top: 350px; 
+    left: 10%;
     width: 90%;
-    max-width: 1200px;
-    margin: 50px auto;
-    text-align: center;
-}
+    aspect-ratio: 1 / 1;
+    background-image: url('./images/landing-page.jpg');
+    background-size: cover;
+    background-position: center 20%;
+    opacity: 0.9;
+    z-index: 1;
 
-.photo-grid {
-    display: grid;
-    /* Automatically creates columns based on screen width */
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 25px;
-    padding: 20px;
-}
-
-.photo-card {
-    background: var(--card-bg);
-    border-radius: 15px;
-    overflow: hidden;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.05);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    opacity: 0; /* For fade-in effect */
-    animation: fadeInUp 0.6s ease forwards;
-}
-
-.photo-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 15px 30px rgba(0,0,0,0.1);
-}
-
-.photo-card img {
-    width: 100%;
-    height: 250px;
-    object-fit: cover; /* Keeps the square crop look you like */
-    display: block;
-}
-
-.photo-caption {
-    padding: 15px;
-    font-size: 1rem;
-    color: var(--text-main);
-    font-weight: 500;
-}
-
-
-/* Start of wedding party css */
-.people-container {
-    width: 100%;
-    padding-top: 50px;
+    /* SEAMLESS RADIAL MASK:
+       - black 20%: Solid center
+       - transparent 70%: Fully invisible by the 70% mark 
+       This ensures the 0% opacity happens well before the edge of the 100% width div.
+    */
+    -webkit-mask-image: radial-gradient(circle, black 20%, transparent 70%);
+    mask-image: radial-gradient(circle, black 20%, transparent 70%);
     
+    animation: fadeInUp 1.5s ease-out forwards;
 }
 
+/* --- 7. NAVIGATION --- */
+.nav-container {
+    padding: 30px 0; /* More breathing room */
+    z-index: 20;
+    position: relative;
+}
 
-/* The Individual Card */
-.person-card {
+.navbar {
     display: flex;
-    align-items: flex-start; /* Keeps both sides top-aligned */
-    background: var(--card-bg);
-    width: 75%;              /* Restricted width as requested */
-    margin: 0 auto 50px auto; /* Centers the 75% card and adds spacing below */
-    border-radius: 15px;
-    overflow: hidden;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-    opacity: 0;
-    transition: all 0.8s ease-out;
+    justify-content: center;
+    gap: 30px; /* Increased from 20px */
+    flex-wrap: wrap;
 }
 
-/* THE FLIP LOGIC */
-/* Target every second card to swap the image and text positions */
-.person-card:nth-child(even) {
-    flex-direction: row-reverse;
-    transform: translateX(50px);
-}
-
-.person-card:nth-child(odd) {
-    transform: translateX(-50px);
-}
-.person-card.appear {
-    opacity: 1;
-    transform: translateX(0);
-}
-/* The Square Image Side */
-.person-image {
-    flex: 1;
-    aspect-ratio: 1 / 1;    /* Forces a perfect square */
-    overflow: hidden;
-}
-
-.person-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;      /* Prevents stretching */
-    display: block;
-}
-
-/* The Text Side */
-.person-text {
-    flex: 1;
-    padding: 40px;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start; /* Ensures text starts at the top */
+.nav-tab {
     color: var(--text-main);
+    text-decoration: none;
+    font-size: 1.15rem; /* Increased from ~1rem */
+    font-weight: 600; /* Slightly bolder to hold more "weight" */
+    padding: 10px 20px;
+    transition: all 0.3s ease;
+    border-bottom: 2px solid transparent;
 }
 
-.person-text h2 {
-    margin: 0;
-    color: var(--accent);
-    font-size: 1.8rem;
+.nav-tab:hover {
+    border-bottom: 2px solid #000000;
+    background: rgba(0,0,0,0.02);
+    border-radius: 8px;
 }
 
-.person-text h3 {
-    margin: 5px 0 20px 0;
-    font-weight: 400;
-    color: #666;
-    text-transform: uppercase;
-    letter-spacing: 1px;
+/* --- 8. ANIMATIONS & RESPONSIVE --- */
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 0.9; transform: translateY(0); }
 }
 
-.person-text p {
-    line-height: 1.6;
-    color: var(--text-main);
-    margin: 0;
-}
-
-/* Alignment logic for the flipped rows */
-.person-card:nth-child(even) .person-text {
-    text-align: right;
-    align-items: flex-end; /* Aligns text elements to the right edge */
-}
-
-/* Mobile Responsiveness */
 @media (max-width: 768px) {
-    .person-card {
-        width: 95%; /* Expand on mobile for readability */
-        flex-direction: column !important; /* Stack vertically */
-        align-items: center;
-    }
-
-    .person-card:nth-child(even) .person-text {
-        text-align: center;
-        align-items: center;
-    }
-
-    .person-text {
-        padding: 25px;
-        text-align: center;
-    }
+    .header { font-size: 3em; }
+    .date-location { font-size: 1.5em; }
+    .landing-photo { width: 95%; }
+    #critical-info-banner { flex-direction: column; gap: 15px; }
 }
 
-/*Start FAQ Style*/
+/* FAQ PAGE */
+/* --- FAQ SEARCH & FILTERS --- */
+.faq-search-wrapper {
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 0 20px;
+    position: relative;
+    z-index: 10; /* Ensures it stays above the landing photo if overlapping */
+}
 
-#faq-page-container {
-    width: 100%;
-    padding: 40px 0;
+.search-input-container {
+    position: relative;
     display: flex;
-    flex-direction: column;
     align-items: center;
+}
+
+.search-input-container i {
+    position: absolute;
+    left: 20px;
+    color: var(--text-light);
+    font-size: 20px;
+}
+
+#faq-search {
+    width: 100%;
+    padding: 15px 15px 15px 55px; /* Extra left padding for the icon */
+    border: 2px solid #e2e8f0;
+    border-radius: 50px;
+    font-size: 1rem;
+    background: white;
+    outline: none;
+    transition: var(--transition);
+}
+
+#faq-search:focus {
+    border-color: var(--brand-accent);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+
+.faq-categories {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 25px;
+    flex-wrap: wrap;
+}
+
+.cat-btn {
+    padding: 8px 22px;
+    border-radius: 20px;
+    border: 1px solid #e2e8f0;
+    background: white;
+    color: var(--text-muted);
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 600;
+    transition: all 0.2s ease;
+}
+
+.cat-btn.active {
+    background: var(--brand-accent);
+    color: white;
+    border-color: var(--brand-accent);
+}
+
+.cat-btn:hover:not(.active) {
+    background: #f8fafc;
+    border-color: #cbd5e1;
+}
+
+/* --- FAQ GRID & CARDS --- */
+.faq-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 20px;
+    padding: 40px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
 .faq-card {
-    width: 90%; /* As requested */
-    max-width: 1000px; /* Prevents it from getting too stretched on ultrawide monitors */
-    background: #ffffff;
-    margin-bottom: 20px;
-    padding: 30px;
-    border-radius: 12px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-    border-left: 5px solid var(--accent); /* Adds a nice branded accent line */
+    background: white;
+    border: 1px solid #eee;
+    border-radius: 15px;
+    padding: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    height: fit-content;
+}
+
+.faq-card:hover {
+    box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+    transform: translateY(-3px);
 }
 
 .faq-question {
-    font-size: 1.25rem;
-    font-weight: bold;
-    color: var(--accent);
-    margin-bottom: 15px;
-    display: block;
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: var(--text-main);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+}
+
+.faq-question i {
+    color: var(--brand-accent);
+    transition: transform 0.3s ease;
+}
+
+.faq-card.active i {
+    transform: rotate(180deg);
 }
 
 .faq-answer {
-    font-size: 1.1rem;
-    color: #444;
-    line-height: 1.6;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease, margin-top 0.3s ease;
+    color: var(--text-muted);
+    line-height: 1.7;
+    font-size: 0.95rem;
 }
 
+.faq-card.active .faq-answer {
+    max-height: 500px; /* High enough to accommodate long text */
+    margin-top: 15px;
+}
+
+/* --- TRAVEL & HOTEL GRID --- */
 #hotels-page-container {
     width: 90%;
     max-width: 1200px;
@@ -434,53 +344,31 @@ body {
 
 #hotel-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr); /* 3 equal columns */
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); /* Restored 3-column feel */
     gap: 30px;
 }
 
 .hotel-card {
     background: #fff;
     border-radius: 15px;
-    padding: 30px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
     display: flex;
     flex-direction: column;
+    overflow: hidden;
     transition: transform 0.3s ease;
-    padding: 0; /* Remove padding so image touches the edges */
-    overflow: hidden; /* Clips the image corners to the card border-radius */
 }
 
 .hotel-card:hover {
     transform: translateY(-10px);
 }
 
-.hotel-name {
-    font-size: 1.5rem;
-    color: var(--accent);
-    margin-bottom: 10px;
-}
-
-.hotel-price {
-    font-weight: bold;
-    color: #555;
-    margin-bottom: 15px;
-}
-
-.hotel-description {
-    color: #666;
-    line-height: 1.6;
-    margin-bottom: 20px;
-    flex-grow: 1; /* Pushes button to bottom */
-}
-
 .hotel-image {
     width: 100%;
-    height: 200px; /* Fixed height for consistency */
-    object-fit: cover; /* Crops image to fill area without stretching */
+    height: 220px;
+    object-fit: cover;
     display: block;
 }
 
-/* Add padding back to the text content only */
 .hotel-content {
     padding: 25px;
     display: flex;
@@ -488,26 +376,26 @@ body {
     flex-grow: 1;
 }
 
-.book-btn {
-    text-align: center;
-    background: var(--accent);
-    color: rgb(84, 146, 216);
-    padding: 12px;
-    border-radius: 8px;
-    text-decoration: none;
-    font-weight: bold;
+.hotel-name {
+    font-size: 1.5rem;
+    color: var(--pill-text);
+    margin: 0 0 5px 0;
+    font-family: "Segoe UI", sans-serif;
+    font-weight: 700;
 }
 
-/* Responsive: 1 column on mobile */
-@media (max-width: 900px) {
-    #hotel-grid {
-        grid-template-columns: 1fr;
-    }
+.hotel-price {
+    font-weight: bold;
+    color: #555;
+    margin-bottom: 15px;
+    font-size: 1.1rem;
 }
+
+/* --- LOGISTICS BOX (Check-in/Out) --- */
 .hotel-logistics {
     background: #f8f9fa;
     padding: 15px;
-    border-radius: 8px;
+    border-radius: 10px;
     margin-bottom: 20px;
     font-size: 0.9rem;
     border: 1px solid #edf2f7;
@@ -520,21 +408,15 @@ body {
     color: #4a5568;
 }
 
-.logistic-item:last-child {
-    margin-bottom: 0;
-}
-
 .logistic-label {
     font-weight: bold;
     color: #2d3748;
 }
 
-.logistic-value {
-    text-align: right;
-}
+/* --- AMENITIES GRID --- */
 .amenities-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr; /* Two columns */
+    grid-template-columns: 1fr 1fr; /* Two columns for clean listing */
     gap: 10px;
     margin: 15px 0 20px 0;
     padding-top: 15px;
@@ -550,82 +432,1075 @@ body {
 
 .amenity-item i {
     margin-right: 8px;
-    font-size: 1rem;
+    font-size: 1.1rem;
 }
 
-/* Style for "Available" */
-.status-yes {
-    color: #2f855a; /* Green */
+/* Status colors for amenities */
+.status-yes { color: #2f855a; } /* Green */
+.status-no { 
+    color: #a0aec0; 
+    text-decoration: line-through; 
+    opacity: 0.7; 
 }
 
-/* Style for "Not Available" */
-.status-no {
-    color: #a0aec0; /* Grey */
-    text-decoration: line-through;
-    opacity: 0.7;
+/* --- BOOKING BUTTON --- */
+.book-btn {
+    text-align: center;
+    background: var(--pill-text);
+    color: white !important;
+    padding: 14px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+    margin-top: auto; /* Pushes button to the bottom of the card */
+    transition: filter 0.2s;
 }
 
-#password-overlay {
+/* --- 5. WEDDING PARTY: DIRECTORY GRID --- */
+body.wedding-party, body.our-story, body.gallery{
+    background-color: var(--bg-color);
+    /* The texture is now here, covering everything */
+    background-image: url("https://www.transparenttextures.com/patterns/natural-paper.png");
+    background-attachment: fixed; /* This keeps the texture still while you scroll */
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: var(--text-main);
+    overflow-x: hidden;
+}
+.scrapbook-container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+#party-directory {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 60px 30px;
+    padding: 80px 0;
+    justify-items: center;
+}
+
+.member-card {
+    position: relative;
+    width: 100%;
+    max-width: 250px;
+    cursor: pointer;
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transform: rotate(var(--rotation, 0deg));
+    z-index: 1;
+}
+
+.member-card:hover {
+    transform: rotate(0deg) scale(1.08);
+    z-index: 50;
+}
+
+.polaroid {
+    background: white;
+    padding: 12px 12px 40px 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    position: relative;
+    border: 1px solid #f0f0f0;
+}
+
+.polaroid img {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    display: block;
+}
+
+/* Washi Tape Effect */
+.polaroid::before, .detail-photo::before {
+    content: '';
+    position: absolute;
+    background: rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
+    border-left: 1px dashed rgba(0,0,0,0.08);
+    border-right: 1px dashed rgba(0,0,0,0.08);
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.03);
+    z-index: 10;
+}
+
+.polaroid::before {
+    top: -18px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90px;
+    height: 35px;
+}
+
+.polaroid-caption {
+    margin-top: 15px;
+    text-align: center;
+    font-family: 'Georgia', serif; 
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #334155;
+}
+
+/* --- 6. WEDDING PARTY: ENHANCED DETAIL VIEW --- */
+#party-detail-view {
+    max-width: 1100px;
+    margin: 40px auto;
+    padding: 40px 20px;
+    background-image: url("https://www.transparenttextures.com/patterns/natural-paper.png"); /* Subtle paper texture */
+}
+
+.detail-layout {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 60px;
+    align-items: center;
+}
+
+/* The Large Detail Polaroid */
+.detail-photo {
+    position: relative;
+    padding: 15px 15px 60px 15px;
+    background: white;
+    box-shadow: 0 25px 50px rgba(0,0,0,0.15);
+    transform: rotate(-2deg); /* Placed look */
+}
+
+.detail-photo img {
+    width: 100%;
+    display: block;
+    border-radius: 2px;
+}
+
+/* Larger tape for the detail photo */
+.detail-photo::before {
+    top: -25px;
+    left: 15%;
+    width: 130px;
+    height: 45px;
+    transform: rotate(-12deg);
+    background: rgba(255, 255, 255, 0.4);
+}
+
+.detail-info #detail-name {
+    font-family: "Croissant One", serif;
+    font-size: 4rem;
+    margin: 0;
+    line-height: 1.1;
+    color: var(--text-main);
+}
+
+.flavor-text {
+    font-family: 'Georgia', serif;
+    font-size: 1.25rem;
+    line-height: 1.8;
+    color: #4a5568;
+    margin-top: 25px;
+    font-style: italic;
+    position: relative;
+}
+
+.back-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 24px;
+    background: white;
+    border-radius: 50px;
+    cursor: pointer;
+    font-weight: 700;
+    margin-bottom: 50px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    transition: var(--transition);
+}
+
+.back-btn:hover { background: var(--brand-accent); color: white; }
+
+/* --- 7. ANIMATIONS --- */
+.page-flip-animation {
+    animation: pageFlip 0.7s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+}
+
+@keyframes pageFlip {
+    0% { opacity: 0; transform: perspective(1200px) rotateY(-10deg) translateX(-30px); }
+    100% { opacity: 1; transform: perspective(1200px) rotateY(0deg) translateX(0); }
+}
+
+/* --- 8. FAQ PAGE --- */
+.faq-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 20px;
+    padding: 40px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.faq-card {
+    background: white;
+    border-radius: 15px;
+    padding: 25px;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.faq-card.active .faq-answer { max-height: 500px; margin-top: 15px; }
+.faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; }
+/* --- REGISTRY PORTAL OVERLAY --- */
+.registry .portal-overlay {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: #fdfbf7;
+    background: rgba(0, 0, 0, 0.4); /* Dimmed background */
+    backdrop-filter: blur(8px);
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 9999;
-    /* Smooth fade-out transition */
-    transition: opacity 0.6s ease, visibility 0.6s;
+    z-index: 1000;
 }
 
-.password-box {
-    text-align: center;
-    padding: 40px;
+/* THE FLOATING CARD */
+.portal-card {
     background: white;
-    border-radius: 15px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    width: 90%;
+    max-width: 500px;
+    padding: 40px;
+    border-radius: 25px;
+    text-align: center;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+    animation: portalPop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
-.password-box input {
+@keyframes portalPop {
+    from { opacity: 0; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+.portal-subtitle {
+    display: block;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 0.8rem;
+    font-weight: 800;
+    color: var(--brand-accent);
+    margin-bottom: 10px;
+}
+
+.portal-card h1 {
+    font-family: 'Croissant One', serif;
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: var(--text-main);
+}
+
+#countdown {
+    font-weight: 800;
+    color: var(--pill-text);
+    font-size: 1.2rem;
+}
+
+/* BUTTONS */
+.portal-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 30px;
+}
+
+.btn-primary {
+    background: var(--pill-text);
+    color: white;
+    border: none;
+    padding: 15px;
+    border-radius: 50px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.btn-secondary {
+    background: transparent;
+    color: var(--text-muted);
+    border: 1px solid #e2e8f0;
     padding: 12px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    margin-right: 10px;
+    border-radius: 50px;
+    cursor: pointer;
 }
 
-.password-wrapper {
+.btn-primary:hover { transform: scale(1.02); }
+
+/* SITEMAP GRID */
+.sitemap-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin: 25px 0;
+}
+
+.sitemap-grid a {
+    background: #f8fafc;
+    padding: 12px;
+    border-radius: 10px;
+    text-decoration: none;
+    color: var(--text-main);
+    font-size: 0.9rem;
+    font-weight: 600;
+    transition: background 0.2s;
+}
+
+.sitemap-grid a:hover {
+    background: var(--pill-bg);
+    color: var(--pill-text);
+}
+
+.btn-close {
+    background: none;
+    border: none;
+    color: var(--brand-accent);
+    text-decoration: underline;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+/* --- RSVP PAGE STYLES --- */
+/* --- 1. RSVP HERO LAYOUT (Centering the entry card) --- */
+.rsvp-hero-layout {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 80vh;
+    padding: 20px;
+}
+
+/* --- 2. THE ENTRY CARD (Step 1) --- */
+.rsvp-content-card {
+    background: white;
+    padding: 50px;
+    border-radius: 25px;
+    text-align: center;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.08);
+    width: 100%;
+}
+
+.rsvp-eyebrow {
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    font-size: 0.8rem;
+    font-weight: 800;
+    color: var(--brand-accent);
+}
+
+.input-group-modern {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin: 30px 0;
+}
+
+#group-code-input {
+    padding: 18px;
+    border: 2px solid #edf2f7;
+    border-radius: 12px;
+    font-size: 1.2rem;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    transition: border-color 0.3s;
+}
+
+#group-code-input:focus {
+    outline: none;
+    border-color: var(--brand-accent);
+}
+
+.btn-primary-large {
+    background: var(--pill-text);
+    color: white;
+    padding: 18px;
+    border: none;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.rsvp-help-text {
+    font-size: 0.85rem;
+    color: #94a3b8;
+}
+
+/* --- 3. THE FULL FORM (Step 2) --- */
+.form-container {
+    background: white;
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    width: 100%;
+    margin-top: 20px; /* Space from the top if the card is gone */
+}
+
+.form-main-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Side-by-side fields */
+    gap: 20px;
+    margin-bottom: 25px;
+}
+/* This targets the outer parent and forces everything inside to the middle */
+#rsvp-main-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;    /* Horizontal centering */
+    justify-content: center; /* Vertical centering */
+    min-height: 85vh;       /* Keeps it in the middle of the screen */
+    width: 100%;
+    padding: 20px;
+}
+
+/* This ensures the entry card stays centered and doesn't stretch too wide */
+#rsvp-entry-container {
+    width: 100%;
+    max-width: 500px;
+}
+
+/* This ensures the big form stays centered once it appears */
+#rsvp-form {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto; 
+}
+
+@media (max-width: 600px) {
+    .form-main-grid { grid-template-columns: 1fr; }
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.form-group label {
+    font-weight: 700;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    color: #475569;
+}
+
+/* Styled Inputs & Selects */
+.form-group select, 
+.form-group textarea {
+    padding: 12px;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 0.95rem;
+    background-color: #f8fafc;
+}
+
+/* --- 4. SECTION HIGHLIGHTS (Food & Transport) --- */
+.food-section, .transport-section {
+    background: #f1f5f9;
+    padding: 20px;
+    border-radius: 12px;
+    margin-top: 15px;
+    border-left: 4px solid var(--brand-accent);
+}
+
+/* --- 5. ACTION BUTTONS --- */
+#add-guest-btn {
+    background: transparent;
+    border: 2px dashed #cbd5e1;
+    color: #64748b;
+    width: 100%;
+    padding: 15px;
+    border-radius: 10px;
+    margin: 20px 0;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+#add-guest-btn:hover {
+    background: #f8fafc;
+    border-color: var(--brand-accent);
+    color: var(--brand-accent);
+}
+
+.submit-btn {
+    background: #2dd4bf; /* Success Green */
+    color: white;
+    width: 100%;
+    padding: 20px;
+    border: none;
+    border-radius: 12px;
+    font-size: 1.1rem;
+    font-weight: 800;
+    cursor: pointer;
+    box-shadow: 0 4px 14px rgba(45, 212, 191, 0.3);
+}
+
+.submit-btn:hover {
+    transform: translateY(-2px);
+    filter: brightness(105%);
+}
+
+/* --- SLEEK REMOVE GUEST BUTTON --- */
+.remove-guest-btn {
+    background: transparent;
+    color: #94a3b8; /* Subtle slate color */
+    border: none;
+    cursor: pointer;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    transition: all 0.2s ease;
+    padding: 5px 10px;
+    border-radius: 5px;
+    margin-left: auto; /* Pushes it to the right if in a flex container */
+}
+
+/* Hover state: Subtle red and lift */
+.remove-guest-btn:hover {
+    color: #ef4444; /* Soft red */
+    background: #fef2f2; /* Very light red background */
+}
+
+/* Icon tweak if you use a Material Icon inside it */
+.remove-guest-btn i {
+    font-size: 14px;
+}
+
+/* Positioning inside the Guest Container */
+.guest-entry {
     position: relative;
-    display: inline-block;
+    padding-top: 20px;
+    border-top: 1px solid #f1f5f9;
+    margin-top: 30px;
+}
+/* Disabled button state */
+#add-guest-btn:disabled {
+    cursor: not-allowed;
+    filter: grayscale(1);
+    opacity: 0.5;
+}
+
+/* If the text changes to "Limit Reached", make it subtle */
+#add-guest-btn[disabled]:contains("Limit") {
+    border: none;
+    background: transparent;
+    color: #94a3b8;
+}
+
+/* Optional: Add a helper hint that appears only when disabled */
+#add-guest-btn:disabled::after {
+    content: ' (Finish current guest to add more)';
+    font-size: 0.75rem;
+    font-weight: normal;
+    display: block;
+    margin-top: 5px;
+}
+
+/* Ensure the sleek remove button looks good in context */
+.remove-guest-btn {
+    float: right;
+    margin-top: -10px;
+}
+/* --- RSVP MOBILE OPTIMIZATIONS --- */
+@media (max-width: 768px) {
+    /* 1. Ensure the main wrapper has breathing room on the sides */
+    #rsvp-main-wrapper {
+        padding: 15px;
+        min-height: auto; /* Allow it to grow naturally with content */
+        margin-top: 20px;
+    }
+
+    /* 2. Scale the entry card and full form to use the whole screen width */
+    #rsvp-entry-container, 
+    #rsvp-form {
+        max-width: 100%;
+        width: 100%;
+    }
+
+    .form-container, .rsvp-content-card {
+        padding: 25px 20px; /* Reduce internal padding for more space */
+        border-radius: 15px;
+    }
+
+    /* 3. Collapse the 2-column grid into 1 column */
+    .form-main-grid {
+        grid-template-columns: 1fr !important;
+        gap: 15px;
+    }
+
+    /* 4. Make inputs and buttons easier to tap (fat-finger friendly) */
+    .btn-primary-large, .submit-btn, #add-guest-btn {
+        width: 100%;
+        padding: 18px;
+        font-size: 1.1rem;
+    }
+
+    #group-code-input {
+        font-size: 1.4rem; /* Larger text for easier typing */
+        padding: 15px;
+    }
+
+    /* 5. Adjust food/transport highlight boxes */
+    .food-section, .transport-section {
+        padding: 15px;
+        margin-top: 10px;
+    }
+
+    /* 6. Fix the "Remove Guest" float issue */
+    .remove-guest-btn {
+        float: none;
+        margin-bottom: 10px;
+        justify-content: center; /* Center it on mobile */
+    }
+}
+/* --- MOBILE & TABLET TIGHTENING (Applied only to smaller screens) --- */
+@media (max-width: 1024px) {
+    
+    /* 1. Pull the main containers in so they don't hit the screen edges */
+    .scrapbook-container, 
+    .page-content, 
+    #hotels-page-container, 
+    .story-container,
+    #party-detail-view {
+        width: 90%;           /* Creates a 5% margin on each side */
+        max-width: 800px;     /* Forces a more focused, "book-like" column */
+        margin: 0 auto;
+    }
+
+    /* 2. Tighten the RSVP form specifically */
+    #rsvp-form, 
+    .form-container {
+        width: 95%;
+        max-width: 600px;     /* Keeps the form from getting too wide on tablets */
+        padding: 25px;        /* Reduces internal bulk */
+    }
+
+    /* 3. Adjust the Wedding Party Grid for Tablet/Mobile */
+    #party-directory {
+        grid-template-columns: repeat(2, 1fr); /* 2 columns is best for "tight" feel */
+        gap: 30px 20px;
+        padding: 30px 0;
+    }
+
+    /* 4. Shrink the headers to fit the tighter space */
+    .header {
+        font-size: 3rem;
+        margin-top: 10px;
+    }
+
+    .date-location {
+        font-size: 1.5rem;
+    }
+
+    /* 5. Detail View adjustments */
+    .detail-layout {
+        grid-template-columns: 1fr; /* Stack photo on top of text */
+        gap: 30px;
+    }
+
+    .detail-photo {
+        transform: rotate(0); /* Remove tilt on mobile for better alignment */
+        max-width: 400px;     /* Don't let the photo get giant on tablets */
+        margin: 0 auto;
+    }
+
+    #detail-name {
+        font-size: 2.5rem;
+        text-align: center;
+    }
+}
+
+/* --- EXTRA SMALL MOBILE (Phones) --- */
+@media (max-width: 480px) {
+    #party-directory {
+        grid-template-columns: 1fr; /* Single column on phones */
+    }
+    
+    .nav-tab {
+        padding: 8px 10px;
+        font-size: 0.9rem;
+    }
+}
+/* --- OUR STORY PAGE STYLES --- */
+.story-container {
+    max-width: 1000px;
+    margin: 60px auto;
+    padding: 0 20px;
+    background: transparent;
+}
+.story-container::before {
+    background: transparent;
+    border-left: 2px dashed #cbd5e1; /* Dashed line like a stitch */
+}
+
+.story-intro {
+    text-align: center;
+    max-width: 700px;
+    margin: 0 auto 100px auto;
+    padding-bottom: 40px;
+    border-bottom: 1px solid #f1f5f9;
+    margin-bottom: 20px !important; /* Pulls the title closer to the photos */
+    padding-top: 20px;
+    background: transparent;
+    
+}
+
+.story-intro h1 {
+    margin-bottom: 15px;
+    color: var(--text-main);
+}
+
+.story-row {
+    display: flex;
+    align-items: center;
+    gap: 50px;
+    margin-bottom: 100px;
+}
+
+/* Every other row flips the order */
+.story-row:nth-child(even) {
+    flex-direction: row-reverse;
+}
+
+.story-image-wrap {
+    flex: 1;
+    position: relative;
+}
+
+.story-image-wrap img {
+    width: 100%;
+    border-radius: 4px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    /* Giving it that polaroid/photo feel */
+    border: 12px solid white;
+    border-bottom: 40px solid white;
+    transform: rotate(var(--story-rotation, -2deg));
+}
+
+.story-text-wrap {
+    flex: 1;
+}
+
+.story-date {
+    font-family: 'Segoe UI', sans-serif;
+    font-weight: 800;
+    color: var(--brand-accent);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 0.9rem;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.story-text-wrap h2 {
+    font-family: 'Croissant One', serif;
+    font-size: 2.5rem;
     margin-bottom: 20px;
 }
 
-.password-wrapper input {
-    padding: 12px 40px 12px 12px; /* Extra padding on the right for the icon */
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    width: 250px;
+.story-content {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: var(--text-muted);
+}
+/* --- THE TIMELINE THREAD --- */
+.story-container {
+    position: relative;
+    max-width: 1000px;
+    margin: 60px auto;
+    padding: 0 20px;
 }
 
-.toggle-icon {
+/* The vertical line in the center */
+.story-container::before {
+    content: '';
     position: absolute;
-    right: 12px;
+    top: 250px; /* Starts after the intro */
+    bottom: 50px;
+    left: 50%;
+    width: 2px;
+    background: #e2e8f0; /* Soft gray line */
+    transform: translateX(-50%);
+    z-index: 1;
+}
+
+.story-row {
+    display: flex;
+    align-items: center;
+    gap: 80px;
+    margin-bottom: 120px;
+    position: relative;
+    z-index: 2; /* Sits above the line */
+}
+
+/* The "Node" or Point on the timeline */
+.story-row::after {
+    content: '';
+    position: absolute;
+    left: 50%;
     top: 50%;
-    transform: translateY(-50%);
+    width: 12px;
+    height: 12px;
+    background: white;
+    border: 3px solid var(--brand-accent);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 0 0 6px white; /* Clears the line behind the dot */
+}
+
+/* --- MOBILE TWEAKS --- */
+@media (max-width: 768px) {
+    .story-container::before {
+        left: 30px; /* Move line to the left on mobile */
+    }
+    
+    .story-row::after {
+        left: 30px; /* Align dots with line */
+        top: 20px;  /* Position dots near the top of the block */
+    }
+    
+    .story-row {
+        padding-left: 60px; /* Make room for the line/dots */
+    }
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    .story-row, .story-row:nth-child(even) {
+        flex-direction: column;
+        gap: 30px;
+        margin-bottom: 60px;
+    }
+}
+
+/* --- WIDE & SPACED SCRAPBOOK GALLERY --- */
+#scrapbook-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 80px 60px;
+    padding: 20px 5% 100px 5%; /* Reduced top padding from 100px to 20px */
+    max-width: 1800px;
+    margin: 0 auto;
+}
+
+.gallery-item {
+    transition: transform 0.3s ease;
+    transform: rotate(var(--rotation));
     cursor: pointer;
-    user-select: none;
-    color: #888;
-    font-size: 20px;
 }
 
-.toggle-icon:hover {
-    opacity: 1;
+/* More pronounced staggering */
+.gallery-item:nth-child(even) { margin-top: 60px; }
+.gallery-item:nth-child(3n) { margin-top: -30px; }
+
+.gallery-item:hover {
+    transform: rotate(0deg) scale(1.05);
+    z-index: 50;
+}
+/* --- PHOTO GALLERY HOVER ANIMATION --- */
+#scrapbook-gallery .gallery-item {
+    position: relative;
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), z-index 0s;
+    cursor: pointer;
+    z-index: 1;
 }
 
-/* Class to trigger the fade */
-.fade-out {
-    opacity: 0;
-    visibility: hidden;
+#scrapbook-gallery .gallery-item:hover {
+    /* Straightens the rotation to 0, lifts it up, and scales it */
+    transform: rotate(0deg) scale(1.1) translateY(-10px);
+    z-index: 100; /* Ensures the hovered photo is always on top of its neighbors */
 }
 
+/* Enhancing the Polaroid shadow on hover for depth */
+#scrapbook-gallery .gallery-item:hover .polaroid {
+    box-shadow: 0 25px 50px rgba(0,0,0,0.2);
+}
+
+/* Adding a "lifting" effect to the tape on hover */
+#scrapbook-gallery .gallery-item:hover .polaroid::before {
+    opacity: 0.8;
+    transform: translateX(-50%) translateY(-2px);
+}
+
+/* --- LIGHTBOX STYLES --- */
+#lightbox-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    display: none; /* Hidden by default */
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+    cursor: zoom-out;
+}
+
+#lightbox-content {
+    max-width: 90%;
+    max-height: 80%;
+    background: white;
+    padding: 20px 20px 60px 20px;
+    box-shadow: 0 0 50px rgba(0,0,0,0.5);
+    animation: lightboxPop 0.3s ease-out;
+}
+
+#lightbox-img {
+    max-width: 100%;
+    max-height: 75vh;
+    object-fit: contain; /* Ensures the full photo shows in the lightbox */
+    display: block;
+    margin: 0 auto;
+}
+
+#lightbox-caption {
+    text-align: center;
+    margin-top: 20px;
+}
+
+
+@keyframes lightboxPop {
+    from { transform: scale(0.9); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+/* --- 2. PHOTO GALLERY SPECIFIC (The Wide Scatter) --- */
+#scrapbook-gallery {
+    display: grid; /* Use the wide grid only here */
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 80px 60px;
+    padding: 20px 5% 100px 5%;
+    max-width: 1800px;
+    margin: 0 auto;
+}
+
+/* Ensure photo gallery items also respect their rotation */
+#scrapbook-gallery .gallery-item {
+    transform: rotate(var(--rotation, 0deg));
+}
+
+/* --- 3. SHARED POLAROID FOUNDATION --- */
+/* This keeps the "look" consistent without breaking the layouts */
+.polaroid {
+    background: white;
+    padding: 15px 15px 35px 15px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    border: 1px solid #efefef;
+}
+
+.polaroid img {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    display: block;
+}
+
+/* --- ENHANCED SCRAPBOOK DETAIL VIEW --- */
+#party-detail-view {
+    max-width: 1100px;
+    margin: 40px auto;
+    padding: 20px;
+    position: relative;
+    background: transparent;
+}
+
+/* The Large Detail Polaroid */
+.detail-photo {
+    position: relative;
+    padding: 15px 15px 50px 15px; /* Thicker bottom for that Polaroid look */
+    background: white;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.15);
+    transform: rotate(-2deg); /* Slight tilt for the "placed" look */
+    transition: transform 0.3s ease;
+}
+
+.detail-photo img {
+    width: 100%;
+    display: block;
+    border: 1px solid #eee; /* Fine edge around the photo */
+}
+
+/* Tape on the Large Polaroid */
+.detail-photo::before {
+    content: '';
+    position: absolute;
+    top: -20px;
+    left: 20%;
+    width: 120px;
+    height: 45px;
+    background: rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(3px);
+    border-left: 1px dashed rgba(0,0,0,0.1);
+    border-right: 1px dashed rgba(0,0,0,0.1);
+    transform: rotate(-15deg);
+    z-index: 10;
+}
+
+/* Detail Info Styling */
+.detail-info {
+    padding-left: 20px;
+}
+
+.detail-info #detail-name {
+    font-family: "Croissant One", serif;
+    font-size: 3.8rem;
+    color: var(--text-main);
+    margin: 0;
+    line-height: 1.1;
+}
+
+#detail-subtitle {
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 0.9rem;
+    color: var(--pill-text);
+    margin-bottom: 10px;
+    display: block;
+}
+
+.flavor-text {
+    font-family: 'Georgia', serif; /* Handwritten-style feel */
+    font-size: 1.2rem;
+    line-height: 1.8;
+    color: #4a5568;
+    margin-top: 25px;
+    font-style: italic;
+}
+
+/* --- SCRAPBOOK NAVIGATION BUTTONS --- */
+.scrapbook-nav-wrapper {
+    display: flex;
+    gap: 30px;
+    margin-top: 50px;
+}
+
+.nav-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    font-weight: 700;
+    color: var(--text-main);
+    transition: var(--transition);
+}
+
+.nav-item:hover {
+    color: var(--brand-accent);
+    transform: scale(1.05);
+}

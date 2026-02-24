@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Story - Jess & Ben</title>
+    <link rel="icon" type="image/x-icon" href="../favicon.ico">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Croissant+One&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../main.css">
+</head>
+
+<body class="our-story">
+    <div class="nav-container">
+        <nav class="navbar">
+            <a href="../index.html" class="nav-tab">Home</a>
+            <a href="our-story.html" class="nav-tab">Our Story</a>
+            <a href="faq.html" class="nav-tab">FAQ</a>
+            <a href="photos.html" class="nav-tab">Photos</a>
+            <a href="registry.html" class="nav-tab">Registry</a>
+            <a href="rsvp.html" class="nav-tab">RSVP</a>
+            <a href="travel.html" class="nav-tab">Travel</a>
+            <a href="wedding-party.html" class="nav-tab">Wedding Party</a>
+        </nav>
+    </div>
+    <div class="story-container">
+        <div class="story-intro">
+            <h1 class="header" style="font-size: 4rem;">Our Story</h1>
+            <p>A look back at the moments that led us to today.</p>
+        </div>
+
+        <section class="story-row">
+            <div class="story-image-wrap">
+                <img src="../images/first-date.jpg" alt="First Date" style="--story-rotation: 2deg;">
+            </div>
+            <div class="story-text-wrap">
+                <span class="story-date">August 2019</span>
+                <h2>Where it all began</h2>
+                <p class="story-content">
+                    this is sample text, I love you.
+                </p>
+            </div>
+        </section>
+
+        <section class="story-row">
+            <div class="story-image-wrap">
+                <img src="../images/proposal.jpg" alt="The Proposal" style="--story-rotation: -3deg;">
+            </div>
+            <div class="story-text-wrap">
+                <span class="story-date">Augst 2025</span>
+                <h2>She said yes!</h2>
+                <p class="story-content">
+                    this is also sample text, I still love you (don't worry)
+                </p>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('appear');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.person-card').forEach(card => {
+            observer.observe(card);
+        });
+    </script>
+</body>
+
+</html>

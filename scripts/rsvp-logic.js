@@ -1,10 +1,8 @@
-
-
 // Ensure the script waits for the HTML to load
 document.addEventListener('DOMContentLoaded', () => {
     
-    const attendanceSelect = document.getElementById('attendance');
-    const extraSection = document.getElementById('food-questions');
+    const attendanceSelect = document.getElementById('attendance-1');
+    const extraSection = document.getElementById('food-questions-1');
 
     // This "Event Listener" stays active in the background
     attendanceSelect.addEventListener('change', function() {

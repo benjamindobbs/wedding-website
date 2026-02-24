@@ -1,81 +1,104 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RSVP - Event Celebration</title>
     <link rel="stylesheet" href="../main.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
-
 <body class="rsvp">
-    
+
     <div class="nav-container">
         <nav class="navbar">
             <a href="../index.html" class="nav-tab">Home</a>
             <a href="../pages/our-story.html" class="nav-tab">Our Story</a>
             <a href="../pages/faq.html" class="nav-tab">FAQ</a>
             <a href="../pages/photos.html" class="nav-tab">Photos</a>
-            <a href="https://www.myregistry.com/wedding-registry/ben-dobbs-and-jessica-polito-west-hartford-ct/5319880" class="nav-tab">Registry</a>
-            <a href="../pages/rsvp.html" class="nav-tab">RSVP</a>
+            <a href="../pages/registry.html" class="nav-tab">Registry</a>
             <a href="../pages/travel.html" class="nav-tab">Travel</a>
             <a href="../pages/wedding-party.html" class="nav-tab">Wedding Party</a>
         </nav>
     </div>
-    <div class="rsvp-box">
-        <div id="code-entry-section">
-            <h3>Enter Your Group Code</h3>
-            <div class="form-group">
-                <input type="text" id="group-code-input" maxlength="4" placeholder="e.g. DOE1"
-                    style="text-transform: uppercase;">
-                <button type="button" id="verify-code-btn">Next</button>
-                <p id="code-error" style="color: red; display: none;">Invalid code. Please try again.</p>
+
+    <div id="rsvp-main-wrapper" class="rsvp-hero-layout">
+        
+        <div id="rsvp-entry-container">
+            <div class="rsvp-content-card">
+                <span class="rsvp-eyebrow">Welcome</span>
+                <h1>Enter your group code</h1>
+                <p>Please enter the unique code found on your invitation to begin.</p>
+
+                <div class="input-group-modern">
+                    <input type="text" id="group-code-input" placeholder="e.g. SMITH" maxlength="10">
+                    <button class="btn-primary-large" id="verify-code-btn">
+                        Find Invitation <i class="material-icons">arrow_forward</i>
+                    </button>
+                </div>
+
+                <p class="rsvp-help-text">Can't find your code? Check the back of your physical invite.</p>
             </div>
         </div>
+
         <form action="https://formspree.io/f/xeeokded" method="POST" id="rsvp-form" style="display: none;">
             <div class="form-container">
-                <div class="form-group">
-                    <label for="full-name-1">Primary Guest Name</label>
-                    <select id="full-name-1" name="name-1" required>
-                        <option value="" disabled selected>-- Select Your Name --</option>
-                    </select>
+                <div class="form-main-grid">
+                    <div class="form-group">
+                        <label for="full-name-1">Primary Guest Name</label>
+                        <select id="full-name-1" name="name-1" class="guest-name-select" required>
+                            <option value="" disabled selected>-- Select Your Name --</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Will you attend?</label>
+                        <select name="attendance-1" class="attendance-check" data-index="1" required>
+                            <option value="" disabled selected>Choose an option</option>
+                            <option value="yes">Yes, I'll be there!</option>
+                            <option value="no">Regretfully, no</option>
+                        </select>
+                    </div>
                 </div>
 
-                <div class="form-group">
-                    <label>Will you attend?</label>
-                    <select name="attendance-1" class="attendance-check" required>
-                        <option value="" disabled selected>Choose an option</option>
-                        <option value="yes">Yes</option>
-                        <option value="no">No</option>
-                    </select>
+                <div id="food-section-1" class="food-section" style="display: none;">
+                    <div class="form-main-grid">
+                        <div class="form-group">
+                            <label>Entree Choice</label>
+                            <select name="entree-1">
+                                <option value="" disabled selected>Choose an option</option>
+                                <option value="Beef">Braised Boneless Short Ribs</option>
+                                <option value="Chicken">Preserved Lemon Chicken</option>
+                                <option value="Fish">Chilean Oven Roasted Sea Bass</option>
+                                <option value="Vegetarian">Chef's Seasonal Risotto (Veg/Vegan)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="dietary-1">Dietary Restrictions</label>
+                            <textarea name="dietary-1" id="dietary-1" rows="2" placeholder="Allergies, Vegan, etc."></textarea>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="food-section" style="display: none;">
-                    <label>Entree Choice</label>
-                    <select name="entree-1">
-                        <option value="" disabled selected>Choose an option</option>
-                        <option value="Beef">Steak</option>
-                        <option value="Chicken">Chicken</option>
-                    </select>
+                <div id="transport-section-1" class="transport-section" style="display: none;">
+                    <div class="form-group">
+                        <label>Shuttle Service</label>
+                        <p style="font-size: 0.8rem; margin-bottom: 10px; color: #64748b;">Will you take transportation between the hotel and reception?</p>
+                        <select name="transport-1">
+                            <option value="" disabled selected>Choose an option</option>
+                            <option value="Yes">Yes, please</option>
+                            <option value="No">No, thank you</option>
+                        </select>
+                    </div>
                 </div>
-                <div class="transport-section" style="display: none;">
-                    <label>Transportation</label>
-                    <select name="tranport-1">
-                        <option value="" disabled selected>Choose an option</option>
-                        <option value="Yes">Yes</option>
-                        <option value="No">No</option>
-                        <option value="Undecided">Undecided</option>
-                    </select>
-                </div>
+
+                <div id="additional-guests-container"></div>
+
+                <button type="button" id="add-guest-btn">+ Add Another Guest</button>
+                <button type="submit" class="submit-btn">Confirm RSVP</button>
             </div>
-
-            <div id="additional-guests-container"></div>
-            <button type="button" id="add-guest-btn">+ Add Another Guest</button>
-            <button type="submit">Submit RSVP</button>
         </form>
     </div>
-    <script src="../scripts/rsvp-logic.js"></script>
+
     <script src="../scripts/guest-iterator.js"></script>
 </body>
-
 </html>

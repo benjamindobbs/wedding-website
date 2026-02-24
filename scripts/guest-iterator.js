@@ -1,11 +1,8 @@
-//TODO
-//add dietary restrictions
-//flowery language
 const groupDatabase = {
-    "LIV1": ["Liv LaRosa","Will L"],
-    "BUSH": ["Susan Bushman","Mark Bushman", "Ethan Bushman", "Owen Bushman"],
-    "Default": ["Please enter primary name first"]
+    "LIV1": ["Liv LaRosa", "Will L"],
+    "BUSH": ["Susan Bushman", "Mark Bushman", "Ethan Bushman", "Owen Bushman"],
 };
+
 let guestCount = 1;
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -15,15 +12,25 @@ document.addEventListener('DOMContentLoaded', () => {
     const codeInput = document.getElementById('group-code-input');
     const rsvpForm = document.getElementById('rsvp-form');
     const primarySelect = document.getElementById('full-name-1');
-    const codeSection = document.getElementById('code-entry-section');
-    const primaryNameInput = document.getElementById('full-name-1');
+    const codeSection = document.getElementById('rsvp-entry-container');
+    const mainWrapper = document.getElementById('rsvp-main-wrapper');
+    let maxGroupSize=0;
 
+    // Initial check on load (starts disabled)
+    validateGuestFields();
+
+    // Listen for any input changes inside the form
+    rsvpForm.addEventListener('input', () => {
+        validateGuestFields();
+    });
+    // --- 1. CODE VERIFICATION ---
     codeBtn.addEventListener('click', () => {
         const code = codeInput.value.toUpperCase();
         const familyList = groupDatabase[code];
+        maxGroupSize = groupDatabase[code].length;
+
 
         if (familyList) {
-            // Populate the primary name dropdown
             primarySelect.innerHTML = '<option value="" disabled selected>-- Select Your Name --</option>';
             familyList.forEach(name => {
                 const opt = document.createElement('option');
@@ -32,151 +39,155 @@ document.addEventListener('DOMContentLoaded', () => {
                 primarySelect.appendChild(opt);
             });
 
-            // Switch views
+            // Smooth UI Transition
             codeSection.style.display = 'none';
             rsvpForm.style.display = 'block';
+            mainWrapper.classList.remove('rsvp-hero-layout');
+            mainWrapper.style.height = 'auto';
+            mainWrapper.style.paddingTop = '60px';
         } else {
-            document.getElementById('code-error').style.display = 'block';
+            alert("Invalid code. Please try again!");
         }
     });
 
+    // --- 2. NAME DEDUPLICATION LOGIC ---
+    function getAvailableNames() {
+        const code = codeInput.value.toUpperCase();
+        const familyList = groupDatabase[code] || [];
+        const usedNames = [];
+        document.querySelectorAll('.guest-name-select').forEach(sel => {
+            if (sel.value) usedNames.push(sel.value);
+        });
+        return familyList.filter(name => !usedNames.includes(name));
+    }
 
-    // FUNCTION: Create and append the new guest UI
-    const renderNewGuest = (availableNames) => {
+    // --- 3. RENDER NEW GUEST ---
+    function renderNewGuest(availableNames) {
         guestCount++;
         const guestDiv = document.createElement('div');
-        guestDiv.className = 'guest-entry-wrapper';
-        
+        guestDiv.className = 'guest-entry extra-guest';
+        guestDiv.id = `guest-entry-${guestCount}`;
+
+        let nameOptions = availableNames.map(name => `<option value="${name}">${name}</option>`).join('');
+
         guestDiv.innerHTML = `
-            <hr>
-            <h3>Guest #${guestCount}</h3>
-            <div class="form-group">
-                <label>Full Name</label>
-                <select name="name-${guestCount}" class="guest-name-select" required>
-                    <option value="" disabled selected>-- Select Name --</option>
-                    ${availableNames.map(name => `<option value="${name}">${name}</option>`).join('')}
-                </select>
+            <div class="guest-header">
+                <h3>Guest ${guestCount}</h3>
+                <button type="button" class="remove-guest-btn" onclick="this.closest('.guest-entry').remove()"><i class="material-icons">close</i>Remove Guest</button>
             </div>
-            <div class="form-group">
-                <label>Attendance</label>
-                <select name="attendance-${guestCount}" class="attendance-check" required>
-                    <option value="" disabled selected>Will they attend?</option>
-                    <option value="yes">Yes</option>
-                    <option value="no">No</option>
-                </select>
-            </div>
-            
-            <div class="food-section" style="display: none;">
+            <div class="form-main-grid">
                 <div class="form-group">
-                    <label>Entree Choice</label>
-                    <select name="entree-${guestCount}">
-                        <option value="" disabled selected>Select a meal</option>
-                        <option value="Beef">Steak</option>
-                        <option value="Chicken">Chicken</option>
-                        <option value="Vegetarian">Vegetarian</option>
+                    <label>Guest Name</label>
+                    <select name="name-${guestCount}" class="guest-name-select" required>
+                        <option value="" disabled selected>-- Select Name --</option>
+                        ${nameOptions}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Will they attend?</label>
+                    <select name="attendance-${guestCount}" class="attendance-check" data-index="${guestCount}" required>
+                        <option value="" disabled selected>Choose an option</option>
+                        <option value="yes">Yes, they'll be there!</option>
+                        <option value="no">Regretfully, no</option>
                     </select>
                 </div>
             </div>
-            <div class="transport-section" style="display: none;">
-                <label>Transportation</label>
-                <select name="tranport-1">
-                    <option value="" disabled selected>Choose an option</option>
-                    <option value="Yes">Yes</option>
-                    <option value="No">No</option>
-                    <option value="Undecided">Undecided</option>
-                </select>
+            
+            <div id="food-section-${guestCount}" class="food-section" style="display: none;">
+                <div class="form-main-grid">
+                    <div class="form-group">
+                        <label>Entree Choice</label>
+                        <select name="entree-${guestCount}">
+                            <option value="" disabled selected>Choose an option</option>
+                            <option value="Beef">Braised Boneless Short Ribs</option>
+                            <option value="Chicken">Preserved Lemon Chicken</option>
+                            <option value="Fish">Chilean Oven Roasted Sea Bass</option>
+                            <option value="Vegetarian">Chef's Seasonal Risotto (Veg/Vegan)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Dietary Restrictions</label>
+                        <textarea name="dietary-${guestCount}" rows="2"></textarea>
+                    </div>
+                </div>
             </div>
-            <button type="button" class="remove-btn">Remove Guest</button>
+
+            <div id="transport-section-${guestCount}" class="transport-section" style="display: none;">
+                <div class="form-group">
+                    <label>Shuttle Service</label>
+                    <select name="transport-${guestCount}">
+                        <option value="" disabled selected>Choose an option</option>
+                        <option value="Yes">Yes, please</option>
+                        <option value="No">No, thank you</option>
+                    </select>
+                </div>
+            </div>
         `;
         container.appendChild(guestDiv);
-    };
-    // MAIN CLICK HANDLER
-    addBtn.addEventListener('click', () => {
-        const wrappers = container.querySelectorAll('.guest-entry-wrapper');
-        let nameField, attField;
+        document.getElementById('add-guest-btn').disabled = true;
+    }
+function validateGuestFields() {
+    const addGuestBtn = document.getElementById('add-guest-btn');
+    const nameSelects = document.querySelectorAll('.guest-name-select');
+    const attendanceSelects = document.querySelectorAll('.attendance-check');
+    const entreeSelects = document.querySelectorAll('select[name^="entree-"]');
+    const transportSelects = document.querySelectorAll('select[name^="transport-"]');
 
-        // Validation Logic
-        if (wrappers.length === 0) {
-            nameField = primaryNameInput;
-            attField = document.querySelector('select[name="attendance-1"]');
-        } else {
-            const lastRow = wrappers[wrappers.length - 1];
-            nameField = lastRow.querySelector('.guest-name-select');
-            attField = lastRow.querySelector('.attendance-check');
+    const currentCount = nameSelects.length;
+    const idx = currentCount - 1;
+    
+    // 1. Check if the group is already full
+    if (currentCount >= maxGroupSize) {
+        addGuestBtn.disabled = true;
+        addGuestBtn.innerText = "Group Limit Reached";
+        return; // Stop here
+    }
+
+    // 2. Otherwise, run your existing sleek validation
+    let isComplete = false;
+    const currentName = nameSelects[idx];
+    const currentAttendance = attendanceSelects[idx];
+    const currentEntree = entreeSelects[idx];
+    const currentTransport = transportSelects[idx];
+
+    if (currentName.value !== "" && currentAttendance.value !== "") {
+        if (currentAttendance.value === "no") {
+            isComplete = true;
+        } else if (currentAttendance.value === "yes") {
+            const hasFood = currentEntree && currentEntree.value !== "";
+            const hasShuttle = currentTransport && currentTransport.value !== "";
+            if (hasFood && hasShuttle) isComplete = true;
         }
+    }
 
-        // Check if current guest is complete
-        if (!nameField.value || !attField.value) {
-            alert("Please finish the current guest entry before adding another.");
+    addGuestBtn.disabled = !isComplete;
+    addGuestBtn.innerHTML = isComplete ? '+ Add Another Guest' : 'Finish current guest to add more';
+}
+
+    addBtn.addEventListener('click', () => {
+        const available = getAvailableNames();
+        if (available.length === 0) {
+            alert("No more guests found in your group.");
             return;
         }
-
-        // Deduplication Logic
-        const getAvailableNames = () => {
-            const code = codeInput.value.toUpperCase();
-            const familyList = groupDatabase[code] || [];
-            const usedNames = [];
-            
-            // Collect all currently selected values
-            document.querySelectorAll('select[name^="name-"]').forEach(sel => {
-                if (sel.value) usedNames.push(sel.value);
-            });
-
-            return familyList.filter(name => !usedNames.includes(name));
-        };
-
-        renderNewGuest(getAvailableNames());
-
-        // Auto-disable if that was the last possible family member
-        if (getAvailableNames().length === 1) {
-            addBtn.disabled = true;
-            addBtn.innerText = "All guests added";
-        }
+        renderNewGuest(available);
     });
 
-    // 2. Logic to watch for "Yes" value changes
-    // We listen to the whole form and check if the changed element is an 'attendance-check'
-    document.getElementById('rsvp-form').addEventListener('change', (e) => {
+
+    // --- 4. DYNAMIC SHOW/HIDE (Laser Targeted by Index) ---
+    document.addEventListener('change', (e) => {
         if (e.target.classList.contains('attendance-check')) {
-            // Find the wrapper div this specific guest belongs to
-            const wrapper = e.target.closest('.guest-entry-wrapper') || e.target.closest('.form-container');
-            
-            // Find the food section inside that wrapper
-            const foodSection = wrapper.querySelector('.food-section');
-            const foodSelect = foodSection ? foodSection.querySelector('select') : null;
-            
-            const transportSection = wrapper.querySelector('.transport-section');
-            const transportSelect = transportSection ? transportSection.querySelector('select') : null;
+            const index = e.target.getAttribute('data-index');
+            const foodSec = document.getElementById(`food-section-${index}`);
+            const transSec = document.getElementById(`transport-section-${index}`);
 
-            if (foodSection && foodSelect) {
-                if (e.target.value === 'yes') {
-                    foodSection.style.display = 'block';
-                    foodSelect.required = true;
-                } else {
-                    foodSection.style.display = 'none';
-                    foodSelect.required = false;
-                    foodSelect.value = ""; // Clear selection if they change to 'No'
-                }
+            if (e.target.value === 'yes') {
+                if (foodSec) foodSec.style.display = 'block';
+                if (transSec) transSec.style.display = 'block';
+            } else {
+                if (foodSec) foodSec.style.display = 'none';
+                if (transSec) transSec.style.display = 'none';
             }
-
-            if(transportSection && transportSelect){
-                if(e.target.value == 'yes') {
-                    transportSection.style.display = 'block';
-                    transportSelect.required = true;
-                } else {
-                    transportSection.style.display='none';
-                    transportSelect.required = false;
-                    transportSelect.value=""; //Clear selection if they change to 'No'
-                }
-            }
-        }
-    });
-    // Remove Guest Logic
-    container.addEventListener('click', (e) => {
-        if (e.target.classList.contains('remove-btn')) {
-            e.target.closest('.guest-entry-wrapper').remove();
-            addBtn.disabled = false;
-            addBtn.innerText = "+ Add Another Guest";
         }
     });
 });

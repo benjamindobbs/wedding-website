@@ -19,51 +19,53 @@
         <div class="password-box">
             <h2>Welcome to the Dobbs Wedding</h2>
             <p>Please enter the guest password found on your invitation to continue:</p>
-
             <div class="password-wrapper">
                 <input type="password" id="site-password-input" placeholder="Enter Password">
                 <i id="toggle-password" class="material-icons toggle-icon">visibility</i>
             </div>
-
-            <button onclick="checkPassword()">Enter</button>
-            <p id="password-error" style="color: red; display: none;">Incorrect password. Please try again.</p>
+            <button class="btn-primary" onclick="checkPassword()">Enter</button>
+            <p id="password-error" style="color: red; display: none; margin-top: 15px;">Incorrect password. Please try again.</p>
         </div>
     </div>
-    <script src ="scripts/auth.js" defer></script>
 
     <div id="main-site-content" style="display: none;">
-    </div>
-    <div class="page-wrapper">
-        <div class="header">Jess & Ben</div>
-        <div class="date-location">August 15, 2026</div>
-        <div class="countdown-container">
-            <div id="countdown">
-                <div class="time-box">
-                    <span id="days"></span>
-                    <span>Days to Go</span>
+        <div class="page-wrapper">
+            <div class="header">Jess & Ben</div>
+            <div class="date-location">August 15, 2026</div>
+            
+            <div class="countdown-container">
+                <div id="countdown">
+                    <div class="time-box">
+                        <span id="days"></span>
+                        <span>Days to Go</span>
+                    </div>
                 </div>
             </div>
+
+            <div class="nav-container">
+                <nav class="navbar">
+                    <a href="index.html" class="nav-tab">Home</a>
+                    <a href="./pages/our-story.html" class="nav-tab">Our Story</a>
+                    <a href="./pages/faq.html" class="nav-tab">FAQ</a>
+                    <a href="./pages/photos.html" class="nav-tab">Photos</a>
+                    <a href="./pages/registry.html" class="nav-tab">Registry</a>
+                    <a href="./pages/rsvp.html" class="nav-tab">RSVP</a>
+                    <a href="./pages/travel.html" class="nav-tab">Travel</a>
+                    <a href="./pages/wedding-party.html" class="nav-tab">Wedding Party</a>
+                </nav>
+            </div>
+
+            <div id="critical-info-banner">
+                <div class="info-section" id="ceremony-info"></div>
+                <div class="info-divider"></div>
+                <div class="info-section" id="reception-info"></div>
+            </div>
+
+            <div class="landing-photo"></div>
         </div>
-        <div class="nav-container">
-            <nav class="navbar">
-                <a href="index.html" class="nav-tab">Home</a>
-                <a href="./pages/our-story.html" class="nav-tab">Our Story</a>
-                <a href="./pages/faq.html" class="nav-tab">FAQ</a>
-                <a href="./pages/photos.html" class="nav-tab">Photos</a>
-                <a href="https://www.myregistry.com/wedding-registry/ben-dobbs-and-jessica-polito-west-hartford-ct/5319880"
-                    class="nav-tab">Registry</a>
-                <a href="./pages/rsvp.html" class="nav-tab">RSVP</a>
-                <a href="./pages/travel.html" class="nav-tab">Travel</a>
-                <a href="./pages/wedding-party.html" class="nav-tab">Wedding Party</a>
-            </nav>
-        </div>
-        <div class="landing-photo"></div>
-        <!--
-//ceremony, date, location, time, parking information
-//receptions date, location, time, parking information
-//dress code 
--->
     </div>
-    </div>
+
+    <script src="scripts/auth.js" defer></script>
     <script src="./scripts/countdown.js"></script>
+    <script src="./scripts/event-info.js"></script>
 </body>
