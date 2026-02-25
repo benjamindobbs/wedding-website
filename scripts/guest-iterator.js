@@ -102,7 +102,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             <option value="Beef">Braised Boneless Short Ribs</option>
                             <option value="Chicken">Preserved Lemon Chicken</option>
                             <option value="Fish">Chilean Oven Roasted Sea Bass</option>
-                            <option value="Vegetarian">Chef's Seasonal Risotto (Veg/Vegan)</option>
+                            <option value="Vegetarian">Chef's Seasonal Risotto (Vegetarian)</option>
                         </select>
                     </div>
                     <div class="form-group">

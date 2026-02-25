@@ -1,58 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Registry</title>
-
-    <link rel="icon" type="image/x-icon" href="favicon.ico">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <title>Registry - Jess & Ben</title>
+    <link rel="icon" type="image/x-icon" href="../favicon.ico">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Croissant+One&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="../main.css">
 </head>
 
-<body class="registry">
-        <div class="nav-container">
-            <nav class="navbar">
-                <a href="../index.html" class="nav-tab">Home</a>
-                <a href="../pages/our-story.html" class="nav-tab">Our Story</a>
-                <a href="../pages/faq.html" class="nav-tab">FAQ</a>
-                <a href="../pages/photos.html" class="nav-tab">Photos</a>
-                <a href="#registry" class="nav-tab">Registry</a>
-                <a href="../pages/rsvp.html" class="nav-tab">RSVP</a>
-                <a href="../pages/travel.html" class="nav-tab">Travel</a>
-                <a href="../pages/wedding-party.html" class="nav-tab">Wedding Party</a>
-            </nav>
-        </div>
-<div id="registry-portal" class="portal-overlay" style="display: none;">
-    <div class="portal-card">
-        <div id="portal-main-view">
-            <span class="portal-subtitle">Gift Registry</span>
-            <h1>Redirecting to our Registry...</h1>
-            <p>You will be moved to our external site in <span id="countdown">5</span> seconds.</p>
-            
-            <div class="portal-actions">
-                <button onclick="instantRedirect()" class="btn-primary">Go to Registry Now</button>
-                <button type="button" onclick="showSitemap()" class="btn-secondary">Wait, I want to stay here</button>
-            </div>
-        </div>
+<body class="registry" data-root="../">
+    <div class="nav-container">
+        <nav class="navbar">
+            <a href="../index.html" class="nav-tab">Home</a>
+            <a href="our-story.html" class="nav-tab">Our Story</a>
+            <a href="faq.html" class="nav-tab">FAQ</a>
+            <a href="photos.html" class="nav-tab">Photos</a>
+            <a href="#registry" class="nav-tab">Registry</a>
+            <a href="rsvp.html" class="nav-tab">RSVP</a>
+            <a href="travel.html" class="nav-tab">Travel</a>
+            <a href="wedding-party.html" class="nav-tab">Wedding Party</a>
+        </nav>
+    </div>
 
-        <div id="portal-sitemap-view" style="display: none;">
-            <h2>Where would you like to go?</h2>
-            <div class="sitemap-grid">
-                <a href="../index.html">Home</a>
-                <a href="../pages/our-story.html">Our Story</a>
-                <a href="../pages/faq.html">FAQ</a>
-                <a href="../pages/photos.html">Photos</a>
-                <a href="../pages/rsvp.html">RSVP</a>
-                <a href="../pages/travel.html">Travel</a>
-                <a href="../pages/wedding-party.html">Wedding Party</a>
+    <div id="registry-portal" class="portal-overlay" style="display: none;">
+        <div class="portal-card">
+            <div id="portal-main-view">
+                <span class="portal-subtitle">Gift Registry</span>
+                <h1>Redirecting to our Registry...</h1>
+                <p>You will be moved to our external site in <span id="countdown">5</span> seconds.</p>
+                <div class="portal-actions">
+                    <button onclick="instantRedirect()" class="btn-primary">Go to Registry Now</button>
+                    <button type="button" onclick="showSitemap()" class="btn-secondary">Wait, I want to stay here</button>
+                </div>
             </div>
-            <button type="button" onclick="closePortal()" class="btn-close">Close Menu</button>
+            <div id="portal-sitemap-view" style="display: none;">
+                <h2>Where would you like to go?</h2>
+                <div class="sitemap-grid">
+                    <a href="../index.html">Home</a>
+                    <a href="our-story.html">Our Story</a>
+                    <a href="faq.html">FAQ</a>
+                    <a href="photos.html">Photos</a>
+                    <a href="rsvp.html">RSVP</a>
+                    <a href="travel.html">Travel</a>
+                    <a href="wedding-party.html">Wedding Party</a>
+                </div>
+                <button type="button" onclick="closePortal()" class="btn-close">Close Menu</button>
+            </div>
         </div>
     </div>
-</div>
+
     <script src="../scripts/registry-handler.js"></script>
+    <script src="../scripts/nav.js" defer></script>
 </body>
+</html>

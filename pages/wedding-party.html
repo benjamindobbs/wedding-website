@@ -1,58 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Wedding Party</title>
-
-    <link rel="icon" type="image/x-icon" href="favicon.ico">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <title>Wedding Party - Jess & Ben</title>
+    <link rel="icon" type="image/x-icon" href="../favicon.ico">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Croissant+One&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../main.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="../main.css">
 </head>
 
-<body class="wedding-party">
+<body class="wedding-party" data-root="../">
     <div class="nav-container">
         <nav class="navbar">
             <a href="../index.html" class="nav-tab">Home</a>
-            <a href="../pages/our-story.html" class="nav-tab">Our Story</a>
-            <a href="../pages/faq.html" class="nav-tab">FAQ</a>
-            <a href="../pages/photos.html" class="nav-tab">Photos</a>
-            <a href="../pages/registry.html" class="nav-tab">Registry</a>
-            <a href="../pages/rsvp.html" class="nav-tab">RSVP</a>
-            <a href="../pages/travel.html" class="nav-tab">Travel</a>
-
+            <a href="our-story.html" class="nav-tab">Our Story</a>
+            <a href="faq.html" class="nav-tab">FAQ</a>
+            <a href="photos.html" class="nav-tab">Photos</a>
+            <a href="registry.html" class="nav-tab">Registry</a>
+            <a href="rsvp.html" class="nav-tab">RSVP</a>
+            <a href="travel.html" class="nav-tab">Travel</a>
+            <a href="wedding-party.html" class="nav-tab">Wedding Party</a>
         </nav>
     </div>
 
     <main class="page-content">
-
-        <div id="party-directory" class="scrapbook-grid">
-        </div>
+        <div id="party-directory" class="scrapbook-grid"></div>
 
         <div id="party-detail-view" class="detail-container" style="display: none;">
             <div class="back-btn" onclick="closeDetail()">
                 <i class="material-icons">arrow_back</i> Back to Directory
             </div>
-
-            <div class="detail-layout">
-                <div class="detail-photo">
-                    <img id="detail-img" src="" alt="Profile">
-                </div>
-                <div class="detail-info">
-                    <p id="detail-subtitle" class="line-1"></p>
-                    <h2 id="detail-name" class="header-detail"></h2>
-                    <div id="detail-flavor" class="flavor-text"></div>
-
-                    <div class="scrapbook-nav-wrapper">
-                        <div class="nav-item prev" onclick="prevPerson()">
-                            <i class="material-icons">west</i> <span>PREV</span>
-                        </div>
-                        <div class="nav-item next" onclick="nextPerson()">
-                            <span>NEXT</span> <i class="material-icons">east</i>
+            <div class="detail-card">
+                <div class="detail-layout">
+                    <div class="detail-photo">
+                        <img id="detail-img" src="" alt="Profile">
+                    </div>
+                    <div class="detail-info">
+                        <p id="detail-subtitle" class="line-1"></p>
+                        <h2 id="detail-name" class="header-detail"></h2>
+                        <div id="detail-flavor" class="flavor-text"></div>
+                        <div class="scrapbook-nav-wrapper">
+                            <div class="nav-item prev" onclick="prevPerson()">
+                                <i class="material-icons">west</i> <span>PREV</span>
+                            </div>
+                            <div class="nav-item next" onclick="nextPerson()">
+                                <span>NEXT</span> <i class="material-icons">east</i>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -61,4 +57,6 @@
     </main>
 
     <script src="../scripts/wedding-party-logic.js"></script>
+    <script src="../scripts/nav.js" defer></script>
 </body>
+</html>

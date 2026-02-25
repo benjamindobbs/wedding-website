@@ -1,32 +1,71 @@
-/* --- 1. DESIGN TOKENS --- */
+/* ============================================================
+   MAIN.CSS — Jess & Ben Wedding Website
+   ============================================================
+   TABLE OF CONTENTS
+   1.  Design Tokens (CSS Variables)
+   2.  Global Reset & Base
+   3.  Typography & Headers
+   4.  Navigation
+   5.  Countdown
+   6.  Critical Info Banner
+   7.  Landing Photo
+   8.  Password Overlay (index.html)
+   9.  Polaroid System (shared base + per-context overrides)
+       9a. Base .polaroid
+       9b. Wedding Party: Directory Cards
+       9c. Photo Gallery: Scatter Grid
+       9d. Wedding Party: Detail View
+   10. Wedding Party Page
+   11. Photo Gallery Page
+   12. Our Story Page
+   13. Travel / Hotel Page
+   14. RSVP Page
+   15. FAQ Page
+   16. Registry Portal
+   17. Animations & Keyframes
+   18. Responsive / Media Queries
+   ============================================================ */
+
+
+/* ============================================================
+   1. DESIGN TOKENS
+   ============================================================ */
 :root {
-    --text-main: rgb(39, 39, 39);
-    --bg-color: #f0f0f0;
-    --card-bg: #ffffff;
-    --accent: #007bff;
-    --pill-bg: #e1efff; /* Soft blue for info pills */
-    --pill-text: #0056b3;
+    --bg-color:      #f0f0f0;
+    --card-bg:       #ffffff;
+    --text-main:     rgb(39, 39, 39);
+    --text-muted:    #64748b;
+    --text-light:    #94a3b8;
+    --brand-accent:  #0056b3;
+    --pill-bg:       #e1efff;
+    --pill-text:     #0056b3;
+    --transition:    all 0.25s ease;
 }
 
-/* --- 2. GLOBAL RESET --- */
+
+/* ============================================================
+   2. GLOBAL RESET & BASE
+   ============================================================ */
 body {
     background-color: var(--bg-color);
     margin: 0;
     font-family: 'Segoe UI', sans-serif;
     color: var(--text-main);
+    overflow-x: hidden;
+}
+
+/* Scrapbook paper texture — only on pages that use it */
+body.wedding-party,
+body.our-story,
+body.gallery {
+    background-image: url("https://www.transparenttextures.com/patterns/natural-paper.png");
+    background-attachment: fixed;
 }
 
 
-/* --- 3. TYPOGRAPHY & HEADERS --- */
-.page-wrapper {
-    position: relative;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-color: var(--bg-color);
-}
-
+/* ============================================================
+   3. TYPOGRAPHY & HEADERS
+   ============================================================ */
 .header {
     font-family: "Croissant One", serif;
     font-weight: 200;
@@ -45,7 +84,194 @@ body {
     margin-bottom: 10px;
 }
 
-/* --- 4. COUNTDOWN (Fixed Centering & Font) --- */
+.page-title {
+    font-family: "Croissant One", serif;
+    font-size: 3rem;
+    text-align: center;
+    margin-bottom: 10px;
+    color: var(--text-main);
+}
+
+/* Shared intro block (photos.html, our-story.html) */
+.story-intro {
+    text-align: center;
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 20px 0 40px;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.story-intro h1 {
+    margin-bottom: 15px;
+    color: var(--text-main);
+}
+
+
+/* ============================================================
+   4. NAVIGATION
+   ============================================================ */
+
+/* --- Desktop horizontal navbar --- */
+.nav-container {
+    padding: 30px 0;
+    z-index: 20;
+    position: relative;
+}
+
+.navbar {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+.nav-tab {
+    color: var(--text-main);
+    text-decoration: none;
+    font-size: 1.15rem;
+    font-weight: 600;
+    padding: 10px 20px;
+    transition: var(--transition);
+    border-bottom: 2px solid transparent;
+}
+
+.nav-tab:hover {
+    border-bottom: 2px solid #000;
+    background: rgba(0, 0, 0, 0.02);
+    border-radius: 8px;
+}
+
+/* --- Hamburger button (mobile only) --- */
+.hamburger-btn {
+    display: none; /* hidden on desktop */
+    position: fixed;
+    top: 16px;
+    left: 16px;
+    z-index: 1100;
+    background: white;
+    border: none;
+    border-radius: 10px;
+    width: 44px;
+    height: 44px;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.12);
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition);
+}
+
+.hamburger-btn:hover {
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.18);
+    transform: scale(1.05);
+}
+
+.hamburger-btn .material-icons {
+    font-size: 24px;
+    color: var(--text-main);
+    transition: var(--transition);
+}
+
+/* --- Sidebar drawer --- */
+.sidebar-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    z-index: 1050;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.sidebar-overlay.open {
+    display: block;
+    opacity: 1;
+}
+
+.sidebar-drawer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 280px;
+    background: white;
+    z-index: 1100;
+    transform: translateX(-100%);
+    transition: transform 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    display: flex;
+    flex-direction: column;
+    box-shadow: 4px 0 30px rgba(0, 0, 0, 0.12);
+    overflow-y: auto;
+}
+
+.sidebar-drawer.open {
+    transform: translateX(0);
+}
+
+.sidebar-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 24px;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.sidebar-title {
+    font-family: "Croissant One", serif;
+    font-size: 1.3rem;
+    color: var(--text-main);
+    margin: 0;
+}
+
+.sidebar-close-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--text-muted);
+    padding: 4px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    transition: var(--transition);
+}
+
+.sidebar-close-btn:hover {
+    background: #f1f5f9;
+    color: var(--text-main);
+}
+
+.sidebar-nav {
+    display: flex;
+    flex-direction: column;
+    padding: 16px 0;
+    flex: 1;
+}
+
+.sidebar-nav .nav-tab {
+    font-size: 1.05rem;
+    padding: 14px 24px;
+    border-bottom: none;
+    border-left: 3px solid transparent;
+    border-radius: 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--text-muted);
+}
+
+.sidebar-nav .nav-tab:hover {
+    border-bottom: none;
+    border-left: 3px solid var(--brand-accent);
+    background: var(--pill-bg);
+    color: var(--brand-accent);
+    border-radius: 0;
+}
+
+
+/* ============================================================
+   5. COUNTDOWN
+   ============================================================ */
 .countdown-container {
     text-align: center;
     width: 100%;
@@ -57,13 +283,8 @@ body {
     justify-content: center;
     align-items: baseline;
     gap: 15px;
-    font-family: "Croissant One", serif; /* Restored Font */
+    font-family: "Croissant One", serif;
     color: var(--text-main);
-}
-
-.header, .date-location, .countdown-container, .nav-container {
-    position: relative;
-    z-index: 20; /* Stays above the absolute photo */
 }
 
 .time-box {
@@ -77,73 +298,103 @@ body {
     font-weight: 100;
 }
 
-/* --- 5. CRITICAL INFO BANNER (Fixed Centering & Alignment) --- */
+
+/* ============================================================
+   6. CRITICAL INFO BANNER
+   ============================================================ */
 #critical-info-banner {
     position: relative;
     z-index: 10;
     width: 90%;
-    max-width: 1200px; /* Capped tighter */
+    max-width: 1200px;
     margin: 20px auto;
-    
     background: rgba(255, 255, 255, 0.65);
     backdrop-filter: blur(25px);
     -webkit-backdrop-filter: blur(25px);
-    
     border: 1px solid rgba(255, 255, 255, 0.5);
-    border-radius: 20px; /* Slightly tighter corners for smaller scale */
-    padding: 22px 10px; /* Reduced from 35px */
+    border-radius: 20px;
+    padding: 22px 10px;
     display: flex;
     justify-content: space-around;
     align-items: center;
     box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
 }
+
 .info-section {
     flex: 1;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 6px; /* Tighter spacing */
+    gap: 6px;
 }
-/* Line 1: Labels (Ceremony / Reception) */
+
 .line-1 {
-    font-size: 0.72rem; /* Shrunk from 0.85rem */
+    font-size: 0.72rem;
     font-weight: 900;
     text-transform: uppercase;
     letter-spacing: 2px;
     color: var(--text-main);
     margin-bottom: 5px;
 }
+
+.line-2-wrapper {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
 .info-pill {
     background: var(--pill-bg);
     color: var(--pill-text);
-    padding: 10px 22px; /* Reduced from 14px/32px */
+    padding: 10px 22px;
     border-radius: 100px;
     text-decoration: none !important;
-    font-size: 0.85rem; /* Reduced font size */
+    font-size: 0.85rem;
     font-weight: 700;
     display: inline-flex;
     align-items: center;
     gap: 8px;
-}
-.info-pill:hover {
-    transform: translateY(-2px);
-}
-.info-pill i.material-icons {
-    font-size: 16px !important; /* Scaled down icon */
+    transition: var(--transition);
 }
 
-/* Optional: Vertical divider between sections */
+.info-pill:hover    { transform: translateY(-2px); }
+.info-pill.link-pill { cursor: pointer; }
+.info-pill i.material-icons { font-size: 16px !important; }
+
 .info-divider {
     width: 1px;
     height: 40px;
     background-color: #eee;
 }
 
-/* --- 6. LANDING PHOTO (Restored 80% Width) --- */
+
+/* ============================================================
+   7. LANDING PHOTO & PAGE WRAPPER
+   ============================================================ */
+.page-wrapper {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: var(--bg-color);
+}
+
+/* Keep these above the absolute photo layer */
+.header,
+.date-location,
+.countdown-container,
+.nav-container {
+    position: relative;
+    z-index: 20;
+}
+
 .landing-photo {
     position: absolute;
-    top: 350px; 
-    left: 10%;
+    top: 350px;
+    left: 5%;
     width: 90%;
     aspect-ratio: 1 / 1;
     background-image: url('./images/landing-page.jpg');
@@ -151,69 +402,928 @@ body {
     background-position: center 20%;
     opacity: 0.9;
     z-index: 1;
-
-    /* SEAMLESS RADIAL MASK:
-       - black 20%: Solid center
-       - transparent 70%: Fully invisible by the 70% mark 
-       This ensures the 0% opacity happens well before the edge of the 100% width div.
-    */
     -webkit-mask-image: radial-gradient(circle, black 20%, transparent 70%);
     mask-image: radial-gradient(circle, black 20%, transparent 70%);
-    
     animation: fadeInUp 1.5s ease-out forwards;
 }
 
-/* --- 7. NAVIGATION --- */
-.nav-container {
-    padding: 30px 0; /* More breathing room */
-    z-index: 20;
-    position: relative;
-}
 
-.navbar {
+/* ============================================================
+   8. PASSWORD OVERLAY
+   ============================================================ */
+#password-overlay {
+    position: fixed;
+    inset: 0;
+    background: var(--bg-color);
     display: flex;
     justify-content: center;
-    gap: 30px; /* Increased from 20px */
-    flex-wrap: wrap;
+    align-items: center;
+    z-index: 9999;
+    transition: opacity 0.6s ease;
 }
 
-.nav-tab {
+#password-overlay.fade-out {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.password-box {
+    background: white;
+    padding: 50px 40px;
+    border-radius: 20px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 90%;
+    max-width: 420px;
+}
+
+.password-box h2 {
+    font-family: "Croissant One", serif;
+    font-size: 1.8rem;
+    margin-bottom: 10px;
     color: var(--text-main);
-    text-decoration: none;
-    font-size: 1.15rem; /* Increased from ~1rem */
-    font-weight: 600; /* Slightly bolder to hold more "weight" */
-    padding: 10px 20px;
-    transition: all 0.3s ease;
-    border-bottom: 2px solid transparent;
 }
 
-.nav-tab:hover {
-    border-bottom: 2px solid #000000;
-    background: rgba(0,0,0,0.02);
+.password-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.password-wrapper input {
+    width: 100%;
+    padding: 14px 50px 14px 18px;
+    border: 2px solid #e2e8f0;
+    border-radius: 10px;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.3s;
+    box-sizing: border-box;
+}
+
+.password-wrapper input:focus { border-color: var(--brand-accent); }
+
+.toggle-icon {
+    position: absolute;
+    right: 14px;
+    cursor: pointer;
+    color: var(--text-light);
+    user-select: none;
+}
+
+.btn-primary {
+    background: var(--pill-text);
+    color: white;
+    border: none;
+    padding: 14px 30px;
+    border-radius: 50px;
+    font-weight: 700;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.btn-primary:hover { transform: scale(1.02); }
+
+
+/* ============================================================
+   9. POLAROID SYSTEM
+   ============================================================
+   One canonical base, three contextual overrides.
+
+   Pages using polaroids:
+     - wedding-party.html  → .member-card .polaroid  (directory grid)
+     - photos.html         → .gallery-item .polaroid (scatter gallery)
+     - wedding-party.html  → .detail-photo           (hero detail view)
+
+   our-story.html uses a framed photo look (border + shadow on <img>)
+   rather than the polaroid component — see Section 12.
+   ============================================================ */
+
+/* --- 9a. BASE POLAROID --- */
+.polaroid {
+    background: white;
+    padding: 12px 12px 40px 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    border: 1px solid #efefef;
+    position: relative;
+}
+
+.polaroid img {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    display: block;
+}
+
+/* Washi tape strip — centered above each polaroid */
+.polaroid::before {
+    content: '';
+    position: absolute;
+    top: -18px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90px;
+    height: 35px;
+    background: rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
+    border-left: 1px dashed rgba(0, 0, 0, 0.08);
+    border-right: 1px dashed rgba(0, 0, 0, 0.08);
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.03);
+    z-index: 10;
+}
+
+.polaroid-caption {
+    margin-top: 12px;
+    text-align: center;
+    font-family: 'Georgia', serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: #334155;
+}
+
+/* --- 9b. WEDDING PARTY directory cards --- */
+/* Slightly tighter — these are small thumbnail grid cards */
+.member-card .polaroid {
+    padding: 10px 10px 36px 10px;
+}
+
+/* --- 9c. PHOTO GALLERY scatter grid --- */
+/* More bottom space to fit the two-line caption (title + date) */
+.gallery-item .polaroid {
+    padding: 14px 14px 52px 14px;
+}
+
+.gallery-item .polaroid-caption {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.caption-text {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #334155;
+}
+
+.caption-date {
+    font-size: 0.75rem;
+    font-weight: 400;
+    color: var(--text-muted);
+    font-style: italic;
+}
+
+/* --- 9d. WEDDING PARTY detail view --- */
+/*
+ * Structurally distinct from .polaroid (no caption, full-bleed image,
+ * angled tape offset to the left) but shares the same visual DNA.
+ * Lives in the detail panel, not the grid.
+ */
+.detail-photo {
+    position: relative;
+    padding: 15px 15px 60px 15px;
+    background: white;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+    transform: rotate(-2deg);
+    transition: transform 0.3s ease;
+}
+
+.detail-photo img {
+    width: 100%;
+    display: block;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    border-radius: 2px;
+}
+
+/* Larger, angled tape for the hero detail photo */
+.detail-photo::before {
+    content: '';
+    position: absolute;
+    top: -25px;
+    left: 15%;
+    width: 130px;
+    height: 45px;
+    background: rgba(255, 255, 255, 0.45);
+    backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(3px);
+    border-left: 1px dashed rgba(0, 0, 0, 0.1);
+    border-right: 1px dashed rgba(0, 0, 0, 0.1);
+    transform: rotate(-12deg);
+    z-index: 10;
+}
+
+
+/* ============================================================
+   10. WEDDING PARTY PAGE
+   ============================================================ */
+/* ============================================================
+   10. WEDDING PARTY PAGE
+   ============================================================ */
+
+/* --- Directory: scattered polaroid grid (mirrors photo gallery) --- */
+#party-directory {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 70px 40px;
+    padding: 60px 5% 100px;
+    max-width: 1400px;
+    margin: 0 auto;
+    justify-items: center;
+}
+
+.member-card {
+    position: relative;
+    width: 100%;
+    max-width: 220px;
+    cursor: pointer;
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transform: rotate(var(--rotation, 0deg));
+    z-index: 1;
+}
+
+/* Staggered vertical offsets — same pattern as photo gallery */
+.member-card:nth-child(even) { margin-top: 50px; }
+.member-card:nth-child(3n)   { margin-top: -25px; }
+
+.member-card:hover {
+    transform: rotate(0deg) scale(1.08) translateY(-8px);
+    z-index: 50;
+}
+
+.member-card:hover .polaroid {
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.18);
+}
+
+/* --- Detail view: scrapbook card --- */
+#party-detail-view {
+    max-width: 1000px;
+    margin: 40px auto;
+    padding: 20px 5% 60px;
+    background: transparent;
+    overflow: hidden;
+}
+
+/*
+ * The card itself — aged paper with a slight tilt, like it was
+ * pulled out of a scrapbook and set on the table.
+ */
+.detail-card {
+    position: relative;
+    background-color: #fdf8f0;
+    background-image:
+        url("https://www.transparenttextures.com/patterns/natural-paper.png"),
+        /* Subtle ruled lines for a journal/card feel */
+        repeating-linear-gradient(
+            transparent,
+            transparent 31px,
+            rgba(0, 0, 0, 0.04) 31px,
+            rgba(0, 0, 0, 0.04) 32px
+        );
+    border-radius: 4px;
+    padding: 50px 55px 60px;
+    box-shadow:
+        0 2px 4px rgba(0,0,0,0.08),
+        0 10px 30px rgba(0,0,0,0.1),
+        0 30px 60px rgba(0,0,0,0.08);
+    transform: rotate(-0.8deg);
+    /* Red margin line on the left, like a ruled card */
+    border-left: 3px solid rgba(220, 80, 80, 0.25);
+}
+
+/* Corner fold — bottom-right dog-ear */
+.detail-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(
+        225deg,
+        var(--bg-color) 50%,
+        rgba(0, 0, 0, 0.08) 50%
+    );
+}
+
+/* Pushpin / thumbtack at the top center */
+.detail-card::before {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 18px;
+    height: 18px;
+    background: radial-gradient(circle at 40% 35%, #e8c97a, #c8a84b);
+    border-radius: 50%;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.3), inset 0 1px 2px rgba(255,255,255,0.4);
+    z-index: 10;
+}
+
+.detail-layout {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 50px;
+    align-items: center;
+}
+
+.detail-info {
+    padding-left: 10px;
+}
+
+.detail-info #detail-name {
+    font-family: "Croissant One", serif;
+    font-size: 3.5rem;
+    margin: 0;
+    line-height: 1.1;
+    color: #2d2416;
+}
+
+#detail-subtitle {
+    display: block;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 0.85rem;
+    color: var(--pill-text);
+    margin-bottom: 10px;
+}
+
+.flavor-text {
+    font-family: 'Georgia', serif;
+    font-size: 1.15rem;
+    line-height: 1.9;
+    color: #5a4a3a;
+    margin-top: 20px;
+    font-style: italic;
+    /* Simulate handwritten ink — slightly uneven baseline feel */
+    text-shadow: 0.3px 0.3px 0 rgba(0,0,0,0.05);
+}
+
+.back-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 24px;
+    background: white;
+    border-radius: 50px;
+    cursor: pointer;
+    font-weight: 700;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    transition: var(--transition);
+}
+
+.back-btn:hover {
+    background: var(--brand-accent);
+    color: white;
+}
+
+.scrapbook-nav-wrapper {
+    display: flex;
+    gap: 30px;
+    margin-top: 40px;
+}
+
+.nav-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    font-weight: 700;
+    color: var(--text-main);
+    transition: var(--transition);
+}
+
+.nav-item:hover {
+    color: var(--brand-accent);
+    transform: scale(1.05);
+}
+
+
+/* ============================================================
+   11. PHOTO GALLERY PAGE
+   ============================================================ */
+.photo-page-wrapper {
+    width: 100%;
+}
+
+#scrapbook-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 80px 60px;
+    padding: 20px 5% 100px;
+    max-width: 1800px;
+    margin: 0 auto;
+}
+
+.gallery-item {
+    transform: rotate(var(--rotation, 0deg));
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    cursor: pointer;
+    position: relative;
+    z-index: 1;
+}
+
+/* Staggered vertical offset for the scattered scrapbook feel */
+.gallery-item:nth-child(even) { margin-top: 60px; }
+.gallery-item:nth-child(3n)   { margin-top: -30px; }
+
+.gallery-item:hover {
+    transform: rotate(0deg) scale(1.1) translateY(-10px);
+    z-index: 100;
+}
+
+.gallery-item:hover .polaroid {
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
+}
+
+/* Photo detail view — mirrors wedding party detail layout */
+#photo-detail-view {
+    max-width: 1000px;
+    margin: 40px auto;
+    padding: 20px 5% 60px;
+    background: transparent;
+    overflow: hidden;
+}
+
+/* Reuses .detail-card and .detail-photo from wedding party.
+   Photo-specific overrides below. */
+#photo-detail-view .detail-photo {
+    /* Photos are landscape-friendly — don't force square */
+    padding: 15px 15px 50px 15px;
+}
+
+#photo-detail-view .detail-photo img {
+    aspect-ratio: unset;
+    max-height: 60vh;
+    width: 100%;
+    object-fit: contain;
+}
+
+#photo-detail-view .photo-caption-title {
+    font-family: 'Croissant One', serif;
+    font-size: 2.2rem;
+    color: #2d2416;
+    margin: 0 0 6px;
+    line-height: 1.2;
+}
+
+#photo-detail-view .photo-caption-date {
+    font-family: 'Georgia', serif;
+    font-size: 0.95rem;
+    font-style: italic;
+    color: #8a7560;
+}
+
+
+/* ============================================================
+   12. OUR STORY PAGE
+   ============================================================ */
+.story-container {
+    position: relative;
+    max-width: 1000px;
+    margin: 40px auto 60px;
+    padding: 0 5%;
+    background: transparent;
+}
+
+/* Vertical dashed thread */
+.story-container::before {
+    content: '';
+    position: absolute;
+    top: 250px;
+    bottom: 50px;
+    left: 50%;
+    width: 0;
+    border-left: 2px dashed #cbd5e1;
+    transform: translateX(-50%);
+    z-index: 1;
+}
+
+.story-row {
+    display: flex;
+    align-items: center;
+    gap: 80px;
+    margin-bottom: 120px;
+    position: relative;
+    z-index: 2;
+}
+
+.story-row:nth-child(even) { flex-direction: row-reverse; }
+
+/* Timeline node dot */
+.story-row::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 12px;
+    height: 12px;
+    background: white;
+    border: 3px solid var(--brand-accent);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 0 0 6px white;
+}
+
+.story-image-wrap { flex: 1; position: relative; }
+
+/*
+ * Our Story uses a framed-photo look (thick white borders, slight tilt)
+ * rather than the .polaroid component.
+ */
+.story-image-wrap img {
+    width: 100%;
+    border-radius: 4px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    border: 12px solid white;
+    border-bottom: 40px solid white;
+    transform: rotate(var(--story-rotation, -2deg));
+}
+
+.story-text-wrap { flex: 1; }
+
+.story-date {
+    display: block;
+    font-weight: 800;
+    color: var(--brand-accent);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 0.9rem;
+    margin-bottom: 10px;
+}
+
+.story-text-wrap h2 {
+    font-family: 'Croissant One', serif;
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+}
+
+.story-content {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: var(--text-muted);
+}
+
+
+/* ============================================================
+   13. TRAVEL / HOTEL PAGE
+   ============================================================ */
+#hotels-page-container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 60px 0;
+}
+
+#hotel-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 30px;
+}
+
+.hotel-card {
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+}
+
+.hotel-card:hover { transform: translateY(-10px); }
+
+.hotel-image {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    display: block;
+}
+
+.hotel-content {
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.hotel-name {
+    font-size: 1.5rem;
+    color: var(--pill-text);
+    margin: 0 0 5px;
+    font-weight: 700;
+}
+
+.hotel-price {
+    font-weight: bold;
+    color: #555;
+    margin-bottom: 15px;
+    font-size: 1.1rem;
+}
+
+.hotel-logistics {
+    background: #f8f9fa;
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    font-size: 0.9rem;
+    border: 1px solid #edf2f7;
+}
+
+.logistic-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    color: #4a5568;
+}
+
+.logistic-label { font-weight: bold; color: #2d3748; }
+
+.amenities-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin: 15px 0 20px;
+    padding-top: 15px;
+    border-top: 1px dashed #eee;
+}
+
+.amenity-item {
+    display: flex;
+    align-items: center;
+    font-size: 0.85rem;
+    color: #4a5568;
+}
+
+.status-yes { color: #2f855a; }
+.status-no  { color: #a0aec0; text-decoration: line-through; opacity: 0.7; }
+
+.hotel-description {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin-bottom: 20px;
+    flex-grow: 1;
+}
+
+.book-btn {
+    display: block;
+    text-align: center;
+    background: var(--pill-text);
+    color: white !important;
+    padding: 14px;
     border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+    margin-top: auto;
+    transition: filter 0.2s;
 }
 
-/* --- 8. ANIMATIONS & RESPONSIVE --- */
-@keyframes fadeInUp {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 0.9; transform: translateY(0); }
+.book-btn:hover { filter: brightness(115%); }
+
+
+/* ============================================================
+   14. RSVP PAGE
+   ============================================================ */
+#rsvp-main-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 85vh;
+    width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
 }
 
-@media (max-width: 768px) {
-    .header { font-size: 3em; }
-    .date-location { font-size: 1.5em; }
-    .landing-photo { width: 95%; }
-    #critical-info-banner { flex-direction: column; gap: 15px; }
+.rsvp-hero-layout {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 80vh;
+    padding: 20px;
 }
 
-/* FAQ PAGE */
-/* --- FAQ SEARCH & FILTERS --- */
+#rsvp-entry-container {
+    width: 100%;
+    max-width: 500px;
+}
+
+.rsvp-content-card {
+    background: white;
+    padding: 50px;
+    border-radius: 25px;
+    text-align: center;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.rsvp-eyebrow {
+    display: block;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    font-size: 0.8rem;
+    font-weight: 800;
+    color: var(--brand-accent);
+    margin-bottom: 10px;
+}
+
+.input-group-modern {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin: 30px 0;
+}
+
+#group-code-input {
+    padding: 18px;
+    border: 2px solid #edf2f7;
+    border-radius: 12px;
+    font-size: 1.2rem;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    transition: border-color 0.3s;
+    outline: none;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+#group-code-input:focus { border-color: var(--brand-accent); }
+
+.btn-primary-large {
+    background: var(--pill-text);
+    color: white;
+    padding: 18px;
+    border: none;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    transition: var(--transition);
+}
+
+.btn-primary-large:hover { filter: brightness(115%); }
+
+.rsvp-help-text {
+    font-size: 0.85rem;
+    color: var(--text-light);
+}
+
+#rsvp-form {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.form-container {
+    background: white;
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    width: 100%;
+    margin-top: 20px;
+    box-sizing: border-box;
+}
+
+.form-main-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-bottom: 25px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.form-group label {
+    font-weight: 700;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    color: #475569;
+}
+
+.form-group select,
+.form-group textarea {
+    padding: 12px;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 0.95rem;
+    background-color: #f8fafc;
+}
+
+.food-section,
+.transport-section {
+    background: #f1f5f9;
+    padding: 20px;
+    border-radius: 12px;
+    margin-top: 15px;
+    border-left: 4px solid var(--brand-accent);
+}
+
+.guest-entry {
+    position: relative;
+    padding-top: 20px;
+    border-top: 1px solid #f1f5f9;
+    margin-top: 30px;
+}
+
+.guest-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+#add-guest-btn {
+    background: transparent;
+    border: 2px dashed #cbd5e1;
+    color: #64748b;
+    width: 100%;
+    padding: 15px;
+    border-radius: 10px;
+    margin: 20px 0;
+    cursor: pointer;
+    font-weight: 600;
+    transition: var(--transition);
+}
+
+#add-guest-btn:hover {
+    background: #f8fafc;
+    border-color: var(--brand-accent);
+    color: var(--brand-accent);
+}
+
+#add-guest-btn:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+
+.submit-btn {
+    background: #2dd4bf;
+    color: white;
+    width: 100%;
+    padding: 20px;
+    border: none;
+    border-radius: 12px;
+    font-size: 1.1rem;
+    font-weight: 800;
+    cursor: pointer;
+    box-shadow: 0 4px 14px rgba(45, 212, 191, 0.3);
+    transition: var(--transition);
+}
+
+.submit-btn:hover {
+    transform: translateY(-2px);
+    filter: brightness(105%);
+}
+
+.remove-guest-btn {
+    background: transparent;
+    color: var(--text-light);
+    border: none;
+    cursor: pointer;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 5px 10px;
+    border-radius: 5px;
+    transition: var(--transition);
+}
+
+.remove-guest-btn:hover {
+    color: #ef4444;
+    background: #fef2f2;
+}
+
+.remove-guest-btn i { font-size: 14px; }
+
+
+/* ============================================================
+   15. FAQ PAGE
+   ============================================================ */
 .faq-search-wrapper {
     max-width: 600px;
-    margin: 40px auto;
+    margin: 40px auto 0;
     padding: 0 20px;
-    position: relative;
-    z-index: 10; /* Ensures it stays above the landing photo if overlapping */
 }
 
 .search-input-container {
@@ -231,18 +1341,19 @@ body {
 
 #faq-search {
     width: 100%;
-    padding: 15px 15px 15px 55px; /* Extra left padding for the icon */
+    padding: 15px 15px 15px 55px;
     border: 2px solid #e2e8f0;
     border-radius: 50px;
     font-size: 1rem;
     background: white;
     outline: none;
     transition: var(--transition);
+    box-sizing: border-box;
 }
 
 #faq-search:focus {
     border-color: var(--brand-accent);
-    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
 }
 
 .faq-categories {
@@ -262,7 +1373,7 @@ body {
     cursor: pointer;
     font-size: 0.9rem;
     font-weight: 600;
-    transition: all 0.2s ease;
+    transition: var(--transition);
 }
 
 .cat-btn.active {
@@ -276,7 +1387,6 @@ body {
     border-color: #cbd5e1;
 }
 
-/* --- FAQ GRID & CARDS --- */
 .faq-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
@@ -292,12 +1402,12 @@ body {
     border-radius: 15px;
     padding: 25px;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: var(--transition);
     height: fit-content;
 }
 
 .faq-card:hover {
-    box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
     transform: translateY(-3px);
 }
 
@@ -314,11 +1424,10 @@ body {
 .faq-question i {
     color: var(--brand-accent);
     transition: transform 0.3s ease;
+    flex-shrink: 0;
 }
 
-.faq-card.active i {
-    transform: rotate(180deg);
-}
+.faq-card.active i { transform: rotate(180deg); }
 
 .faq-answer {
     max-height: 0;
@@ -330,330 +1439,25 @@ body {
 }
 
 .faq-card.active .faq-answer {
-    max-height: 500px; /* High enough to accommodate long text */
+    max-height: 500px;
     margin-top: 15px;
 }
 
-/* --- TRAVEL & HOTEL GRID --- */
-#hotels-page-container {
-    width: 90%;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 60px 0;
-}
-
-#hotel-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); /* Restored 3-column feel */
-    gap: 30px;
-}
-
-.hotel-card {
-    background: #fff;
-    border-radius: 15px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-    transition: transform 0.3s ease;
-}
-
-.hotel-card:hover {
-    transform: translateY(-10px);
-}
-
-.hotel-image {
-    width: 100%;
-    height: 220px;
-    object-fit: cover;
-    display: block;
-}
-
-.hotel-content {
-    padding: 25px;
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
-}
-
-.hotel-name {
-    font-size: 1.5rem;
-    color: var(--pill-text);
-    margin: 0 0 5px 0;
-    font-family: "Segoe UI", sans-serif;
-    font-weight: 700;
-}
-
-.hotel-price {
-    font-weight: bold;
-    color: #555;
-    margin-bottom: 15px;
-    font-size: 1.1rem;
-}
-
-/* --- LOGISTICS BOX (Check-in/Out) --- */
-.hotel-logistics {
-    background: #f8f9fa;
-    padding: 15px;
-    border-radius: 10px;
-    margin-bottom: 20px;
-    font-size: 0.9rem;
-    border: 1px solid #edf2f7;
-}
-
-.logistic-item {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 8px;
-    color: #4a5568;
-}
-
-.logistic-label {
-    font-weight: bold;
-    color: #2d3748;
-}
-
-/* --- AMENITIES GRID --- */
-.amenities-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr; /* Two columns for clean listing */
-    gap: 10px;
-    margin: 15px 0 20px 0;
-    padding-top: 15px;
-    border-top: 1px dashed #eee;
-}
-
-.amenity-item {
-    display: flex;
-    align-items: center;
-    font-size: 0.85rem;
-    color: #4a5568;
-}
-
-.amenity-item i {
-    margin-right: 8px;
-    font-size: 1.1rem;
-}
-
-/* Status colors for amenities */
-.status-yes { color: #2f855a; } /* Green */
-.status-no { 
-    color: #a0aec0; 
-    text-decoration: line-through; 
-    opacity: 0.7; 
-}
-
-/* --- BOOKING BUTTON --- */
-.book-btn {
+.no-results {
     text-align: center;
-    background: var(--pill-text);
-    color: white !important;
-    padding: 14px;
-    border-radius: 8px;
-    text-decoration: none;
-    font-weight: bold;
-    margin-top: auto; /* Pushes button to the bottom of the card */
-    transition: filter 0.2s;
+    color: var(--text-muted);
+    font-size: 1rem;
+    grid-column: 1 / -1;
 }
 
-/* --- 5. WEDDING PARTY: DIRECTORY GRID --- */
-body.wedding-party, body.our-story, body.gallery{
-    background-color: var(--bg-color);
-    /* The texture is now here, covering everything */
-    background-image: url("https://www.transparenttextures.com/patterns/natural-paper.png");
-    background-attachment: fixed; /* This keeps the texture still while you scroll */
-    margin: 0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    color: var(--text-main);
-    overflow-x: hidden;
-}
-.scrapbook-container {
-    width: 90%;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
-}
 
-#party-directory {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 60px 30px;
-    padding: 80px 0;
-    justify-items: center;
-}
-
-.member-card {
-    position: relative;
-    width: 100%;
-    max-width: 250px;
-    cursor: pointer;
-    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    transform: rotate(var(--rotation, 0deg));
-    z-index: 1;
-}
-
-.member-card:hover {
-    transform: rotate(0deg) scale(1.08);
-    z-index: 50;
-}
-
-.polaroid {
-    background: white;
-    padding: 12px 12px 40px 12px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-    position: relative;
-    border: 1px solid #f0f0f0;
-}
-
-.polaroid img {
-    width: 100%;
-    aspect-ratio: 1 / 1;
-    object-fit: cover;
-    display: block;
-}
-
-/* Washi Tape Effect */
-.polaroid::before, .detail-photo::before {
-    content: '';
-    position: absolute;
-    background: rgba(255, 255, 255, 0.5);
-    backdrop-filter: blur(2px);
-    -webkit-backdrop-filter: blur(2px);
-    border-left: 1px dashed rgba(0,0,0,0.08);
-    border-right: 1px dashed rgba(0,0,0,0.08);
-    box-shadow: 2px 2px 5px rgba(0,0,0,0.03);
-    z-index: 10;
-}
-
-.polaroid::before {
-    top: -18px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 90px;
-    height: 35px;
-}
-
-.polaroid-caption {
-    margin-top: 15px;
-    text-align: center;
-    font-family: 'Georgia', serif; 
-    font-size: 1.2rem;
-    font-weight: 700;
-    color: #334155;
-}
-
-/* --- 6. WEDDING PARTY: ENHANCED DETAIL VIEW --- */
-#party-detail-view {
-    max-width: 1100px;
-    margin: 40px auto;
-    padding: 40px 20px;
-    background-image: url("https://www.transparenttextures.com/patterns/natural-paper.png"); /* Subtle paper texture */
-}
-
-.detail-layout {
-    display: grid;
-    grid-template-columns: 1fr 1.2fr;
-    gap: 60px;
-    align-items: center;
-}
-
-/* The Large Detail Polaroid */
-.detail-photo {
-    position: relative;
-    padding: 15px 15px 60px 15px;
-    background: white;
-    box-shadow: 0 25px 50px rgba(0,0,0,0.15);
-    transform: rotate(-2deg); /* Placed look */
-}
-
-.detail-photo img {
-    width: 100%;
-    display: block;
-    border-radius: 2px;
-}
-
-/* Larger tape for the detail photo */
-.detail-photo::before {
-    top: -25px;
-    left: 15%;
-    width: 130px;
-    height: 45px;
-    transform: rotate(-12deg);
-    background: rgba(255, 255, 255, 0.4);
-}
-
-.detail-info #detail-name {
-    font-family: "Croissant One", serif;
-    font-size: 4rem;
-    margin: 0;
-    line-height: 1.1;
-    color: var(--text-main);
-}
-
-.flavor-text {
-    font-family: 'Georgia', serif;
-    font-size: 1.25rem;
-    line-height: 1.8;
-    color: #4a5568;
-    margin-top: 25px;
-    font-style: italic;
-    position: relative;
-}
-
-.back-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 12px 24px;
-    background: white;
-    border-radius: 50px;
-    cursor: pointer;
-    font-weight: 700;
-    margin-bottom: 50px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-    transition: var(--transition);
-}
-
-.back-btn:hover { background: var(--brand-accent); color: white; }
-
-/* --- 7. ANIMATIONS --- */
-.page-flip-animation {
-    animation: pageFlip 0.7s cubic-bezier(0.23, 1, 0.32, 1) forwards;
-}
-
-@keyframes pageFlip {
-    0% { opacity: 0; transform: perspective(1200px) rotateY(-10deg) translateX(-30px); }
-    100% { opacity: 1; transform: perspective(1200px) rotateY(0deg) translateX(0); }
-}
-
-/* --- 8. FAQ PAGE --- */
-.faq-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-    gap: 20px;
-    padding: 40px 20px;
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-.faq-card {
-    background: white;
-    border-radius: 15px;
-    padding: 25px;
-    cursor: pointer;
-    transition: var(--transition);
-}
-
-.faq-card.active .faq-answer { max-height: 500px; margin-top: 15px; }
-.faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; }
-/* --- REGISTRY PORTAL OVERLAY --- */
-.registry .portal-overlay {
+/* ============================================================
+   16. REGISTRY PORTAL
+   ============================================================ */
+.portal-overlay {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.4); /* Dimmed background */
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
     backdrop-filter: blur(8px);
     display: flex;
     justify-content: center;
@@ -661,7 +1465,6 @@ body.wedding-party, body.our-story, body.gallery{
     z-index: 1000;
 }
 
-/* THE FLOATING CARD */
 .portal-card {
     background: white;
     width: 90%;
@@ -669,13 +1472,8 @@ body.wedding-party, body.our-story, body.gallery{
     padding: 40px;
     border-radius: 25px;
     text-align: center;
-    box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
     animation: portalPop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
-
-@keyframes portalPop {
-    from { opacity: 0; transform: scale(0.9); }
-    to { opacity: 1; transform: scale(1); }
 }
 
 .portal-subtitle {
@@ -695,29 +1493,23 @@ body.wedding-party, body.our-story, body.gallery{
     color: var(--text-main);
 }
 
-#countdown {
+/*
+ * Scope the registry countdown span to avoid inheriting the flex
+ * layout from #countdown on index.html (which is also an #countdown id).
+ * The registry span is inside .portal-card so this selector wins.
+ */
+.portal-card #countdown {
+    display: inline;
     font-weight: 800;
     color: var(--pill-text);
     font-size: 1.2rem;
 }
 
-/* BUTTONS */
 .portal-actions {
     display: flex;
     flex-direction: column;
     gap: 15px;
     margin-top: 30px;
-}
-
-.btn-primary {
-    background: var(--pill-text);
-    color: white;
-    border: none;
-    padding: 15px;
-    border-radius: 50px;
-    font-weight: 700;
-    cursor: pointer;
-    transition: transform 0.2s;
 }
 
 .btn-secondary {
@@ -727,11 +1519,12 @@ body.wedding-party, body.our-story, body.gallery{
     padding: 12px;
     border-radius: 50px;
     cursor: pointer;
+    font-size: 1rem;
+    transition: var(--transition);
 }
 
-.btn-primary:hover { transform: scale(1.02); }
+.btn-secondary:hover { background: #f8fafc; }
 
-/* SITEMAP GRID */
 .sitemap-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -747,7 +1540,7 @@ body.wedding-party, body.our-story, body.gallery{
     color: var(--text-main);
     font-size: 0.9rem;
     font-weight: 600;
-    transition: background 0.2s;
+    transition: var(--transition);
 }
 
 .sitemap-grid a:hover {
@@ -762,745 +1555,265 @@ body.wedding-party, body.our-story, body.gallery{
     text-decoration: underline;
     cursor: pointer;
     margin-top: 10px;
+    font-size: 0.9rem;
 }
 
-/* --- RSVP PAGE STYLES --- */
-/* --- 1. RSVP HERO LAYOUT (Centering the entry card) --- */
-.rsvp-hero-layout {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 80vh;
-    padding: 20px;
+
+/* ============================================================
+   17. ANIMATIONS & KEYFRAMES
+   ============================================================ */
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 0.9; transform: translateY(0); }
 }
 
-/* --- 2. THE ENTRY CARD (Step 1) --- */
-.rsvp-content-card {
-    background: white;
-    padding: 50px;
-    border-radius: 25px;
-    text-align: center;
-    box-shadow: 0 15px 40px rgba(0,0,0,0.08);
-    width: 100%;
+@keyframes portalPop {
+    from { opacity: 0; transform: scale(0.9); }
+    to   { opacity: 1; transform: scale(1); }
 }
 
-.rsvp-eyebrow {
-    text-transform: uppercase;
-    letter-spacing: 3px;
-    font-size: 0.8rem;
-    font-weight: 800;
-    color: var(--brand-accent);
+@keyframes pageFlip {
+    0%   { opacity: 0; transform: perspective(1200px) rotateY(-10deg) translateX(-30px); }
+    100% { opacity: 1; transform: perspective(1200px) rotateY(0deg)   translateX(0); }
 }
 
-.input-group-modern {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    margin: 30px 0;
+.page-flip-animation {
+    animation: pageFlip 0.7s cubic-bezier(0.23, 1, 0.32, 1) forwards;
 }
 
-#group-code-input {
-    padding: 18px;
-    border: 2px solid #edf2f7;
-    border-radius: 12px;
-    font-size: 1.2rem;
-    text-align: center;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    transition: border-color 0.3s;
+/* --- Card slide animations for wedding party detail view --- */
+
+/* Card exits to the left (going forward / next) */
+@keyframes cardExitLeft {
+    0%   { opacity: 1; transform: rotate(-0.8deg) translateX(0)     scale(1); }
+    100% { opacity: 0; transform: rotate(-3deg)   translateX(-110%) scale(0.92); }
 }
 
-#group-code-input:focus {
-    outline: none;
-    border-color: var(--brand-accent);
+/* Card exits to the right (going backward / prev) */
+@keyframes cardExitRight {
+    0%   { opacity: 1; transform: rotate(-0.8deg) translateX(0)    scale(1); }
+    100% { opacity: 0; transform: rotate(3deg)    translateX(110%) scale(0.92); }
 }
 
-.btn-primary-large {
-    background: var(--pill-text);
-    color: white;
-    padding: 18px;
-    border: none;
-    border-radius: 12px;
-    font-size: 1rem;
-    font-weight: 700;
-    cursor: pointer;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
+/* New card enters from the right (going forward / next) */
+@keyframes cardEnterRight {
+    0%   { opacity: 0; transform: rotate(3deg)    translateX(110%) scale(0.92); }
+    100% { opacity: 1; transform: rotate(-0.8deg) translateX(0)    scale(1); }
 }
 
-.rsvp-help-text {
-    font-size: 0.85rem;
-    color: #94a3b8;
+/* New card enters from the left (going backward / prev) */
+@keyframes cardEnterLeft {
+    0%   { opacity: 0; transform: rotate(-3deg)   translateX(-110%) scale(0.92); }
+    100% { opacity: 1; transform: rotate(-0.8deg) translateX(0)     scale(1); }
 }
 
-/* --- 3. THE FULL FORM (Step 2) --- */
-.form-container {
-    background: white;
-    padding: 40px;
-    border-radius: 20px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-    width: 100%;
-    margin-top: 20px; /* Space from the top if the card is gone */
-}
+.detail-card.exit-left  { animation: cardExitLeft  0.3s cubic-bezier(0.4, 0, 1, 1) forwards; }
+.detail-card.exit-right { animation: cardExitRight 0.3s cubic-bezier(0.4, 0, 1, 1) forwards; }
+.detail-card.enter-right { animation: cardEnterRight 0.35s cubic-bezier(0, 0, 0.2, 1) forwards; }
+.detail-card.enter-left  { animation: cardEnterLeft  0.35s cubic-bezier(0, 0, 0.2, 1) forwards; }
 
-.form-main-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr; /* Side-by-side fields */
-    gap: 20px;
-    margin-bottom: 25px;
-}
-/* This targets the outer parent and forces everything inside to the middle */
-#rsvp-main-wrapper {
-    display: flex;
-    flex-direction: column;
-    align-items: center;    /* Horizontal centering */
-    justify-content: center; /* Vertical centering */
-    min-height: 85vh;       /* Keeps it in the middle of the screen */
-    width: 100%;
-    padding: 20px;
-}
 
-/* This ensures the entry card stays centered and doesn't stretch too wide */
-#rsvp-entry-container {
-    width: 100%;
-    max-width: 500px;
-}
+/* ============================================================
+   18. RESPONSIVE / MEDIA QUERIES
+   ============================================================ */
 
-/* This ensures the big form stays centered once it appears */
-#rsvp-form {
-    width: 100%;
-    max-width: 800px;
-    margin: 0 auto; 
-}
-
-@media (max-width: 600px) {
-    .form-main-grid { grid-template-columns: 1fr; }
-}
-
-.form-group {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-}
-
-.form-group label {
-    font-weight: 700;
-    font-size: 0.85rem;
-    text-transform: uppercase;
-    color: #475569;
-}
-
-/* Styled Inputs & Selects */
-.form-group select, 
-.form-group textarea {
-    padding: 12px;
-    border: 1px solid #e2e8f0;
-    border-radius: 8px;
-    font-family: inherit;
-    font-size: 0.95rem;
-    background-color: #f8fafc;
-}
-
-/* --- 4. SECTION HIGHLIGHTS (Food & Transport) --- */
-.food-section, .transport-section {
-    background: #f1f5f9;
-    padding: 20px;
-    border-radius: 12px;
-    margin-top: 15px;
-    border-left: 4px solid var(--brand-accent);
-}
-
-/* --- 5. ACTION BUTTONS --- */
-#add-guest-btn {
-    background: transparent;
-    border: 2px dashed #cbd5e1;
-    color: #64748b;
-    width: 100%;
-    padding: 15px;
-    border-radius: 10px;
-    margin: 20px 0;
-    cursor: pointer;
-    font-weight: 600;
-}
-
-#add-guest-btn:hover {
-    background: #f8fafc;
-    border-color: var(--brand-accent);
-    color: var(--brand-accent);
-}
-
-.submit-btn {
-    background: #2dd4bf; /* Success Green */
-    color: white;
-    width: 100%;
-    padding: 20px;
-    border: none;
-    border-radius: 12px;
-    font-size: 1.1rem;
-    font-weight: 800;
-    cursor: pointer;
-    box-shadow: 0 4px 14px rgba(45, 212, 191, 0.3);
-}
-
-.submit-btn:hover {
-    transform: translateY(-2px);
-    filter: brightness(105%);
-}
-
-/* --- SLEEK REMOVE GUEST BUTTON --- */
-.remove-guest-btn {
-    background: transparent;
-    color: #94a3b8; /* Subtle slate color */
-    border: none;
-    cursor: pointer;
-    font-size: 0.8rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    transition: all 0.2s ease;
-    padding: 5px 10px;
-    border-radius: 5px;
-    margin-left: auto; /* Pushes it to the right if in a flex container */
-}
-
-/* Hover state: Subtle red and lift */
-.remove-guest-btn:hover {
-    color: #ef4444; /* Soft red */
-    background: #fef2f2; /* Very light red background */
-}
-
-/* Icon tweak if you use a Material Icon inside it */
-.remove-guest-btn i {
-    font-size: 14px;
-}
-
-/* Positioning inside the Guest Container */
-.guest-entry {
-    position: relative;
-    padding-top: 20px;
-    border-top: 1px solid #f1f5f9;
-    margin-top: 30px;
-}
-/* Disabled button state */
-#add-guest-btn:disabled {
-    cursor: not-allowed;
-    filter: grayscale(1);
-    opacity: 0.5;
-}
-
-/* If the text changes to "Limit Reached", make it subtle */
-#add-guest-btn[disabled]:contains("Limit") {
-    border: none;
-    background: transparent;
-    color: #94a3b8;
-}
-
-/* Optional: Add a helper hint that appears only when disabled */
-#add-guest-btn:disabled::after {
-    content: ' (Finish current guest to add more)';
-    font-size: 0.75rem;
-    font-weight: normal;
-    display: block;
-    margin-top: 5px;
-}
-
-/* Ensure the sleek remove button looks good in context */
-.remove-guest-btn {
-    float: right;
-    margin-top: -10px;
-}
-/* --- RSVP MOBILE OPTIMIZATIONS --- */
-@media (max-width: 768px) {
-    /* 1. Ensure the main wrapper has breathing room on the sides */
-    #rsvp-main-wrapper {
-        padding: 15px;
-        min-height: auto; /* Allow it to grow naturally with content */
-        margin-top: 20px;
-    }
-
-    /* 2. Scale the entry card and full form to use the whole screen width */
-    #rsvp-entry-container, 
-    #rsvp-form {
-        max-width: 100%;
-        width: 100%;
-    }
-
-    .form-container, .rsvp-content-card {
-        padding: 25px 20px; /* Reduce internal padding for more space */
-        border-radius: 15px;
-    }
-
-    /* 3. Collapse the 2-column grid into 1 column */
-    .form-main-grid {
-        grid-template-columns: 1fr !important;
-        gap: 15px;
-    }
-
-    /* 4. Make inputs and buttons easier to tap (fat-finger friendly) */
-    .btn-primary-large, .submit-btn, #add-guest-btn {
-        width: 100%;
-        padding: 18px;
-        font-size: 1.1rem;
-    }
-
-    #group-code-input {
-        font-size: 1.4rem; /* Larger text for easier typing */
-        padding: 15px;
-    }
-
-    /* 5. Adjust food/transport highlight boxes */
-    .food-section, .transport-section {
-        padding: 15px;
-        margin-top: 10px;
-    }
-
-    /* 6. Fix the "Remove Guest" float issue */
-    .remove-guest-btn {
-        float: none;
-        margin-bottom: 10px;
-        justify-content: center; /* Center it on mobile */
-    }
-}
-/* --- MOBILE & TABLET TIGHTENING (Applied only to smaller screens) --- */
+/* --- Tablet (≤1024px) --- */
 @media (max-width: 1024px) {
-    
-    /* 1. Pull the main containers in so they don't hit the screen edges */
-    .scrapbook-container, 
-    .page-content, 
-    #hotels-page-container, 
-    .story-container,
-    #party-detail-view {
-        width: 90%;           /* Creates a 5% margin on each side */
-        max-width: 800px;     /* Forces a more focused, "book-like" column */
-        margin: 0 auto;
-    }
-
-    /* 2. Tighten the RSVP form specifically */
-    #rsvp-form, 
-    .form-container {
-        width: 95%;
-        max-width: 600px;     /* Keeps the form from getting too wide on tablets */
-        padding: 25px;        /* Reduces internal bulk */
-    }
-
-    /* 3. Adjust the Wedding Party Grid for Tablet/Mobile */
     #party-directory {
-        grid-template-columns: repeat(2, 1fr); /* 2 columns is best for "tight" feel */
-        gap: 30px 20px;
-        padding: 30px 0;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 50px 30px;
+        padding: 30px 5%;
     }
 
-    /* 4. Shrink the headers to fit the tighter space */
-    .header {
-        font-size: 3rem;
-        margin-top: 10px;
-    }
+    /* Reset stagger on tablet to avoid excessive height */
+    .member-card:nth-child(even),
+    .member-card:nth-child(3n) { margin-top: 0; }
 
-    .date-location {
-        font-size: 1.5rem;
-    }
-
-    /* 5. Detail View adjustments */
     .detail-layout {
-        grid-template-columns: 1fr; /* Stack photo on top of text */
+        grid-template-columns: 1fr;
         gap: 30px;
     }
 
+    .detail-card {
+        padding: 40px 30px 50px;
+        transform: rotate(0deg);
+    }
+
     .detail-photo {
-        transform: rotate(0); /* Remove tilt on mobile for better alignment */
-        max-width: 400px;     /* Don't let the photo get giant on tablets */
+        transform: rotate(0deg);
+        max-width: 400px;
         margin: 0 auto;
     }
 
-    #detail-name {
+    .detail-info #detail-name {
         font-size: 2.5rem;
         text-align: center;
     }
-}
 
-/* --- EXTRA SMALL MOBILE (Phones) --- */
-@media (max-width: 480px) {
-    #party-directory {
-        grid-template-columns: 1fr; /* Single column on phones */
+    .detail-info {
+        padding-left: 0;
+        text-align: center;
     }
-    
-    .nav-tab {
-        padding: 8px 10px;
-        font-size: 0.9rem;
-    }
-}
-/* --- OUR STORY PAGE STYLES --- */
-.story-container {
-    max-width: 1000px;
-    margin: 60px auto;
-    padding: 0 20px;
-    background: transparent;
-}
-.story-container::before {
-    background: transparent;
-    border-left: 2px dashed #cbd5e1; /* Dashed line like a stitch */
+
+    .scrapbook-nav-wrapper { justify-content: center; }
+
+    .story-container { max-width: 800px; }
 }
 
-.story-intro {
-    text-align: center;
-    max-width: 700px;
-    margin: 0 auto 100px auto;
-    padding-bottom: 40px;
-    border-bottom: 1px solid #f1f5f9;
-    margin-bottom: 20px !important; /* Pulls the title closer to the photos */
-    padding-top: 20px;
-    background: transparent;
-    
-}
-
-.story-intro h1 {
-    margin-bottom: 15px;
-    color: var(--text-main);
-}
-
-.story-row {
-    display: flex;
-    align-items: center;
-    gap: 50px;
-    margin-bottom: 100px;
-}
-
-/* Every other row flips the order */
-.story-row:nth-child(even) {
-    flex-direction: row-reverse;
-}
-
-.story-image-wrap {
-    flex: 1;
-    position: relative;
-}
-
-.story-image-wrap img {
-    width: 100%;
-    border-radius: 4px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-    /* Giving it that polaroid/photo feel */
-    border: 12px solid white;
-    border-bottom: 40px solid white;
-    transform: rotate(var(--story-rotation, -2deg));
-}
-
-.story-text-wrap {
-    flex: 1;
-}
-
-.story-date {
-    font-family: 'Segoe UI', sans-serif;
-    font-weight: 800;
-    color: var(--brand-accent);
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    font-size: 0.9rem;
-    display: block;
-    margin-bottom: 10px;
-}
-
-.story-text-wrap h2 {
-    font-family: 'Croissant One', serif;
-    font-size: 2.5rem;
-    margin-bottom: 20px;
-}
-
-.story-content {
-    font-size: 1.1rem;
-    line-height: 1.8;
-    color: var(--text-muted);
-}
-/* --- THE TIMELINE THREAD --- */
-.story-container {
-    position: relative;
-    max-width: 1000px;
-    margin: 60px auto;
-    padding: 0 20px;
-}
-
-/* The vertical line in the center */
-.story-container::before {
-    content: '';
-    position: absolute;
-    top: 250px; /* Starts after the intro */
-    bottom: 50px;
-    left: 50%;
-    width: 2px;
-    background: #e2e8f0; /* Soft gray line */
-    transform: translateX(-50%);
-    z-index: 1;
-}
-
-.story-row {
-    display: flex;
-    align-items: center;
-    gap: 80px;
-    margin-bottom: 120px;
-    position: relative;
-    z-index: 2; /* Sits above the line */
-}
-
-/* The "Node" or Point on the timeline */
-.story-row::after {
-    content: '';
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    width: 12px;
-    height: 12px;
-    background: white;
-    border: 3px solid var(--brand-accent);
-    border-radius: 50%;
-    transform: translate(-50%, -50%);
-    box-shadow: 0 0 0 6px white; /* Clears the line behind the dot */
-}
-
-/* --- MOBILE TWEAKS --- */
+/* --- Mobile (≤768px) --- */
 @media (max-width: 768px) {
-    .story-container::before {
-        left: 30px; /* Move line to the left on mobile */
-    }
-    
-    .story-row::after {
-        left: 30px; /* Align dots with line */
-        top: 20px;  /* Position dots near the top of the block */
-    }
-    
-    .story-row {
-        padding-left: 60px; /* Make room for the line/dots */
-    }
-}
+    .header        { font-size: 3em; }
+    .date-location { font-size: 1.5em; }
 
-/* Mobile Responsiveness */
-@media (max-width: 768px) {
-    .story-row, .story-row:nth-child(even) {
+    /* Clamp the home page to a single screen — no scroll */
+    .page-wrapper {
+        height: 100vh;
+        overflow: hidden;
+    }
+
+    /* Landing photo: centered, slightly smaller, shifted up */
+    .landing-photo {
+        left: 2.5%;
+        width: 95%;
+        top: 160px;
+    }
+
+    /* Show hamburger, hide horizontal navbar */
+    .hamburger-btn  { display: flex; }
+    .nav-container  { display: none; }
+
+    /* Critical Info Banner: pin to bottom of viewport on homepage */
+    body:not(.FAQ):not(.our-story):not(.gallery):not(.registry):not(.rsvp):not(.travel):not(.wedding-party) #critical-info-banner {
+        position: fixed;
+        bottom: 10px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 95%;
+        max-width: 95%;
+        margin: 0;
+        border-radius: 20px;
+        border: 1px solid rgba(255,255,255,0.6);
+        padding: 14px 16px;
+        z-index: 900;
+        background: rgba(255, 255, 255, 0.88);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+    }
+
+    #critical-info-banner {
+        flex-direction: column;
+        gap: 10px;
+        text-align: center;
+        box-sizing: border-box;
+    }
+
+    .info-divider { display: none; }
+
+    /* Shrink and wrap pill content so nothing bleeds off-screen */
+    .info-pill {
+        padding: 8px 12px;
+        font-size: 0.75rem;
+        white-space: normal;      /* allow text to wrap inside the pill */
+        text-align: center;
+        line-height: 1.4;
+    }
+
+    .info-pill i.material-icons {
+        font-size: 14px !important;
+        flex-shrink: 0;           /* keep icon from squishing */
+    }
+
+    .line-2-wrapper {
+        gap: 6px;
+        flex-direction: column;   /* stack address pill above parking pill */
+        align-items: center;
+        width: 100%;
+    }
+
+    .info-section {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .line-1 {
+        font-size: 0.6rem;
+        letter-spacing: 0.5px;
+    }
+
+    /* Story timeline: move line to left edge */
+    .story-row,
+    .story-row:nth-child(even) {
         flex-direction: column;
         gap: 30px;
         margin-bottom: 60px;
     }
+
+    .story-container::before { left: 20px; }
+    .story-row::after         { left: 20px; top: 20px; }
+    .story-row                { padding-left: 50px; }
+
+    /* RSVP */
+    #rsvp-main-wrapper {
+        padding: 15px;
+        min-height: auto;
+        margin-top: 20px;
+    }
+
+    #rsvp-entry-container,
+    #rsvp-form { max-width: 100%; }
+
+    .rsvp-content-card,
+    .form-container {
+        padding: 25px 20px;
+        border-radius: 15px;
+    }
+
+    .form-main-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+    .btn-primary-large,
+    .submit-btn,
+    #add-guest-btn {
+        width: 100%;
+        font-size: 1.1rem;
+    }
+
+    #group-code-input {
+        font-size: 1.4rem;
+        padding: 15px;
+    }
+
+    .food-section,
+    .transport-section {
+        padding: 15px;
+        margin-top: 10px;
+    }
+
+    /* Gallery: disable stagger on small screens */
+    #scrapbook-gallery {
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+        gap: 50px 30px;
+        padding: 20px 4% 60px;
+    }
+
+    .gallery-item:nth-child(even),
+    .gallery-item:nth-child(3n) { margin-top: 0; }
 }
 
-/* --- WIDE & SPACED SCRAPBOOK GALLERY --- */
-#scrapbook-gallery {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-    gap: 80px 60px;
-    padding: 20px 5% 100px 5%; /* Reduced top padding from 100px to 20px */
-    max-width: 1800px;
-    margin: 0 auto;
-}
+/* --- Small phones (≤480px) --- */
+@media (max-width: 480px) {
+    #party-directory {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 40px 20px;
+        padding: 20px 4% 60px;
+    }
 
-.gallery-item {
-    transition: transform 0.3s ease;
-    transform: rotate(var(--rotation));
-    cursor: pointer;
-}
+    .nav-tab {
+        padding: 8px 10px;
+        font-size: 0.9rem;
+    }
 
-/* More pronounced staggering */
-.gallery-item:nth-child(even) { margin-top: 60px; }
-.gallery-item:nth-child(3n) { margin-top: -30px; }
-
-.gallery-item:hover {
-    transform: rotate(0deg) scale(1.05);
-    z-index: 50;
-}
-/* --- PHOTO GALLERY HOVER ANIMATION --- */
-#scrapbook-gallery .gallery-item {
-    position: relative;
-    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), z-index 0s;
-    cursor: pointer;
-    z-index: 1;
-}
-
-#scrapbook-gallery .gallery-item:hover {
-    /* Straightens the rotation to 0, lifts it up, and scales it */
-    transform: rotate(0deg) scale(1.1) translateY(-10px);
-    z-index: 100; /* Ensures the hovered photo is always on top of its neighbors */
-}
-
-/* Enhancing the Polaroid shadow on hover for depth */
-#scrapbook-gallery .gallery-item:hover .polaroid {
-    box-shadow: 0 25px 50px rgba(0,0,0,0.2);
-}
-
-/* Adding a "lifting" effect to the tape on hover */
-#scrapbook-gallery .gallery-item:hover .polaroid::before {
-    opacity: 0.8;
-    transform: translateX(-50%) translateY(-2px);
-}
-
-/* --- LIGHTBOX STYLES --- */
-#lightbox-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.9);
-    display: none; /* Hidden by default */
-    justify-content: center;
-    align-items: center;
-    z-index: 2000;
-    cursor: zoom-out;
-}
-
-#lightbox-content {
-    max-width: 90%;
-    max-height: 80%;
-    background: white;
-    padding: 20px 20px 60px 20px;
-    box-shadow: 0 0 50px rgba(0,0,0,0.5);
-    animation: lightboxPop 0.3s ease-out;
-}
-
-#lightbox-img {
-    max-width: 100%;
-    max-height: 75vh;
-    object-fit: contain; /* Ensures the full photo shows in the lightbox */
-    display: block;
-    margin: 0 auto;
-}
-
-#lightbox-caption {
-    text-align: center;
-    margin-top: 20px;
-}
-
-
-@keyframes lightboxPop {
-    from { transform: scale(0.9); opacity: 0; }
-    to { transform: scale(1); opacity: 1; }
-}
-
-/* --- 2. PHOTO GALLERY SPECIFIC (The Wide Scatter) --- */
-#scrapbook-gallery {
-    display: grid; /* Use the wide grid only here */
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-    gap: 80px 60px;
-    padding: 20px 5% 100px 5%;
-    max-width: 1800px;
-    margin: 0 auto;
-}
-
-/* Ensure photo gallery items also respect their rotation */
-#scrapbook-gallery .gallery-item {
-    transform: rotate(var(--rotation, 0deg));
-}
-
-/* --- 3. SHARED POLAROID FOUNDATION --- */
-/* This keeps the "look" consistent without breaking the layouts */
-.polaroid {
-    background: white;
-    padding: 15px 15px 35px 15px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-    border: 1px solid #efefef;
-}
-
-.polaroid img {
-    width: 100%;
-    aspect-ratio: 1 / 1;
-    object-fit: cover;
-    display: block;
-}
-
-/* --- ENHANCED SCRAPBOOK DETAIL VIEW --- */
-#party-detail-view {
-    max-width: 1100px;
-    margin: 40px auto;
-    padding: 20px;
-    position: relative;
-    background: transparent;
-}
-
-/* The Large Detail Polaroid */
-.detail-photo {
-    position: relative;
-    padding: 15px 15px 50px 15px; /* Thicker bottom for that Polaroid look */
-    background: white;
-    box-shadow: 0 20px 50px rgba(0,0,0,0.15);
-    transform: rotate(-2deg); /* Slight tilt for the "placed" look */
-    transition: transform 0.3s ease;
-}
-
-.detail-photo img {
-    width: 100%;
-    display: block;
-    border: 1px solid #eee; /* Fine edge around the photo */
-}
-
-/* Tape on the Large Polaroid */
-.detail-photo::before {
-    content: '';
-    position: absolute;
-    top: -20px;
-    left: 20%;
-    width: 120px;
-    height: 45px;
-    background: rgba(255, 255, 255, 0.4);
-    backdrop-filter: blur(3px);
-    -webkit-backdrop-filter: blur(3px);
-    border-left: 1px dashed rgba(0,0,0,0.1);
-    border-right: 1px dashed rgba(0,0,0,0.1);
-    transform: rotate(-15deg);
-    z-index: 10;
-}
-
-/* Detail Info Styling */
-.detail-info {
-    padding-left: 20px;
-}
-
-.detail-info #detail-name {
-    font-family: "Croissant One", serif;
-    font-size: 3.8rem;
-    color: var(--text-main);
-    margin: 0;
-    line-height: 1.1;
-}
-
-#detail-subtitle {
-    font-weight: 800;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    font-size: 0.9rem;
-    color: var(--pill-text);
-    margin-bottom: 10px;
-    display: block;
-}
-
-.flavor-text {
-    font-family: 'Georgia', serif; /* Handwritten-style feel */
-    font-size: 1.2rem;
-    line-height: 1.8;
-    color: #4a5568;
-    margin-top: 25px;
-    font-style: italic;
-}
-
-/* --- SCRAPBOOK NAVIGATION BUTTONS --- */
-.scrapbook-nav-wrapper {
-    display: flex;
-    gap: 30px;
-    margin-top: 50px;
-}
-
-.nav-item {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    cursor: pointer;
-    font-weight: 700;
-    color: var(--text-main);
-    transition: var(--transition);
-}
-
-.nav-item:hover {
-    color: var(--brand-accent);
-    transform: scale(1.05);
+    #hotel-grid { grid-template-columns: 1fr; }
 }

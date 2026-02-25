@@ -9,7 +9,7 @@ const faqData = [
     },
     {q:"Where do I park for the Reception?",
         a:"There is valeted parking onsite",
-        category:"Events"
+        category:"events"
     },
     {q:"When Should I Arrive to the Church?",
         a:"15 Minutes before the ceremony",

@@ -3,39 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RSVP - Event Celebration</title>
-    <link rel="stylesheet" href="../main.css">
+    <title>RSVP - Jess & Ben</title>
+    <link rel="icon" type="image/x-icon" href="../favicon.ico">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Croissant+One&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="../main.css">
 </head>
-<body class="rsvp">
 
+<body class="rsvp" data-root="../">
     <div class="nav-container">
         <nav class="navbar">
             <a href="../index.html" class="nav-tab">Home</a>
-            <a href="../pages/our-story.html" class="nav-tab">Our Story</a>
-            <a href="../pages/faq.html" class="nav-tab">FAQ</a>
-            <a href="../pages/photos.html" class="nav-tab">Photos</a>
-            <a href="../pages/registry.html" class="nav-tab">Registry</a>
-            <a href="../pages/travel.html" class="nav-tab">Travel</a>
-            <a href="../pages/wedding-party.html" class="nav-tab">Wedding Party</a>
+            <a href="our-story.html" class="nav-tab">Our Story</a>
+            <a href="faq.html" class="nav-tab">FAQ</a>
+            <a href="photos.html" class="nav-tab">Photos</a>
+            <a href="registry.html" class="nav-tab">Registry</a>
+            <a href="rsvp.html" class="nav-tab">RSVP</a>
+            <a href="travel.html" class="nav-tab">Travel</a>
+            <a href="wedding-party.html" class="nav-tab">Wedding Party</a>
         </nav>
     </div>
 
     <div id="rsvp-main-wrapper" class="rsvp-hero-layout">
-        
+
         <div id="rsvp-entry-container">
             <div class="rsvp-content-card">
                 <span class="rsvp-eyebrow">Welcome</span>
                 <h1>Enter your group code</h1>
                 <p>Please enter the unique code found on your invitation to begin.</p>
-
                 <div class="input-group-modern">
                     <input type="text" id="group-code-input" placeholder="e.g. SMITH" maxlength="10">
                     <button class="btn-primary-large" id="verify-code-btn">
                         Find Invitation <i class="material-icons">arrow_forward</i>
                     </button>
                 </div>
-
                 <p class="rsvp-help-text">Can't find your code? Check the back of your physical invite.</p>
             </div>
         </div>
@@ -49,7 +52,6 @@
                             <option value="" disabled selected>-- Select Your Name --</option>
                         </select>
                     </div>
-
                     <div class="form-group">
                         <label>Will you attend?</label>
                         <select name="attendance-1" class="attendance-check" data-index="1" required>
@@ -69,7 +71,7 @@
                                 <option value="Beef">Braised Boneless Short Ribs</option>
                                 <option value="Chicken">Preserved Lemon Chicken</option>
                                 <option value="Fish">Chilean Oven Roasted Sea Bass</option>
-                                <option value="Vegetarian">Chef's Seasonal Risotto (Veg/Vegan)</option>
+                                <option value="Vegetarian">Chef's Seasonal Risotto (Vegetarian)</option>
                             </select>
                         </div>
                         <div class="form-group">
@@ -82,7 +84,7 @@
                 <div id="transport-section-1" class="transport-section" style="display: none;">
                     <div class="form-group">
                         <label>Shuttle Service</label>
-                        <p style="font-size: 0.8rem; margin-bottom: 10px; color: #64748b;">Will you take transportation between the hotel and reception?</p>
+                        <p style="font-size: 0.8rem; margin-bottom: 10px; color: #64748b;">We are planning to offer a shuttle to and from the reception. Please indicate whether you plan to utilize this service so that we may ensure there is sufficient seating capacity. The shuttle will offer one trip to the reception, and two trips back. We will provide more information regarding the hotel pickup/dropoff location once available. All of the hotels listed on our travel tab will be within 5 minutes of the pickup/dropoff hotel. Check the FAQ for updates and more details.</p>
                         <select name="transport-1">
                             <option value="" disabled selected>Choose an option</option>
                             <option value="Yes">Yes, please</option>
@@ -100,5 +102,6 @@
     </div>
 
     <script src="../scripts/guest-iterator.js"></script>
+    <script src="../scripts/nav.js" defer></script>
 </body>
 </html>
