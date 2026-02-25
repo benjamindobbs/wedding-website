@@ -5,7 +5,7 @@ const eventDetails = {
     ],
     reception: [
         {line1: "Reception • 6:00PM • The Starting Gate • Semi-Formal",url1:null},
-        {line2:"128 Wilbraham Rd Banquet Hall, Hampden, MA • Valet Parking", url2:"https://maps.app.goo.gl/f9y9hrE75YpYtJi87"}
+        {line2:"128 Wilbraham Rd Banquet Hall, Hampden, MA • Valet Parking", url2:"https://maps.app.goo.gl/jgFsfYf6QJjdai8Y9"}
     ]
 };
 
