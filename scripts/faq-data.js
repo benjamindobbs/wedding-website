@@ -33,7 +33,7 @@ const faqData = [
     {q: "What is the password to the registry?",
         a: "It is the same as the password to this website and is printed on your invitation",
         category: "other"
-    }
+    },
 ];
 
 document.addEventListener('DOMContentLoaded', () => {

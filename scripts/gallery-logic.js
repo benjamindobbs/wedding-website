@@ -5,12 +5,12 @@
  */
 
 const photoGallery = [
-    { src: "../images/gallery-photos/photo-1.jpg", caption: "The Day He Asked",      date: "October 14, 2024",  angle: "-5deg" },
-    { src: "../images/gallery-photos/photo-1.jpg", caption: "Up in the Clouds",      date: "June 22, 2023",     angle: "3deg"  },
-    { src: "../images/gallery-photos/photo-1.jpg", caption: "New Keys!",             date: "January 05, 2025",  angle: "-2deg" },
-    { src: "../images/gallery-photos/photo-1.jpg", caption: "Summer Nights",         date: "August 12, 2024",   angle: "4deg"  },
-    { src: "../images/gallery-photos/photo-1.jpg", caption: "Front Row Seats",       date: "May 30, 2022",      angle: "-3deg" },
-    { src: "../images/gallery-photos/photo-1.jpg", caption: "Welcome Home, Barnaby", date: "March 18, 2025",    angle: "6deg"  },
+    { src: "../images/gallery-photos/photo-1.jpg", caption: "placeholder",      date: "October 14, 2024",  angle: "-5deg" },
+    { src: "../images/gallery-photos/photo-1.jpg", caption: "placeholder",      date: "June 22, 2023",     angle: "3deg"  },
+    { src: "../images/gallery-photos/photo-1.jpg", caption: "placeholder",             date: "January 05, 2025",  angle: "-2deg" },
+    { src: "../images/gallery-photos/photo-1.jpg", caption: "Splaceholder",         date: "August 12, 2024",   angle: "4deg"  },
+    { src: "../images/gallery-photos/photo-1.jpg", caption: "placeholder",       date: "May 30, 2022",      angle: "-3deg" },
+    { src: "../images/gallery-photos/photo-1.jpg", caption: "placeholder", date: "March 18, 2025",    angle: "6deg"  },
 ];
 
 let currentPhotoIndex = 0;
