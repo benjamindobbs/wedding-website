@@ -1,16 +1,15 @@
 const weddingParty = [
-    { name: "Olivia LaRosa",   role: "Maid of Honor",      image: "../images/wedding-party/photo-1.jpg",  rotation: "-2deg", flavor: "placeholder"      },
-    { name: "Elliot Bushman",  role: "Best Man",            image: "../images/wedding-party/photo-1.jpg",  rotation: "3deg",  flavor: "placeholder"    },
-    { name: "Helen Wunderlich",role: "Bridesmaid",          image: "../images/wedding-party/photo-1.jpg",  rotation: "-1deg", flavor: "placeholder"     },
-    { name: "Dan Aitken",      role: "Groomsmen",           image: "../images/wedding-party/photo-1.jpg",  rotation: "4deg",  flavor: "placeholder"     },
-    { name: "Emma Pond",       role: "Bridesmaid",          image: "../images/wedding-party/photo-1.jpg",  rotation: "-1deg", flavor: "placeholder"     },
-    { name: "Evan Gonzales",   role: "Groomsmen",           image: "../images/wedding-party/photo-1.jpg",  rotation: "2deg",  flavor: "placeholder"     },
-    { name: "Alexa Meller",    role: "Bridesmaid",          image: "../images/wedding-party/photo-1.jpg",  rotation: "-2deg", flavor: "placeholder"  },
-    { name: "Marcus Ubarry",   role: "Groomsmen",           image: "../images/wedding-party/marcus.jpg",   rotation: "3deg",  flavor: "placeholder"   },
+    { name: "Olivia LaRosa",   role: "Maid of Honor",      image: "../images/wedding-party/liv.jpg",  rotation: "-2deg", flavor: "placeholder"      },
+    { name: "Elliot Bushman",  role: "Best Man",            image: "../images/wedding-party/elliot.jpg",  rotation: "3deg",  flavor: "I've known Elliot for well over 10 years now. We've traveled to deserts and fjords together, lived together for years, and have never run out of conversation."    },
+    { name: "Helen Wunderlich",role: "Bridesmaid",          image: "../images/wedding-party/helen.jpg",  rotation: "-1deg", flavor: "placeholder"     },
+    { name: "Dan & Alexa",      role: "Groomsmen & Bridesmaid",           image: "../images/wedding-party/dan-alexa.jpg",  rotation: "4deg",  flavor: "placeholder"     },
+    { name: "Emma Pond",       role: "Bridesmaid",          image: "../images/wedding-party/emma.jpg",  rotation: "-1deg", flavor: "I met Dan & Alexa in 2017 working at The Summer Place. I distinctly remember Alexa's shock at how pretty Jess was when I first showed her a picture. She said to me 'Oh wow, she's so pretty! I didn't think you cared about stuff like that'."     },
+    { name: "Evan Gonzales",   role: "Groomsmen",           image: "../images/wedding-party/evan.jpg",  rotation: "2deg",  flavor: "Evan recolects our meeting as 'That annoying freshman stealing my mouse at a robotics meeting', which is more or less how I remember it as well. Evan would introduce me tech threatre as well as to Marcus as well as most of the people I hung out with in high school. He's impossibly funny and charasmatic and is a cherished friend."     },
+    { name: "Marcus Ubarry",   role: "Groomsmen",           image: "../images/wedding-party/marcus.jpg",   rotation: "3deg",  flavor: "Marcus has irreperably damanged my sense of humor. I think I've probably received over 1000 hours of videos over the years, many of which has foundationally changed my vernacular. He genuinely makes anything he's involved in 10 times funnier. He is also an incredibly caring friend who always is there to help regardless of if it's shopping for toasters online or hard labor."   },
     { name: "Carolyn Kamp",    role: "Junior Bridesmaid",   image: "../images/wedding-party/photo-1.jpg",  rotation: "1deg",  flavor: "placeholder"  },
-    { name: "Brian Arnesen",   role: "Groomsmen",           image: "../images/wedding-party/photo-1.jpg",  rotation: "-2deg", flavor: "placeholder"     },
+    { name: "Brian Arnesen",   role: "Groomsmen",           image: "../images/wedding-party/brian.jpg",  rotation: "-2deg", flavor: "I met Brian when I was a freshman in high school. He also biked to school and I made the mistake of giving him and his friends my lock combo. I think after I figured out how to unlock my bike from 10' up that tree is when we really became friends. Even when he is relegated to eating exclusively corn tortillas and crunchy peanutbutter or only ozzy bars and pickles for a week he is the vibe setter. Pure of heart and full of whimsy Brian is the world's greatest travel partner."     },
     { name: "Kelsey Kamp",     role: "Junior Bridesmaid",   image: "../images/wedding-party/photo-1.jpg",  rotation: "3deg",  flavor: "placeholder"  },
-    { name: "Kyle Polito",     role: "Groomsmen",           image: "../images/wedding-party/photo-1.jpg",  rotation: "-1deg", flavor: "placeholder"     },
+    { name: "Kyle Polito",     role: "Groomsmen",           image: "../images/wedding-party/kyle.jpg",  rotation: "-1deg", flavor: "placeholder"     },
 ];
 
 let currentIndex = 0;
