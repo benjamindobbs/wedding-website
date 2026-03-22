@@ -19,7 +19,7 @@ const hotelData = [
         imageUrl: "../images/hotel-photos/marriot.jpg",
         description: "Contemporary rooms with an indoor pool and fitness center. A reliable and comfortable choice.",
         price: "$199",
-        link: "https://www.marriott.com/en-us/hotels/bdlth-fairfield-inn-and-suites-hartford-manchester/overview/",
+        link: "https://www.marriott.com/event-reservations/reservation-link.mi?id=1773249110066&key=GRP&app=resvlink&_branch_match_id=1451598405527886058&_branch_referrer=H4sIAAAAAAAAA8soKSkottLXTywo0MtNLCrKzC8p0UvOz9UvSi3OyczLtgdK2ALZZSCOWmaKraG5ubGRiaWhoYGBmZladmqlrXtQgFpdUWpaKlB3Xnp8UlF%2BeXFqka1zRlF%2BbioAnUE9uWAAAAA%3D",
         distCeremony:"5mi/15 min",
         distReception:"22mi/45 min",
         amenities:{
@@ -34,7 +34,7 @@ const hotelData = [
         imageUrl:"../images/hotel-photos/hilton.jpg",
         description: "Unfussy hotel offering free breakfast, shuttle service, and an indoor pool for a relaxed stay.",
         price: "$199",
-        link: "https://www.hilton.com/en/book/reservation/customize/",
+        link: "https://www.hilton.com/en/book/reservation/deeplink/?ctyhocn=BDLHFHW&groupCode=CHWPDW&arrivaldate=2026-08-13&departuredate=2026-08-16&cid=OM,WW,HILTONLINK,EN,DirectLink&fromId=HILTONLINKDIRECT",
         distCeremony:"5mi/15 min",
         distReception:"22mi/45 min",
         amenities:{

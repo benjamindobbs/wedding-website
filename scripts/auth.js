@@ -1,10 +1,13 @@
+//TODO
+//Strip whitespace + force lowercase
+
 const SITE_PASSWORD = "whosthatbrideitsjess!"; // Set your password here
 
 function checkPassword() {
     const entered = document.getElementById('site-password-input').value;
     const errorMsg = document.getElementById('password-error');
 
-    if (entered === SITE_PASSWORD) {
+    if (entered.replace(/\s+/g, '').toLowerCase() === SITE_PASSWORD.replace(/\s+/g, '').toLowerCase()) {
         // Save to session so they don't have to re-enter on refresh
         sessionStorage.setItem('siteAuth', 'true');
         showSite();
@@ -34,6 +37,10 @@ document.addEventListener('DOMContentLoaded', () => {
 document.addEventListener('DOMContentLoaded', () => {
     const toggleBtn = document.getElementById('toggle-password');
     const passwordInput = document.getElementById('site-password-input');
+
+    passwordInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') checkPassword();
+    });
 
     if (toggleBtn) {
         toggleBtn.addEventListener('click', () => {

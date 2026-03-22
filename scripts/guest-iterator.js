@@ -13,7 +13,7 @@ const groupDatabase ={
 'MAGN':['Nancy Magnuson','Phil Magnuson'],
 'SZKA':['MaryLynn Szoka','Roy Szoka'],
 'LANG':['Sue Lang','James Lang'],
-'GNZO':['Evan Gonzales','Victoria'],
+'GNZO':['Evan Gonzales','Victoria Feldman'],
 'MRGS':['Marcus Ubarry','Cynthia Petersons'],
 'EMAN':['Elliot Bushman','Sara'],
 'BARN':["Brian Arnesen"],
@@ -77,16 +77,26 @@ const groupDatabase ={
 }
 let guestCount = 1;
 
+function findGroupByName(search) {
+    const normalized = search.trim().toLowerCase();
+    for (const key in groupDatabase) {
+        const match = groupDatabase[key].find(name => name.toLowerCase().includes(normalized));
+        if (match) return groupDatabase[key];
+    }
+    return null;
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     const codeBtn = document.getElementById('verify-code-btn');
     const addBtn = document.getElementById('add-guest-btn');
     const container = document.getElementById('additional-guests-container');
-    const codeInput = document.getElementById('group-code-input');
+    const nameInput = document.getElementById('name-search-input');
     const rsvpForm = document.getElementById('rsvp-form');
     const primarySelect = document.getElementById('full-name-1');
     const codeSection = document.getElementById('rsvp-entry-container');
     const mainWrapper = document.getElementById('rsvp-main-wrapper');
-    let maxGroupSize=0;
+    let maxGroupSize = 0;
+    let currentFamilyList = [];
 
     // Initial check on load (starts disabled)
     validateGuestFields();
@@ -95,14 +105,19 @@ document.addEventListener('DOMContentLoaded', () => {
     rsvpForm.addEventListener('input', () => {
         validateGuestFields();
     });
-    // --- 1. CODE VERIFICATION ---
-    codeBtn.addEventListener('click', () => {
-        const code = codeInput.value.toUpperCase();
-        const familyList = groupDatabase[code];
-        maxGroupSize = groupDatabase[code].length;
 
+    nameInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') codeBtn.click();
+    });
+
+    // --- 1. NAME SEARCH ---
+    codeBtn.addEventListener('click', () => {
+        const familyList = findGroupByName(nameInput.value);
 
         if (familyList) {
+            currentFamilyList = familyList;
+            maxGroupSize = familyList.length;
+
             primarySelect.innerHTML = '<option value="" disabled selected>-- Select Your Name --</option>';
             familyList.forEach(name => {
                 const opt = document.createElement('option');
@@ -118,19 +133,17 @@ document.addEventListener('DOMContentLoaded', () => {
             mainWrapper.style.height = 'auto';
             mainWrapper.style.paddingTop = '60px';
         } else {
-            alert("Invalid code. Please try again!");
+            alert("We couldn't find your name. Please double-check the spelling and try again!");
         }
     });
 
     // --- 2. NAME DEDUPLICATION LOGIC ---
     function getAvailableNames() {
-        const code = codeInput.value.toUpperCase();
-        const familyList = groupDatabase[code] || [];
         const usedNames = [];
         document.querySelectorAll('.guest-name-select').forEach(sel => {
             if (sel.value) usedNames.push(sel.value);
         });
-        return familyList.filter(name => !usedNames.includes(name));
+        return currentFamilyList.filter(name => !usedNames.includes(name));
     }
 
     // --- 3. RENDER NEW GUEST ---
@@ -245,6 +258,101 @@ function validateGuestFields() {
         renderNewGuest(available);
     });
 
+
+    // --- 5. REVIEW STEP ---
+    const reviewContainer = document.getElementById('rsvp-review-container');
+
+    rsvpForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        buildAndShowReview();
+    });
+
+    function buildAndShowReview() {
+        const data = new FormData(rsvpForm);
+        const guestCount = rsvpForm.querySelectorAll('.guest-name-select').length;
+        const entreeLabels = {
+            'Beef': 'Braised Boneless Short Ribs',
+            'Chicken': 'Preserved Lemon Chicken',
+            'Fish': 'Chilean Oven Roasted Sea Bass',
+            'Vegetarian': "Chef's Seasonal Risotto (Vegetarian)"
+        };
+
+        let guestsHTML = '';
+        for (let i = 1; i <= guestCount; i++) {
+            const name = data.get(`name-${i}`) || '—';
+            const attendance = data.get(`attendance-${i}`);
+            const attendanceLabel = attendance === 'yes' ? 'Attending' : 'Not attending';
+
+            let detailsHTML = '';
+            if (attendance === 'yes') {
+                const entreeVal = data.get(`entree-${i}`);
+                const entree = entreeLabels[entreeVal] || entreeVal || '—';
+                const dietary = data.get(`dietary-${i}`) || 'None';
+                const transport = data.get(`transport-${i}`) || '—';
+                detailsHTML = `
+                    <div class="review-detail"><span>Entree:</span> ${entree}</div>
+                    <div class="review-detail"><span>Dietary Restrictions:</span> ${dietary}</div>
+                    <div class="review-detail"><span>Shuttle:</span> ${transport}</div>`;
+            }
+
+            guestsHTML += `
+                <div class="review-guest">
+                    <div class="review-guest-name">${name} &mdash; <em>${attendanceLabel}</em></div>
+                    ${detailsHTML}
+                </div>`;
+        }
+
+        const email = data.get('email') || '—';
+
+        reviewContainer.innerHTML = `
+            <div class="form-container">
+                <h2 style="margin-bottom: 5px;">Review Your RSVP</h2>
+                <p style="color: var(--text-muted); margin-bottom: 25px;">Please confirm your details before submitting.</p>
+                <div class="review-email"><span>Contact Email:</span> ${email}</div>
+                <div id="review-guests-list">${guestsHTML}</div>
+                <div class="review-actions">
+                    <button type="button" id="review-back-btn" class="btn-back">&#8592; Go Back &amp; Edit</button>
+                    <button type="button" id="review-submit-btn" class="submit-btn">Confirm &amp; Submit RSVP</button>
+                </div>
+            </div>`;
+
+        reviewContainer.style.display = 'block';
+        rsvpForm.style.display = 'none';
+
+        document.getElementById('review-back-btn').addEventListener('click', () => {
+            reviewContainer.style.display = 'none';
+            rsvpForm.style.display = 'block';
+        });
+
+        document.getElementById('review-submit-btn').addEventListener('click', () => {
+            const submitBtn = document.getElementById('review-submit-btn');
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Submitting...';
+
+            fetch(rsvpForm.action, {
+                method: 'POST',
+                body: new FormData(rsvpForm),
+                headers: { 'Accept': 'application/json' }
+            }).then(response => {
+                if (response.ok) {
+                    reviewContainer.innerHTML = `
+                        <div class="form-container" style="text-align: center; padding: 60px 40px;">
+                            <span class="rsvp-eyebrow">All done!</span>
+                            <h2 style="margin: 10px 0 15px;">We can't wait to see you!</h2>
+                            <p style="color: var(--text-muted);">Your RSVP has been received. We'll be in touch as the big day approaches.</p>
+                        </div>`;
+                } else {
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = 'Confirm & Submit RSVP';
+                    alert('Something went wrong. Please try again.');
+                }
+            }).catch(() => {
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Confirm & Submit RSVP';
+                alert('Something went wrong. Please try again.');
+            });
+        });
+    }
 
     // --- 4. DYNAMIC SHOW/HIDE (Laser Targeted by Index) ---
     document.addEventListener('change', (e) => {

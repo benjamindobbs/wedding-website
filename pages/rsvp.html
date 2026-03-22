@@ -31,15 +31,15 @@
         <div id="rsvp-entry-container">
             <div class="rsvp-content-card">
                 <span class="rsvp-eyebrow">Welcome</span>
-                <h1>Enter your group code</h1>
-                <p>Please enter the unique code found on your invitation to begin.</p>
+                <h1>Find your invitation</h1>
+                <p>Enter your name (or any name in your party) to get started.</p>
                 <div class="input-group-modern">
-                    <input type="text" id="group-code-input" placeholder="e.g. SMITH" maxlength="10">
+                    <input type="text" id="name-search-input" placeholder="e.g. Jane Smith" maxlength="50">
                     <button class="btn-primary-large" id="verify-code-btn">
                         Find Invitation <i class="material-icons">arrow_forward</i>
                     </button>
                 </div>
-                <p class="rsvp-help-text">Can't find your code? Check the back of your physical invite.</p>
+                <p class="rsvp-help-text">Having trouble? Reach out to us directly and we'll help you out.</p>
             </div>
         </div>
 
@@ -60,6 +60,11 @@
                             <option value="no">Regretfully, no</option>
                         </select>
                     </div>
+                </div>
+
+                <div class="form-group" style="margin-bottom: 25px;">
+                    <label for="primary-email">Your Email Address</label>
+                    <input type="email" id="primary-email" name="email" placeholder="you@example.com" style="padding: 12px 16px; border: 1px solid #e2e8f0; border-radius: 8px; font-size: 0.95rem; font-family: inherit; color: var(--text-main); outline: none; width: 100%; box-sizing: border-box; transition: border-color 0.3s;">
                 </div>
 
                 <div id="food-section-1" class="food-section" style="display: none;">
@@ -96,9 +101,11 @@
                 <div id="additional-guests-container"></div>
 
                 <button type="button" id="add-guest-btn">+ Add Another Guest</button>
-                <button type="submit" class="submit-btn">Confirm RSVP</button>
+                <button type="submit" class="submit-btn">Review RSVP</button>
             </div>
         </form>
+
+        <div id="rsvp-review-container" style="display: none; width: 100%; max-width: 800px; margin: 0 auto;"></div>
     </div>
 
     <script src="../scripts/guest-iterator.js"></script>
