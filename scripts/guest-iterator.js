@@ -5,7 +5,7 @@ const groupDatabase ={
 'LOUC':['Monica Carman','Jake Burk'],
 'KDOB':['Kate Ariail','Coke Ariail'],
 'JFON':["Jean Fonvielle"],
-'RDOB':['Becky Dobbs','Annette Watlington'],
+'RDOB':['Rebecca Dobbs','Annette Watlington'],
 'ANNE':["Anne Butterfield"],
 'SHERY':["Sherry Herlehy"],
 'SHARN':["Sharon Herlehy"],
@@ -75,6 +75,24 @@ const groupDatabase ={
 'MLVN':['Liz Melvin','Bob Melvin'],
 'GOOB':['Diana Goober','Marty Goober']
 }
+
+// Add invitation codes here to show the welcome drinks RSVP question to that party
+const welcomeDrinksGroups = new Set([
+  'POTG','SSTR','BRTR','LOUC','KDOB','JFON','RDOB','ANNE','SHERY','SHARN','GNZO','MRGS','EMAN','BARN','THKM','POTB','KYLE','ROSE','KAMP','HOLZ','PLTO','FITZ','PNIK','FOGL','LANA','DMNK','HEND','CADN','LIVY','POND','FRND'
+]);
+
+function stripTitle(name) {
+    return name.replace(/^(mr\.?|mrs\.?|ms\.?|miss|dr\.?|prof\.?|rev\.?|sir)\s+/i, '').trim();
+}
+
+const nameToCode = {};
+for (const [code, names] of Object.entries(groupDatabase)) {
+    for (const name of names) {
+        nameToCode[name.toLowerCase()] = code;
+        nameToCode[stripTitle(name).toLowerCase()] = code;
+    }
+}
+
 let guestCount = 1;
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -87,6 +105,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const codeSection = document.getElementById('rsvp-entry-container');
     const mainWrapper = document.getElementById('rsvp-main-wrapper');
     let maxGroupSize=0;
+    let isWelcomeDrinksEligible = false;
+    let currentGroupCode = null;
 
     // Initial check on load (starts disabled)
     validateGuestFields();
@@ -95,14 +115,21 @@ document.addEventListener('DOMContentLoaded', () => {
     rsvpForm.addEventListener('input', () => {
         validateGuestFields();
     });
-    // --- 1. CODE VERIFICATION ---
-    codeBtn.addEventListener('click', () => {
-        const code = codeInput.value.toUpperCase();
-        const familyList = groupDatabase[code];
-        maxGroupSize = groupDatabase[code].length;
+    codeInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') codeBtn.click();
+    });
 
+    // --- 1. NAME LOOKUP ---
+    codeBtn.addEventListener('click', () => {
+        const input = codeInput.value.trim();
+        const code = nameToCode[input.toLowerCase()] ?? nameToCode[stripTitle(input).toLowerCase()];
+        const familyList = code ? groupDatabase[code] : null;
 
         if (familyList) {
+            currentGroupCode = code;
+            maxGroupSize = familyList.length;
+            isWelcomeDrinksEligible = welcomeDrinksGroups.has(code);
+
             primarySelect.innerHTML = '<option value="" disabled selected>-- Select Your Name --</option>';
             familyList.forEach(name => {
                 const opt = document.createElement('option');
@@ -118,14 +145,13 @@ document.addEventListener('DOMContentLoaded', () => {
             mainWrapper.style.height = 'auto';
             mainWrapper.style.paddingTop = '60px';
         } else {
-            alert("Invalid code. Please try again!");
+            alert("We couldn't find your name. Please check your spelling and try again.");
         }
     });
 
     // --- 2. NAME DEDUPLICATION LOGIC ---
     function getAvailableNames() {
-        const code = codeInput.value.toUpperCase();
-        const familyList = groupDatabase[code] || [];
+        const familyList = currentGroupCode ? groupDatabase[currentGroupCode] : [];
         const usedNames = [];
         document.querySelectorAll('.guest-name-select').forEach(sel => {
             if (sel.value) usedNames.push(sel.value);
@@ -194,6 +220,19 @@ document.addEventListener('DOMContentLoaded', () => {
                     </select>
                 </div>
             </div>
+
+            ${isWelcomeDrinksEligible ? `
+            <div id="welcome-drinks-section-${guestCount}" class="welcome-drinks-section" style="display: none;">
+                <div class="form-group">
+                    <label>Welcome Drinks</label>
+                    <p style="font-size: 0.8rem; margin-bottom: 10px; color: #64748b;">You're invited to join us for welcome drinks the evening before the wedding! Please let us know if you'll be able to make it.</p>
+                    <select name="welcome-drinks-${guestCount}">
+                        <option value="" disabled selected>Choose an option</option>
+                        <option value="Yes">Yes, I'll be there!</option>
+                        <option value="No">No, thank you</option>
+                    </select>
+                </div>
+            </div>` : ''}
         `;
         container.appendChild(guestDiv);
         document.getElementById('add-guest-btn').disabled = true;
@@ -204,10 +243,11 @@ function validateGuestFields() {
     const attendanceSelects = document.querySelectorAll('.attendance-check');
     const entreeSelects = document.querySelectorAll('select[name^="entree-"]');
     const transportSelects = document.querySelectorAll('select[name^="transport-"]');
+    const welcomeDrinksSelects = document.querySelectorAll('select[name^="welcome-drinks-"]');
 
     const currentCount = nameSelects.length;
     const idx = currentCount - 1;
-    
+
     // 1. Check if the group is already full
     if (currentCount >= maxGroupSize) {
         addGuestBtn.disabled = true;
@@ -221,6 +261,7 @@ function validateGuestFields() {
     const currentAttendance = attendanceSelects[idx];
     const currentEntree = entreeSelects[idx];
     const currentTransport = transportSelects[idx];
+    const currentWelcomeDrinks = welcomeDrinksSelects[idx];
 
     if (currentName.value !== "" && currentAttendance.value !== "") {
         if (currentAttendance.value === "no") {
@@ -228,7 +269,8 @@ function validateGuestFields() {
         } else if (currentAttendance.value === "yes") {
             const hasFood = currentEntree && currentEntree.value !== "";
             const hasShuttle = currentTransport && currentTransport.value !== "";
-            if (hasFood && hasShuttle) isComplete = true;
+            const hasWelcomeDrinks = !isWelcomeDrinksEligible || (currentWelcomeDrinks && currentWelcomeDrinks.value !== "");
+            if (hasFood && hasShuttle && hasWelcomeDrinks) isComplete = true;
         }
     }
 
@@ -253,12 +295,16 @@ function validateGuestFields() {
             const foodSec = document.getElementById(`food-section-${index}`);
             const transSec = document.getElementById(`transport-section-${index}`);
 
+            const welcomeDrinksSec = document.getElementById(`welcome-drinks-section-${index}`);
+
             if (e.target.value === 'yes') {
                 if (foodSec) foodSec.style.display = 'block';
                 if (transSec) transSec.style.display = 'block';
+                if (isWelcomeDrinksEligible && welcomeDrinksSec) welcomeDrinksSec.style.display = 'block';
             } else {
                 if (foodSec) foodSec.style.display = 'none';
                 if (transSec) transSec.style.display = 'none';
+                if (welcomeDrinksSec) welcomeDrinksSec.style.display = 'none';
             }
         }
     });
