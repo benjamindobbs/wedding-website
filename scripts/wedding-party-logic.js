@@ -6,9 +6,8 @@ const weddingParty = [
     { name: "Emma Pond",       role: "Bridesmaid",          image: "../images/wedding-party/emma.jpg",  rotation: "-1deg", flavor: "I met Dan & Alexa in 2017 working at The Summer Place. I distinctly remember Alexa's shock at how pretty Jess was when I first showed her a picture. She said to me 'Oh wow, she's so pretty! I didn't think you cared about stuff like that'."     },
     { name: "Evan Gonzales",   role: "Groomsmen",           image: "../images/wedding-party/evan.jpg",  rotation: "2deg",  flavor: "Evan recolects our meeting as 'That annoying freshman stealing my mouse at a robotics meeting', which is more or less how I remember it as well. Evan would introduce me tech threatre as well as to Marcus as well as most of the people I hung out with in high school. He's impossibly funny and charasmatic and is a cherished friend."     },
     { name: "Marcus Ubarry",   role: "Groomsmen",           image: "../images/wedding-party/marcus.jpg",   rotation: "3deg",  flavor: "Marcus has irreperably damanged my sense of humor. I think I've probably received over 1000 hours of videos over the years, many of which has foundationally changed my vernacular. He genuinely makes anything he's involved in 10 times funnier. He is also an incredibly caring friend who always is there to help regardless of if it's shopping for toasters online or hard labor."   },
-    { name: "Carolyn Kamp",    role: "Junior Bridesmaid",   image: "../images/wedding-party/photo-1.jpg",  rotation: "1deg",  flavor: "placeholder"  },
+    { name: "Carolyn & Kelsey Kamp",    role: "Junior Bridesmaids",   image: "../images/wedding-party/photo-1.jpg",  rotation: "1deg",  flavor: "placeholder"  },
     { name: "Brian Arnesen",   role: "Groomsmen",           image: "../images/wedding-party/brian.jpg",  rotation: "-2deg", flavor: "I met Brian when I was a freshman in high school. He also biked to school and I made the mistake of giving him and his friends my lock combo. I think after I figured out how to unlock my bike from 10' up that tree is when we really became friends. Even when he is relegated to eating exclusively corn tortillas and crunchy peanutbutter or only ozzy bars and pickles for a week he is the vibe setter. Pure of heart and full of whimsy Brian is the world's greatest travel partner."     },
-    { name: "Kelsey Kamp",     role: "Junior Bridesmaid",   image: "../images/wedding-party/photo-1.jpg",  rotation: "3deg",  flavor: "placeholder"  },
     { name: "Kyle Polito",     role: "Groomsmen",           image: "../images/wedding-party/kyle.jpg",  rotation: "-1deg", flavor: "placeholder"     },
 ];
 
@@ -19,6 +18,26 @@ document.addEventListener('DOMContentLoaded', () => {
     const directory = document.getElementById('party-directory');
     if (!directory) return;
 
+    // Touch swipe on the detail view
+    const detailView = document.getElementById('party-detail-view');
+    let swipeStartX = 0;
+    let swipeStartY = 0;
+    detailView.addEventListener('touchstart', (e) => {
+        swipeStartX = e.touches[0].clientX;
+        swipeStartY = e.touches[0].clientY;
+    }, { passive: true });
+    detailView.addEventListener('touchend', (e) => {
+        const dx = e.changedTouches[0].clientX - swipeStartX;
+        const dy = e.changedTouches[0].clientY - swipeStartY;
+        if (Math.abs(dy) > Math.abs(dx)) {
+            if (dy > 60) closeDetail();
+        } else {
+            if (Math.abs(dx) < 50) return;
+            if (dx < 0) nextPerson();
+            else prevPerson();
+        }
+    }, { passive: true });
+
     weddingParty.forEach((person, index) => {
         const card = document.createElement('div');
         card.className = 'member-card';
@@ -27,7 +46,7 @@ document.addEventListener('DOMContentLoaded', () => {
         card.innerHTML = `
             <div class="polaroid">
                 <img src="${person.image}" alt="${person.name}">
-                <div class="polaroid-caption">${person.name.split(' ')[0]}</div>
+                <div class="polaroid-caption">${person.name}</div>
             </div>
         `;
         directory.appendChild(card);

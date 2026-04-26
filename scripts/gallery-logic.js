@@ -19,6 +19,26 @@ let isAnimating       = false;
 document.addEventListener('DOMContentLoaded', () => {
     const galleryContainer = document.getElementById('scrapbook-gallery');
 
+    // Touch swipe on the detail view
+    const detailView = document.getElementById('photo-detail-view');
+    let swipeStartX = 0;
+    let swipeStartY = 0;
+    detailView.addEventListener('touchstart', (e) => {
+        swipeStartX = e.touches[0].clientX;
+        swipeStartY = e.touches[0].clientY;
+    }, { passive: true });
+    detailView.addEventListener('touchend', (e) => {
+        const dx = e.changedTouches[0].clientX - swipeStartX;
+        const dy = e.changedTouches[0].clientY - swipeStartY;
+        if (Math.abs(dy) > Math.abs(dx)) {
+            if (dy > 60) closePhoto();
+        } else {
+            if (Math.abs(dx) < 50) return;
+            if (dx < 0) nextPhoto();
+            else prevPhoto();
+        }
+    }, { passive: true });
+
     photoGallery.forEach((photo, index) => {
         const item = document.createElement('div');
         item.className = 'gallery-item';

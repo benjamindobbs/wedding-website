@@ -1228,7 +1228,8 @@ body.gallery {
 }
 
 .food-section,
-.transport-section {
+.transport-section,
+.welcome-drinks-section {
     background: #f1f5f9;
     padding: 20px;
     border-radius: 12px;
@@ -1508,111 +1509,102 @@ body.gallery {
 
 
 /* ============================================================
-   16. REGISTRY PORTAL
+   16. REGISTRY PAGE
    ============================================================ */
-.portal-overlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.4);
-    backdrop-filter: blur(8px);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
+.registry-page {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 80px 30px 60px;
 }
 
-.portal-card {
-    background: white;
-    width: 90%;
-    max-width: 500px;
-    padding: 40px;
-    border-radius: 25px;
+.registry-header {
     text-align: center;
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
-    animation: portalPop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    margin-bottom: 50px;
 }
 
-.portal-subtitle {
+.registry-eyebrow {
     display: block;
     text-transform: uppercase;
-    letter-spacing: 2px;
-    font-size: 0.8rem;
+    letter-spacing: 3px;
+    font-size: 0.75rem;
     font-weight: 800;
     color: var(--brand-accent);
     margin-bottom: 10px;
 }
 
-.portal-card h1 {
+.registry-header h1 {
     font-family: 'Croissant One', serif;
-    font-size: 2rem;
-    margin-bottom: 20px;
+    font-size: 2.8rem;
+    margin: 0 0 12px;
     color: var(--text-main);
 }
 
-/*
- * Scope the registry countdown span to avoid inheriting the flex
- * layout from #countdown on index.html (which is also an #countdown id).
- * The registry span is inside .portal-card so this selector wins.
- */
-.portal-card #countdown {
-    display: inline;
-    font-weight: 800;
-    color: var(--pill-text);
-    font-size: 1.2rem;
-}
-
-.portal-actions {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    margin-top: 30px;
-}
-
-.btn-secondary {
-    background: transparent;
+.registry-header p {
     color: var(--text-muted);
-    border: 1px solid #e2e8f0;
-    padding: 12px;
-    border-radius: 50px;
-    cursor: pointer;
     font-size: 1rem;
-    transition: var(--transition);
+    margin: 0;
 }
 
-.btn-secondary:hover { background: #f8fafc; }
-
-.sitemap-grid {
+.registry-cards {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 10px;
-    margin: 25px 0;
+    gap: 30px;
 }
 
-.sitemap-grid a {
-    background: #f8fafc;
-    padding: 12px;
-    border-radius: 10px;
+.registry-card {
+    background: white;
+    border-radius: 25px;
+    padding: 40px 35px;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 24px;
+}
+
+.registry-card-logo-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    min-height: 80px;
+}
+
+.registry-logo {
+    max-width: 220px;
+    max-height: 90px;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+}
+
+.registry-card-flavor {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin: 0;
+    flex: 1;
+}
+
+.btn-registry {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--pill-text);
+    color: white;
+    padding: 14px 28px;
+    border-radius: 50px;
     text-decoration: none;
-    color: var(--text-main);
-    font-size: 0.9rem;
+    font-size: 0.95rem;
     font-weight: 600;
     transition: var(--transition);
+    width: 100%;
+    justify-content: center;
+    box-sizing: border-box;
 }
 
-.sitemap-grid a:hover {
-    background: var(--pill-bg);
-    color: var(--pill-text);
-}
-
-.btn-close {
-    background: none;
-    border: none;
-    color: var(--brand-accent);
-    text-decoration: underline;
-    cursor: pointer;
-    margin-top: 10px;
-    font-size: 0.9rem;
-}
+.btn-registry:hover { filter: brightness(115%); }
 
 
 /* ============================================================
@@ -1718,6 +1710,13 @@ body.gallery {
 
 /* --- Mobile (≤768px) --- */
 @media (max-width: 768px) {
+    .registry-cards {
+        grid-template-columns: 1fr;
+    }
+
+    .registry-header h1 { font-size: 2rem; }
+    .registry-page { padding: 60px 20px 40px; }
+
     .header        { font-size: 3em; }
     .date-location { font-size: 1.5em; }
 
@@ -1837,7 +1836,8 @@ body.gallery {
     }
 
     .food-section,
-    .transport-section {
+    .transport-section,
+    .welcome-drinks-section {
         padding: 15px;
         margin-top: 10px;
     }
