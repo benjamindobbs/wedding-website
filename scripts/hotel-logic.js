@@ -3,8 +3,8 @@ const hotelData = [
         name: "Cambria Hotel",
         imageUrl: "../images/hotel-photos/cambria.jpg",
         description: "Sophisticated boutique hotel featuring a luxe spa, fine dining, and bright, elegant suites.",
-        price: "$198",
-        link: "https://www.choicehotels.com/connecticut/south-windsor/cambria-hotels/ct136?mc=llgoxxpx",
+        price: "$169",
+        link: "https://www.choicehotels.com/reservations/groups/VZ11R5",
         distCeremony:"5mi/15 min",
         distReception:"22mi/45 min",
         amenities:{
