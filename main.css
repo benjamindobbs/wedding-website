@@ -1156,8 +1156,6 @@ body.gallery {
 
 #name-search-input:focus { border-color: var(--brand-accent); }
 
-#primary-email:focus { border-color: var(--brand-accent); }
-
 .btn-primary-large {
     background: var(--pill-text);
     color: white;
@@ -1218,6 +1216,7 @@ body.gallery {
 }
 
 .form-group select,
+.form-group input[type="email"],
 .form-group textarea {
     padding: 12px;
     border: 1px solid #e2e8f0;
@@ -1547,7 +1546,7 @@ body.gallery {
 
 .registry-cards {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(3, 1fr);
     gap: 30px;
 }
 

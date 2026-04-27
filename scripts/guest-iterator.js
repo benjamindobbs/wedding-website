@@ -15,7 +15,7 @@ const groupDatabase ={
 'LANG':['Sue Lang','James Lang'],
 'GNZO':['Evan Gonzales','Victoria Feldman'],
 'MRGS':['Marcus Ubarry','Cynthia Petersons'],
-'EMAN':['Elliot Bushman','Sara'],
+'EMAN':['Elliot Bushman','Sara Fries'],
 'BARN':["Brian Arnesen"],
 'THKM':['Dan Aitken','Alexa Meller'],
 'JKJN':['Jack Marsalisi','Jen Aguilar'],
@@ -124,13 +124,13 @@ document.addEventListener('DOMContentLoaded', () => {
     rsvpForm.addEventListener('input', () => {
         validateGuestFields();
     });
-    codeInput.addEventListener('keydown', (e) => {
+    nameInput.addEventListener('keydown', (e) => {
         if (e.key === 'Enter') codeBtn.click();
     });
 
     // --- 1. NAME LOOKUP ---
     codeBtn.addEventListener('click', () => {
-        const input = codeInput.value.trim();
+        const input = nameInput.value.trim();
         const code = nameToCode[input.toLowerCase()] ?? nameToCode[stripTitle(input).toLowerCase()];
         const familyList = code ? groupDatabase[code] : null;
 
@@ -165,7 +165,7 @@ document.addEventListener('DOMContentLoaded', () => {
         document.querySelectorAll('.guest-name-select').forEach(sel => {
             if (sel.value) usedNames.push(sel.value);
         });
-        return currentFamilyList.filter(name => !usedNames.includes(name));
+        return familyList.filter(name => !usedNames.includes(name));
     }
 
     // --- 3. RENDER NEW GUEST ---
@@ -340,7 +340,7 @@ function validateGuestFields() {
                 </div>`;
         }
 
-        const email = data.get('email') || '—';
+        const email = data.get('email-1') || '—';
 
         reviewContainer.innerHTML = `
             <div class="form-container">

@@ -34,6 +34,15 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
+// Guard for inner pages: redirect to homepage if not authenticated
+(function () {
+    const isHomepage = !!document.getElementById('password-overlay');
+    if (!isHomepage && sessionStorage.getItem('siteAuth') !== 'true') {
+        const root = document.body.dataset.root || '../';
+        window.location.replace(root + 'index.html');
+    }
+})();
+
 document.addEventListener('DOMContentLoaded', () => {
     const toggleBtn = document.getElementById('toggle-password');
     const passwordInput = document.getElementById('site-password-input');

@@ -1,6 +1,6 @@
 const faqData = [
     {q:"How do I RSVP?",
-      a:"You can RSVP on our website by filling out the form" + '<a href=\"../pages/rsvp.html\"> here </a>',
+      a:"You can RSVP on our website by filling out the form" + '<a href=\"../rsvp/\"> here </a>',
       category: "events"
     },
     {q:"Where do I park for the Ceremony?",
@@ -16,18 +16,18 @@ const faqData = [
         category: "events"
     },
     {q:"Where can I stay?",
-        a:"Please consult the options listed on our" + '<a href=\"../pages/travel.html\"> travel page </a>',
+        a:"Please consult the options listed on our" + '<a href=\"../travel/\"> travel page </a>',
         category: "travel"
 
     },
     {
         q:"Do I have a plus one?",
-        a:"You will see all valid guests when you enter your group code in the RSVP "+ '<a href=\"../pages/rsvp.html\"> form </a>',
+        a:"You will see all valid guests when you enter your group code in the RSVP "+ '<a href=\"../rsvp/\"> form </a>',
         category: "events"
     },
     {
         q:"Are Kids Allowed?",
-            a:"Kids will appear in the RSVP "+ '<a href=\"../pages/rsvp.html\"> form </a>'+" if they are intended to attend.",
+            a:"Kids will appear in the RSVP "+ '<a href=\"../rsvp/\"> form </a>'+" if they are intended to attend.",
             category: "events"
     },
     {q: "What is the password to the registry?",
