@@ -1,35 +1,38 @@
 const eventDetails = {
-    ceremony: [
-        {line1: "Ceremony • 3:30 PM • Emanuel Lutheran Church",url1:null},
-        {line2:"60 Church St, Manchester, CT • On Site Parking",url2:"https://maps.app.goo.gl/tdSsSY2uhXiaKwE99"}
-    ],
-    reception: [
-        {line1: "Reception • 6:00PM • The Starting Gate • Semi-Formal",url1:null},
-        {line2:"128 Wilbraham Rd Banquet Hall, Hampden, MA • Valet Parking", url2:"https://maps.app.goo.gl/jgFsfYf6QJjdai8Y9"}
-    ]
+    ceremony: {
+        title: "Ceremony",
+        time: "3:30 PM",
+        venue: "Emanuel Lutheran Church",
+        address: "60 Church St, Manchester, CT",
+        mapsUrl: "https://maps.app.goo.gl/tdSsSY2uhXiaKwE99",
+        parking: "on-site parking"
+    },
+    reception: {
+        title: "Reception",
+        time: "6:00 PM",
+        venue: "The Starting Gate",
+        address: "128 Wilbraham Rd, Hampden, MA",
+        mapsUrl: "https://maps.app.goo.gl/jgFsfYf6QJjdai8Y9",
+        dresscode: "semi-formal",
+        parking: "valet parking"
+    }
 };
 
 document.addEventListener('DOMContentLoaded', () => {
-    const renderModern = (id, data) => {
+    const render = (id, data) => {
         const container = document.getElementById(id);
         if (!container) return;
 
-        // Split data[1].line2 by the bullet point if it exists
-        const parts = data[1].line2.split('•').map(p => p.trim());
+        const extras = [data.dresscode, data.parking].filter(Boolean).join(', ');
 
         container.innerHTML = `
-            <div class="line-1">${data[0].line1}</div>
-            <div class="line-2-wrapper">
-                <a href="${data[1].url2}" target="_blank" class="info-pill link-pill">
-                    <i class="material-icons">place</i> ${parts[0]}
-                </a>
-                <div class="info-pill">
-                    <i class="material-icons">local_parking</i> ${parts[1]}
-                </div>
+            <div class="line-1">${data.title}</div>
+            <div class="line-prose">
+                ${data.time} at <a href="${data.mapsUrl}" target="_blank">${data.venue}</a>, ${data.address}${extras ? ` — ${extras}` : ''}
             </div>
         `;
     };
 
-    renderModern('ceremony-info', eventDetails.ceremony);
-    renderModern('reception-info', eventDetails.reception);
+    render('ceremony-info', eventDetails.ceremony);
+    render('reception-info', eventDetails.reception);
 });

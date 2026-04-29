@@ -19,11 +19,9 @@ function checkPassword() {
 function showSite() {
     const overlay = document.getElementById('password-overlay');
     const content = document.getElementById('main-site-content');
-    
-    // First, make the content behind it exist in the layout
+    if (!overlay || !content) return;
+
     content.style.display = 'block';
-    
-    // Then, trigger the fade out animation
     overlay.classList.add('fade-out');
 }
 
@@ -46,6 +44,7 @@ document.addEventListener('DOMContentLoaded', () => {
 document.addEventListener('DOMContentLoaded', () => {
     const toggleBtn = document.getElementById('toggle-password');
     const passwordInput = document.getElementById('site-password-input');
+    if (!passwordInput) return;
 
     passwordInput.addEventListener('keydown', (e) => {
         if (e.key === 'Enter') checkPassword();

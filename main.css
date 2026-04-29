@@ -27,6 +27,8 @@
    ============================================================ */
 
 
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display+SC&display=swap');
+
 /* ============================================================
    1. DESIGN TOKENS
    ============================================================ */
@@ -49,7 +51,7 @@
 body {
     background-color: var(--bg-color);
     margin: 0;
-    font-family: 'Segoe UI', sans-serif;
+    font-family: "Playfair Display SC", serif;
     color: var(--text-main);
     overflow-x: hidden;
 }
@@ -67,7 +69,7 @@ body.gallery {
    3. TYPOGRAPHY & HEADERS
    ============================================================ */
 .header {
-    font-family: "Croissant One", serif;
+    font-family: "Great Vibes", cursive;
     font-weight: 200;
     font-size: 5em;
     text-align: center;
@@ -76,7 +78,7 @@ body.gallery {
 }
 
 .date-location {
-    font-family: "Croissant One", serif;
+    font-family: "Great Vibes", cursive;
     font-weight: 100;
     font-size: 2em;
     text-align: center;
@@ -85,7 +87,7 @@ body.gallery {
 }
 
 .page-title {
-    font-family: "Croissant One", serif;
+    font-family: "Great Vibes", cursive;
     font-size: 3rem;
     text-align: center;
     margin-bottom: 10px;
@@ -218,7 +220,7 @@ body.gallery {
 }
 
 .sidebar-title {
-    font-family: "Croissant One", serif;
+    font-family: "Great Vibes", cursive;
     font-size: 1.3rem;
     color: var(--text-main);
     margin: 0;
@@ -283,7 +285,7 @@ body.gallery {
     justify-content: center;
     align-items: baseline;
     gap: 15px;
-    font-family: "Croissant One", serif;
+    font-family: "Great Vibes", cursive;
     color: var(--text-main);
 }
 
@@ -308,10 +310,10 @@ body.gallery {
     width: 90%;
     max-width: 1200px;
     margin: 20px auto;
-    background: rgba(255, 255, 255, 0.65);
+    background: rgba(80, 80, 80, 0.55);
     backdrop-filter: blur(25px);
     -webkit-backdrop-filter: blur(25px);
-    border: 1px solid rgba(255, 255, 255, 0.5);
+    border: 1px solid rgba(180, 180, 180, 0.4);
     border-radius: 20px;
     padding: 22px 10px;
     display: flex;
@@ -333,8 +335,22 @@ body.gallery {
     font-weight: 900;
     text-transform: uppercase;
     letter-spacing: 2px;
-    color: var(--text-main);
+    color: #fff;
     margin-bottom: 5px;
+}
+
+.line-prose {
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.9);
+    text-align: center;
+    line-height: 1.5;
+}
+
+.line-prose a {
+    color: #fff;
+    font-weight: 700;
+    text-decoration: underline;
+    text-underline-offset: 3px;
 }
 
 .line-2-wrapper {
@@ -438,7 +454,7 @@ body.gallery {
 }
 
 .password-box h2 {
-    font-family: "Croissant One", serif;
+    font-family: "Great Vibes", cursive;
     font-size: 1.8rem;
     margin-bottom: 10px;
     color: var(--text-main);
@@ -550,6 +566,7 @@ body.gallery {
     padding: 10px 10px 36px 10px;
 }
 
+
 /* --- 9c. PHOTO GALLERY scatter grid --- */
 /* More bottom space to fit the two-line caption (title + date) */
 .gallery-item .polaroid {
@@ -626,7 +643,7 @@ body.gallery {
 /* --- Directory: scattered polaroid grid (mirrors photo gallery) --- */
 #party-directory {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    grid-template-columns: repeat(5, 1fr);
     gap: 70px 40px;
     padding: 60px 5% 100px;
     max-width: 1400px;
@@ -735,11 +752,14 @@ body.gallery {
 }
 
 .detail-info #detail-name {
-    font-family: "Croissant One", serif;
-    font-size: 3.5rem;
+    font-family: "Great Vibes", cursive;
+    font-size: clamp(1.5rem, 4vw, 3.5rem);
     margin: 0;
     line-height: 1.1;
     color: #2d2416;
+    white-space: nowrap;
+    overflow: visible;
+    padding: 0 4px;
 }
 
 #detail-subtitle {
@@ -865,7 +885,7 @@ body.gallery {
 }
 
 #photo-detail-view .photo-caption-title {
-    font-family: 'Croissant One', serif;
+    font-family: "Great Vibes", cursive;
     font-size: 2.2rem;
     color: #2d2416;
     margin: 0 0 6px;
@@ -930,19 +950,18 @@ body.gallery {
     box-shadow: 0 0 0 6px white;
 }
 
-.story-image-wrap { flex: 1; position: relative; }
+.story-image-wrap {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
-/*
- * Our Story uses a framed-photo look (thick white borders, slight tilt)
- * rather than the .polaroid component.
- */
-.story-image-wrap img {
+.story-image-wrap .polaroid {
+    transform: rotate(var(--rotation, 0deg));
+    transition: transform 0.3s ease;
+    max-width: 340px;
     width: 100%;
-    border-radius: 4px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-    border: 12px solid white;
-    border-bottom: 40px solid white;
-    transform: rotate(var(--story-rotation, -2deg));
 }
 
 .story-text-wrap { flex: 1; }
@@ -953,20 +972,19 @@ body.gallery {
     color: var(--brand-accent);
     text-transform: uppercase;
     letter-spacing: 2px;
-    font-size: 0.9rem;
-    margin-bottom: 10px;
-}
-
-.story-text-wrap h2 {
-    font-family: 'Croissant One', serif;
-    font-size: 2.5rem;
-    margin-bottom: 20px;
+    font-size: 1.4rem;
+    margin-bottom: 14px;
 }
 
 .story-content {
-    font-size: 1.1rem;
-    line-height: 1.8;
-    color: var(--text-muted);
+    font-size: 0.95rem;
+    font-family: 'Georgia', serif;
+    line-height: 1.7;
+    color: var(--text-main);
+}
+
+.story-content p + p {
+    margin-top: 1em;
 }
 
 
@@ -1019,11 +1037,34 @@ body.gallery {
     font-weight: 700;
 }
 
-.hotel-price {
-    font-weight: bold;
-    color: #555;
+.hotel-contact {
     margin-bottom: 15px;
-    font-size: 1.1rem;
+    font-size: 0.9rem;
+}
+
+.contact-item {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 5px;
+}
+
+.contact-label {
+    font-weight: 600;
+    color: var(--text-main);
+    white-space: nowrap;
+}
+
+.contact-value {
+    color: var(--text-muted);
+}
+
+.contact-link {
+    color: var(--brand-accent);
+    text-decoration: none;
+}
+
+.contact-link:hover {
+    text-decoration: underline;
 }
 
 .hotel-logistics {
@@ -1063,13 +1104,6 @@ body.gallery {
 .status-yes { color: #2f855a; }
 .status-no  { color: #a0aec0; text-decoration: line-through; opacity: 0.7; }
 
-.hotel-description {
-    font-size: 0.9rem;
-    color: var(--text-muted);
-    line-height: 1.6;
-    margin-bottom: 20px;
-    flex-grow: 1;
-}
 
 .book-btn {
     display: block;
@@ -1489,13 +1523,14 @@ body.gallery {
     max-height: 0;
     overflow: hidden;
     transition: max-height 0.4s ease, margin-top 0.3s ease;
-    color: var(--text-muted);
+    color: var(--text-main);
     line-height: 1.7;
     font-size: 0.95rem;
+    font-family: 'Georgia', serif;
 }
 
 .faq-card.active .faq-answer {
-    max-height: 500px;
+    max-height: 2000px;
     margin-top: 15px;
 }
 
@@ -1532,7 +1567,7 @@ body.gallery {
 }
 
 .registry-header h1 {
-    font-family: 'Croissant One', serif;
+    font-family: "Great Vibes", cursive;
     font-size: 2.8rem;
     margin: 0 0 12px;
     color: var(--text-main);
@@ -1693,7 +1728,7 @@ body.gallery {
     }
 
     .detail-info #detail-name {
-        font-size: 2.5rem;
+        font-size: clamp(1.2rem, 6vw, 2.5rem);
         text-align: center;
     }
 
@@ -1749,7 +1784,7 @@ body.gallery {
         border: 1px solid rgba(255,255,255,0.6);
         padding: 14px 16px;
         z-index: 900;
-        background: rgba(255, 255, 255, 0.88);
+        background: rgba(80, 80, 80, 0.88);
         backdrop-filter: blur(20px);
         -webkit-backdrop-filter: blur(20px);
     }

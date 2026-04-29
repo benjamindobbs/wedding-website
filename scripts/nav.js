@@ -13,12 +13,11 @@
     const pages = [
         { label: 'Home',          href: `${root}index.html` },
         { label: 'Our Story',     href: `${root}our-story/` },
-        { label: 'FAQ',           href: `${root}faq/` },
-        { label: 'Photos',        href: `${root}photos/` },
-        { label: 'Registry',      href: `${root}registry/` },
-        { label: 'RSVP',          href: `${root}rsvp/` },
-        { label: 'Travel',        href: `${root}travel/` },
         { label: 'Wedding Party', href: `${root}wedding-party/` },
+        { label: 'Registry',      href: `${root}registry/` },
+        { label: 'Travel',        href: `${root}travel/` },
+        { label: 'FAQ',           href: `${root}faq/` },
+        { label: 'RSVP',          href: `${root}rsvp/` },
     ];
 
     const navLinks = pages

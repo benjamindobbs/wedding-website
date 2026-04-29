@@ -7,7 +7,7 @@
     <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Croissant+One&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="../main.css">
 </head>
@@ -17,12 +17,11 @@
         <nav class="navbar">
             <a href="../index.html" class="nav-tab">Home</a>
             <a href="../our-story/" class="nav-tab">Our Story</a>
-            <a href="../faq/" class="nav-tab">FAQ</a>
-            <a href="../photos/" class="nav-tab">Photos</a>
-            <a href="../registry/" class="nav-tab">Registry</a>
-            <a href="../rsvp/" class="nav-tab">RSVP</a>
-            <a href="../travel/" class="nav-tab">Travel</a>
             <a href="../wedding-party/" class="nav-tab">Wedding Party</a>
+            <a href="../registry/" class="nav-tab">Registry</a>
+            <a href="../travel/" class="nav-tab">Travel</a>
+            <a href="../faq/" class="nav-tab">FAQ</a>
+            <a href="../rsvp/" class="nav-tab">RSVP</a>
         </nav>
     </div>
 
@@ -47,7 +46,7 @@
             <div class="form-container">
                 <div class="form-main-grid">
                     <div class="form-group">
-                        <label for="full-name-1">Primary Guest Name</label>
+                        <label for="full-name-1">Guest 1</label>
                         <select id="full-name-1" name="name-1" class="guest-name-select" required>
                             <option value="" disabled selected>-- Select Your Name --</option>
                         </select>
@@ -64,8 +63,8 @@
 
                 <div class="form-group">
                     <label for="email-1">Email Address</label>
-                    <input type="email" id="email-1" name="email-1" placeholder="your@email.com">
-                    <small style="color: #64748b; font-size: 0.75rem;">Optional — only used if we need to reach you about your RSVP.</small>
+                    <input type="email" id="email-1" name="email-1" placeholder="your@email.com" required>
+                    <small style="color: #64748b; font-size: 0.75rem;">Please provide us with the best email address for your party, as we want to ensure we have another form of contact in the event of any questions regarding your RSVP or if there is a need to provide updates regarding the wedding. </small>
                 </div>
 
                 <div id="food-section-1" class="food-section" style="display: none;">
@@ -90,7 +89,7 @@
                 <div id="transport-section-1" class="transport-section" style="display: none;">
                     <div class="form-group">
                         <label>Shuttle Service</label>
-                        <p style="font-size: 0.8rem; margin-bottom: 10px; color: #64748b;">We are planning to offer a shuttle to and from the reception. Please indicate whether you plan to utilize this service so that we may ensure there is sufficient seating capacity. The shuttle will offer one trip to the reception, and two trips back. We will provide more information regarding the hotel pickup/dropoff location once available. All of the hotels listed on our travel tab will be within 5 minutes of the pickup/dropoff hotel. Check the FAQ for updates and more details.</p>
+                        <p style="font-size: 0.8rem; margin-bottom: 10px; color: #64748b;">We are planning to offer a shuttle to and from the reception. Please indicate whether you plan to utilize this service so that we may ensure there is sufficient seating capacity. The shuttle will offer one trip to the reception, and two trips back. We will provide more information regarding the hotel pickup/dropoff location once available. All of the hotels listed on our travel tab will be within 5 minutes of the pickup/dropoff hotel. Check the FAQ for updates and more details. Please note, we will email all of the guests who indicate they will be utilizing the shuttle to provide more details regarding the timing and location.</p>
                         <select name="transport-1">
                             <option value="" disabled selected>Choose an option</option>
                             <option value="Yes">Yes, please</option>
@@ -102,7 +101,7 @@
                 <div id="welcome-drinks-section-1" class="welcome-drinks-section" style="display: none;">
                     <div class="form-group">
                         <label>Welcome Drinks</label>
-                        <p style="font-size: 0.8rem; margin-bottom: 10px; color: #64748b;">You're invited to join us for welcome drinks the evening before the wedding! The parents of the groom will be hosting from 7:30-10:00 at 74 Charing Rd, South Windsor, CT 06074</p>
+                        <p style="font-size: 0.8rem; margin-bottom: 10px; color: #64748b;">You're invited to join us for welcome drinks the evening before the wedding! The parents of the groom will be hosting from 7:30-10:00 at 74 Charing Rd, South Windsor, CT 06074. We know our wedding party and out of town family are excited to celebrate with us, and we hope you will be able to join us for this night before nightcap! </p>
                         <select name="welcome-drinks-1">
                             <option value="" disabled selected>Choose an option</option>
                             <option value="Yes">Yes, I'll be there!</option>
@@ -115,6 +114,7 @@
 
                 <button type="button" id="add-guest-btn">+ Add Another Guest</button>
                 <button type="submit" class="submit-btn">Review RSVP</button>
+                <p style="font-size: 0.8rem; color: #64748b; text-align: center; margin-top: 16px;">Having Trouble? Please reach out to Jess and Ben directly via email at <a href="mailto:jessandbendobbs@gmail.com">jessandbendobbs@gmail.com</a>. Ben created this website and RSVP himself, so he will be able to troubleshoot with you as needed!</p>
             </div>
         </form>
 
