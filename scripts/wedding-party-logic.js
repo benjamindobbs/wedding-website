@@ -29,9 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
     detailView.addEventListener('touchend', (e) => {
         const dx = e.changedTouches[0].clientX - swipeStartX;
         const dy = e.changedTouches[0].clientY - swipeStartY;
-        if (Math.abs(dy) > Math.abs(dx)) {
-            if (dy > 60) closeDetail();
-        } else {
+        if (Math.abs(dx) >= Math.abs(dy)) {
             if (Math.abs(dx) < 50) return;
             if (dx < 0) nextPerson();
             else prevPerson();
