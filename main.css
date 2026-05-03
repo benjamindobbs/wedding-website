@@ -2131,6 +2131,10 @@ body.gallery {
         margin-top: 10px;
     }
 
+    /* Local recs: single card per page on mobile */
+    #recs-carousel-track,
+    .recs-filtered-grid  { grid-template-columns: 1fr; }
+
     /* Gallery: disable stagger on small screens */
     #scrapbook-gallery {
         grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
@@ -2157,7 +2161,7 @@ body.gallery {
 
     #hotel-grid          { grid-template-columns: 1fr; }
     #recs-carousel-track,
-    .recs-filtered-grid  { grid-template-columns: repeat(2, 1fr); gap: 16px; }
+    .recs-filtered-grid  { grid-template-columns: 1fr; gap: 16px; }
     .recs-carousel-view,
     .recs-filtered-view  { gap: 8px; }
     .recs-arrow          { width: 36px; height: 36px; }
