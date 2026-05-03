@@ -2,37 +2,61 @@ const eventDetails = {
     ceremony: {
         title: "Ceremony",
         time: "3:30 PM",
+        timeStart: "20260815T153000",
+        timeEnd:   "20260815T160000",
         venue: "Emanuel Lutheran Church",
         address: "60 Church St, Manchester, CT",
         mapsUrl: "https://maps.app.goo.gl/tdSsSY2uhXiaKwE99",
-        parking: "on-site parking"
+        details: "We joyfully invite you to celebrate our marriage at Emanuel Lutheran Church. Please plan to arrive by 3:15 PM. On-site parking is available. The ceremony will be held inside the church."
     },
     reception: {
-        title: "Reception",
-        time: "6:00 PM",
+        title: "Cocktail Hour",
+        time: "5:30 PM",
+        timeStart: "20260815T173000",
+        timeEnd:   "20260815T223000",
         venue: "The Starting Gate",
         address: "128 Wilbraham Rd, Hampden, MA",
         mapsUrl: "https://maps.app.goo.gl/jgFsfYf6QJjdai8Y9",
-        dresscode: "semi-formal",
-        parking: "valet parking"
+        details: "Please join us for an evening of dinner and dancing at The Starting Gate in Hampden, Massachusetts. Cocktail hour will begin at five-thirty, and a formal dinner to follow at six-thirty. "
     }
 };
 
+function addToCalendar(type) {
+    const ev = eventDetails[type];
+    const params = new URLSearchParams({
+        action: 'TEMPLATE',
+        text: `Jess & Ben's Wedding — ${ev.title}`,
+        dates: `${ev.timeStart}/${ev.timeEnd}`,
+        details: ev.details,
+        location: `${ev.venue}, ${ev.address}`,
+        ctz: 'America/New_York'
+    });
+    window.open(`https://calendar.google.com/calendar/render?${params}`, '_blank');
+}
+
 document.addEventListener('DOMContentLoaded', () => {
-    const render = (id, data) => {
+    const render = (id, data, type) => {
         const container = document.getElementById(id);
         if (!container) return;
 
-        const extras = [data.dresscode, data.parking].filter(Boolean).join(', ');
-
         container.innerHTML = `
-            <div class="line-1">${data.title}</div>
-            <div class="line-prose">
-                ${data.time} at <a href="${data.mapsUrl}" target="_blank">${data.venue}</a>, ${data.address}${extras ? ` — ${extras}` : ''}
+            <h2 class="pamphlet-event-title">${data.title}</h2>
+            <div class="pamphlet-time">${data.time}</div>
+            <div class="pamphlet-venue">${data.venue}</div>
+            <div class="pamphlet-address">${data.address}</div>
+            <div class="pamphlet-rule"></div>
+            <p class="pamphlet-details">${data.details}</p>
+            <div class="pamphlet-actions">
+                <a href="${data.mapsUrl}" class="pamphlet-btn" target="_blank" rel="noopener">
+                    <i class="material-icons">directions</i> Get Directions
+                </a>
+                <button class="pamphlet-btn" onclick="addToCalendar('${type}')">
+                    <i class="material-icons">event</i> Add to Calendar
+                </button>
             </div>
         `;
     };
 
-    render('ceremony-info', eventDetails.ceremony);
-    render('reception-info', eventDetails.reception);
+    render('ceremony-pamphlet', eventDetails.ceremony, 'ceremony');
+    render('reception-pamphlet', eventDetails.reception, 'reception');
 });
