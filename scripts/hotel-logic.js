@@ -107,7 +107,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     </div>
                 </div>
 
-                <a href="${hotel.link}" target="_blank" class="book-btn">View Roomblock Info</a>
+                <a href="${hotel.link}" target="_blank" class="book-btn">View Room Block Info</a>
             </div>
         `;
 

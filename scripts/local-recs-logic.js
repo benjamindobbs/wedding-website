@@ -19,7 +19,7 @@ const localRecsData = [
         name: "Birdhouse Coffee",
         imageUrl: "../images/local-recs/birdhouse.jpg",
         websiteUrl: "https://www.birdhousecoffee.com/",
-        flavorText: "Good coffee with nice indoor/outdoor seating. Birdhouse is infront of the local wetlands reserve as well. You can technically walk to the entrance, but I would reccomend driving."
+        flavorText: "Good coffee with nice indoor/outdoor seating."
     },
     {
         category: "Breakfast",

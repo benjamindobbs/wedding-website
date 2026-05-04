@@ -8,7 +8,7 @@ const eventDetails = {
         venue: "Emanuel Lutheran Church",
         address: "60 Church St, Manchester, CT",
         mapsUrl: "https://maps.app.goo.gl/tdSsSY2uhXiaKwE99",
-        details: "We joyfully invite you to celebrate our marriage at Emanuel Lutheran Church. Please plan to arrive by 3:15 PM. On-site parking is available. The ceremony will be held inside the church."
+        details: "We joyfully invite you to celebrate our marriage at Emanuel Lutheran Church. Please plan to arrive by 3:15 PM. The ceremony will be held inside the church."
     },
     reception: {
         title: "Cocktail Hour",
@@ -20,6 +20,17 @@ const eventDetails = {
         address: "128 Wilbraham Rd, Hampden, MA",
         mapsUrl: "https://maps.app.goo.gl/jgFsfYf6QJjdai8Y9",
         details: "Please join us for an evening of dinner and dancing at The Starting Gate in Hampden, Massachusetts. Cocktail hour will begin at five-thirty, and a formal dinner to follow at six-thirty. "
+    },
+    afterParty: {
+        title: "After Party",
+        time: "11:00 PM",
+        endTime: "12:00 AM",
+        timeStart: "20260815T230000",
+        timeEnd:   "20260816T000000",
+        venue: "Cambria Hotel",
+        address: "1000 Long Leaf Ln, South Windsor, CT",
+        mapsUrl: "https://maps.google.com/?q=1000+Long+Leaf+Ln,+South+Windsor,+CT+06074",
+        details: "We invite you to join us for a relaxed gathering at the Cambria Hotel bar following the reception. The hotel bar remains open until midnight — we hope you will raise a final glass with us and close the evening together."
     }
 };
 
@@ -61,4 +72,5 @@ document.addEventListener('DOMContentLoaded', () => {
 
     render('ceremony-pamphlet', eventDetails.ceremony, 'ceremony');
     render('reception-pamphlet', eventDetails.reception, 'reception');
+    render('after-party-pamphlet', eventDetails.afterParty, 'afterParty');
 });
