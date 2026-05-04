@@ -38,9 +38,9 @@
     --text-main:     rgb(39, 39, 39);
     --text-muted:    #64748b;
     --text-light:    #94a3b8;
-    --brand-accent:  #0056b3;
+    --brand-accent:  #576A8F;
     --pill-bg:       #e1efff;
-    --pill-text:     #0056b3;
+    --pill-text:     #576A8F;
     --transition:    all 0.25s ease;
 }
 
@@ -56,12 +56,10 @@ body {
     overflow-x: hidden;
 }
 
-/* Scrapbook paper texture — only on pages that use it */
-body.wedding-party,
-body.our-story,
-body.gallery {
+/* Scrapbook paper texture — applied site-wide */
+body {
     background-image: url("https://www.transparenttextures.com/patterns/natural-paper.png");
-    background-attachment: fixed;
+    background-attachment: scroll;
 }
 
 
@@ -120,7 +118,7 @@ body.gallery {
 
 /* --- Desktop horizontal navbar --- */
 .nav-container {
-    padding: 30px 0;
+    padding: 10px 0 0 0;
     z-index: 20;
     position: relative;
 }
@@ -312,16 +310,12 @@ body.gallery {
 #event-pamphlet {
     position: relative;
     z-index: 10;
-    width: 90%;
+    width: 60%;
     max-width: 860px;
-    margin: 24px auto;
-    background-color: #f7f2e8;
-    background-image: url("https://www.transparenttextures.com/patterns/natural-paper.png");
-    border: 1px solid rgba(170, 150, 110, 0.5);
-    border-radius: 3px;
-    box-shadow: 3px 5px 14px rgba(0, 0, 0, 0.2), inset 0 0 1px rgba(255, 255, 255, 0.8);
+    margin: 0 auto 24px;
+    background-color: transparent;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     overflow: hidden;
 }
 
@@ -335,9 +329,9 @@ body.gallery {
 }
 
 .pamphlet-divider {
-    width: 1px;
+    height: 1px;
+    width: 100%;
     background: rgba(150, 130, 100, 0.4);
-    margin: 28px 0;
 }
 
 .pamphlet-event-title {
@@ -387,16 +381,15 @@ body.gallery {
     text-align: center;
     line-height: 1.8;
     margin: 0;
-    max-width: 280px;
+    width: 80%;
 }
 
 .pamphlet-actions {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     gap: 8px;
     margin-top: 10px;
-    width: 100%;
-    align-items: center;
+    justify-content: center;
 }
 
 .pamphlet-btn {
@@ -416,9 +409,7 @@ body.gallery {
     transition: background 0.2s, color 0.2s;
     letter-spacing: 0.06em;
     text-transform: uppercase;
-    width: 100%;
-    max-width: 220px;
-    box-sizing: border-box;
+    white-space: nowrap;
 }
 
 .pamphlet-btn:hover {
@@ -440,7 +431,40 @@ body.gallery {
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: var(--bg-color);
+    background-color: transparent;
+}
+
+.floral-corner {
+    position: absolute;
+    width: 240px;
+    height: 271px;
+    background-image: url('./images/assets/floral-corner.svg');
+    background-repeat: no-repeat;
+    background-size: contain;
+    pointer-events: none;
+    z-index: 5;
+    opacity: 0.9;
+}
+
+.floral-corner--tl { top: 0; left: 0; }
+.floral-corner--tr { top: 0; right: 0; transform: scaleX(-1); }
+.floral-corner--bl { bottom: 0; left: 0; transform: scaleY(-1); }
+.floral-corner--br { bottom: 0; right: 0; transform: scale(-1); }
+
+.nav-inner {
+    width: fit-content;
+    margin: 0 auto;
+}
+
+.floral-garland-bar {
+    width: 90%;
+    height: auto;
+    display: block;
+    margin: -5px auto 0;
+}
+
+.header-garland-bar {
+    display: none;
 }
 
 /* Keep these above the absolute photo layer */
@@ -453,6 +477,7 @@ body.gallery {
 }
 
 .landing-photo {
+    display: none;
     position: absolute;
     top: 350px;
     left: 5%;
@@ -1053,15 +1078,14 @@ body.gallery {
    13. TRAVEL / HOTEL PAGE
    ============================================================ */
 #hotels-page-container {
-    width: 90%;
-    max-width: 1200px;
+    width: 60%;
     margin: 0 auto;
     padding: 60px 0;
 }
 
 #hotel-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    display: flex;
+    flex-direction: column;
     gap: 30px;
 }
 
@@ -1070,16 +1094,16 @@ body.gallery {
     border-radius: 15px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     overflow: hidden;
     transition: transform 0.3s ease;
 }
 
-.hotel-card:hover { transform: translateY(-10px); }
+.hotel-card:hover { transform: translateY(-4px); }
 
 .hotel-image {
-    width: 100%;
-    height: 220px;
+    width: 300px;
+    flex-shrink: 0;
     object-fit: cover;
     display: block;
 }
@@ -1128,11 +1152,17 @@ body.gallery {
     text-decoration: underline;
 }
 
+.hotel-details-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
 .hotel-logistics {
     background: #f8f9fa;
     padding: 15px;
     border-radius: 10px;
-    margin-bottom: 20px;
     font-size: 0.9rem;
     border: 1px solid #edf2f7;
 }
@@ -1147,12 +1177,14 @@ body.gallery {
 .logistic-label { font-weight: bold; color: #2d3748; }
 
 .amenities-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+    display: flex;
+    flex-direction: column;
     gap: 10px;
-    margin: 15px 0 20px;
-    padding-top: 15px;
-    border-top: 1px dashed #eee;
+    background: #f8f9fa;
+    padding: 15px;
+    border-radius: 10px;
+    border: 1px solid #edf2f7;
+    font-size: 0.9rem;
 }
 
 .amenity-item {
@@ -1184,137 +1216,31 @@ body.gallery {
 
 /* --- Local Recommendations --- */
 #local-recs-page-container {
-    width: 90%;
-    max-width: 1200px;
+    width: 60%;
     margin: 0 auto;
     padding: 60px 0 80px;
     border-top: 1px solid #e2e8f0;
 }
 
-/* Category filter buttons */
-.recs-category-btns {
-    display: flex;
-    justify-content: center;
-    gap: 12px;
-    flex-wrap: wrap;
-    margin-bottom: 36px;
+.recs-section {
+    margin-bottom: 50px;
 }
 
-.recs-cat-btn {
-    padding: 8px 22px;
-    border-radius: 20px;
-    border: 1px solid #e2e8f0;
-    background: white;
-    color: var(--text-muted);
-    cursor: pointer;
-    font-size: 0.9rem;
-    font-weight: 600;
-    font-family: inherit;
-    transition: var(--transition);
-}
-
-.recs-cat-btn:hover:not(.active) {
-    background: #f8fafc;
-    border-color: #cbd5e1;
-}
-
-.recs-cat-btn.active {
-    background: var(--brand-accent);
-    color: white;
-    border-color: var(--brand-accent);
-}
-
-/* Shared layout: [arrow] [stage] [arrow] */
-.recs-carousel-view,
-.recs-filtered-view {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-}
-
-/* Ensure the hidden attribute isn't overridden by display: flex above */
-.recs-carousel-view[hidden],
-.recs-filtered-view[hidden] {
-    display: none;
-}
-
-.recs-stage {
-    flex: 1;
-    min-width: 0;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 14px;
-}
-
-/* Arrow buttons */
-.recs-arrow {
-    flex-shrink: 0;
-    width: 44px;
-    height: 44px;
-    border-radius: 50%;
-    border: 1px solid #e2e8f0;
-    background: white;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.07);
-    transition: var(--transition);
+.recs-section-title {
+    font-size: 1.6rem;
+    font-weight: 700;
     color: var(--text-main);
+    margin: 0 0 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--pill-bg);
 }
 
-.recs-arrow:hover:not(:disabled) {
-    background: var(--brand-accent);
-    color: white;
-    border-color: var(--brand-accent);
-    box-shadow: 0 4px 12px rgba(0, 86, 179, 0.2);
-}
-
-.recs-arrow:disabled {
-    opacity: 0.25;
-    cursor: not-allowed;
-}
-
-/* Carousel: same grid layout as filtered view */
-#recs-carousel-track {
+.recs-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: 1fr 1fr;
     gap: 24px;
-    width: 100%;
 }
 
-/* Existing cards shift into their new slot */
-#recs-carousel-track.slide-next .rec-card,
-#recs-carousel-track.slide-prev .rec-card {
-    animation: recsCardShift 0.55s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
-}
-
-/* New card fades in as it slides from off-screen */
-#recs-carousel-track.slide-next .rec-card[data-new],
-#recs-carousel-track.slide-prev .rec-card[data-new] {
-    animation: recsCardEnter 0.65s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
-}
-
-/* Page counters */
-.recs-counter {
-    font-size: 0.82rem;
-    color: var(--text-light);
-    letter-spacing: 0.5px;
-    min-height: 1.2em;
-    text-align: center;
-}
-
-/* Filtered: 3-column card grid */
-.recs-filtered-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 24px;
-    width: 100%;
-}
-
-/* Shared card styles */
 .rec-card {
     background: white;
     border-radius: 15px;
@@ -1342,21 +1268,8 @@ body.gallery {
     gap: 10px;
 }
 
-.rec-tag {
-    display: inline-block;
-    background: var(--pill-bg);
-    color: var(--pill-text);
-    font-size: 0.7rem;
-    font-weight: 800;
-    text-transform: uppercase;
-    letter-spacing: 1.5px;
-    padding: 4px 12px;
-    border-radius: 20px;
-    width: fit-content;
-}
-
 .rec-name {
-    font-size: 1.3rem;
+    font-size: 1.2rem;
     color: var(--text-main);
     margin: 0;
     font-weight: 700;
@@ -1911,17 +1824,6 @@ body.gallery {
 /* ============================================================
    17. ANIMATIONS & KEYFRAMES
    ============================================================ */
-/* Existing cards: shift one slot (no opacity change — they were already visible) */
-@keyframes recsCardShift {
-    from { transform: translateX(var(--recs-slide-from)); }
-    to   { transform: translateX(0); }
-}
-
-/* New card: slide in from off-screen with a fade */
-@keyframes recsCardEnter {
-    from { transform: translateX(var(--recs-slide-from)); opacity: 0; }
-    to   { transform: translateX(0); opacity: 1; }
-}
 
 @keyframes fadeInUp {
     from { opacity: 0; transform: translateY(20px); }
@@ -2019,8 +1921,6 @@ body.gallery {
     .scrapbook-nav-wrapper { justify-content: center; }
 
     .story-container    { max-width: 800px; }
-    #recs-carousel-track,
-    .recs-filtered-grid { grid-template-columns: repeat(2, 1fr); }
 }
 
 /* --- Mobile (≤768px) --- */
@@ -2032,15 +1932,20 @@ body.gallery {
     .registry-header h1 { font-size: 2rem; }
     .registry-page { padding: 60px 20px 40px; }
 
-    .header        { font-size: 2.2em; }
+    .header        { font-size: 2.2em; margin-bottom: 0; }
+    .header-garland-bar {
+        display: block;
+        width: 70%;
+        max-width: 320px;
+        height: auto;
+        margin: -4px auto 0;
+    }
     .date-location { font-size: 1.1em; }
 
     .time-box span { font-size: 1.4em; }
 
-    /* Clamp the home page to a single screen — no scroll */
     .page-wrapper {
-        height: 100vh;
-        overflow: hidden;
+        min-height: 100vh;
     }
 
     /* Landing photo: centered, slightly smaller, shifted up */
@@ -2054,23 +1959,23 @@ body.gallery {
     .hamburger-btn  { display: flex; }
     .nav-container  { display: none; }
 
-    /* Event Pamphlet: stack panels vertically on mobile */
-    #event-pamphlet {
-        flex-direction: column;
-        width: 92%;
-        margin: 8px auto;
+    .floral-corner       { width: 80px; height: 90px; }
+    .floral-garland-bar  { display: none; }
+
+    .countdown-container {
+        border-bottom: 1px solid rgba(150, 130, 100, 0.4);
+        padding-bottom: 10px;
     }
 
-    .pamphlet-divider {
-        width: auto;
-        height: 1px;
-        margin: 0 20px;
+    #event-pamphlet {
+        width: 92%;
+        margin: 8px auto;
     }
 
     .pamphlet-event-title { font-size: 1.5rem; }
     .pamphlet-panel       { padding: 10px 16px; gap: 4px; }
     .pamphlet-rule        { display: none; }
-    .pamphlet-details     { display: none; }
+    .pamphlet-details     { display: block; }
     .pamphlet-actions     { margin-top: 4px; gap: 5px; }
     .pamphlet-btn         { padding: 5px 12px; }
 
@@ -2131,9 +2036,8 @@ body.gallery {
         margin-top: 10px;
     }
 
-    /* Local recs: single card per page on mobile */
-    #recs-carousel-track,
-    .recs-filtered-grid  { grid-template-columns: 1fr; }
+    #local-recs-page-container { width: 90%; }
+    .recs-grid           { grid-template-columns: 1fr; }
 
     /* Gallery: disable stagger on small screens */
     #scrapbook-gallery {
@@ -2159,11 +2063,9 @@ body.gallery {
         font-size: 0.9rem;
     }
 
-    #hotel-grid          { grid-template-columns: 1fr; }
-    #recs-carousel-track,
-    .recs-filtered-grid  { grid-template-columns: 1fr; gap: 16px; }
-    .recs-carousel-view,
-    .recs-filtered-view  { gap: 8px; }
-    .recs-arrow          { width: 36px; height: 36px; }
+    #hotels-page-container { width: 90%; }
+    .hotel-card          { flex-direction: column; }
+    .hotel-image         { width: 100%; height: 220px; }
+    .hotel-details-row   { grid-template-columns: 1fr; }
     .rec-image           { height: 150px; }
 }

@@ -1,7 +1,8 @@
 {
   "permissions": {
     "allow": [
-      "Bash(git mv *)"
+      "Bash(git mv *)",
+      "Bash(ls \"c:\\\\Users\\\\Scene Shop\\\\Documents\\\\Github\\\\wedding-website\\\\pages\\\\\\\\\")"
     ]
   }
 }

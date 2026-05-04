@@ -2,6 +2,7 @@ const eventDetails = {
     ceremony: {
         title: "Ceremony",
         time: "3:30 PM",
+        endTime: "4:00 PM",
         timeStart: "20260815T153000",
         timeEnd:   "20260815T160000",
         venue: "Emanuel Lutheran Church",
@@ -12,6 +13,7 @@ const eventDetails = {
     reception: {
         title: "Cocktail Hour",
         time: "5:30 PM",
+        endTime: "10:30 PM",
         timeStart: "20260815T173000",
         timeEnd:   "20260815T223000",
         venue: "The Starting Gate",
@@ -41,7 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         container.innerHTML = `
             <h2 class="pamphlet-event-title">${data.title}</h2>
-            <div class="pamphlet-time">${data.time}</div>
+            <div class="pamphlet-time">${data.time} – ${data.endTime}</div>
             <div class="pamphlet-venue">${data.venue}</div>
             <div class="pamphlet-address">${data.address}</div>
             <div class="pamphlet-rule"></div>

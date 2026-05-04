@@ -10,8 +10,6 @@ const hotelData = [
         amenities:{
             breakfast: false,
             walkToRestaurants: true,
-            toReception: true,
-            fromReception: true
         }
     },
     {
@@ -25,8 +23,6 @@ const hotelData = [
         amenities:{
             breakfast: true,
             walkToRestaurants: false,
-            toReception: false,
-            fromReception: false
         }
     },
     {
@@ -40,8 +36,6 @@ const hotelData = [
         amenities:{
             breakfast: true,
             walkToRestaurants: false,
-            toReception: false,
-            fromReception: false
         }
     }
 ];
@@ -91,33 +85,29 @@ document.addEventListener('DOMContentLoaded', () => {
                     </div>
                 </div>
 
-                <div class="hotel-logistics">
-                    <div class="logistic-item">
-                        <span class="logistic-label">To Ceremony:</span>
-                        <span class="logistic-value">${hotel.distCeremony}</span>
+                <div class="hotel-details-row">
+                    <div class="hotel-logistics">
+                        <div class="logistic-item">
+                            <span class="logistic-label">To Ceremony:</span>
+                            <span class="logistic-value">${hotel.distCeremony}</span>
+                        </div>
+                        <div class="logistic-item">
+                            <span class="logistic-label">To Reception:</span>
+                            <span class="logistic-value">${hotel.distReception}</span>
+                        </div>
                     </div>
-                    <div class="logistic-item">
-                        <span class="logistic-label">To Reception:</span>
-                        <span class="logistic-value">${hotel.distReception}</span>
+
+                    <div class="amenities-grid">
+                        <div class="amenity-item ${hotel.amenities.breakfast ? '' : 'status-no'}">
+                            ${check(hotel.amenities.breakfast)} Breakfast
+                        </div>
+                        <div class="amenity-item ${hotel.amenities.walkToRestaurants ? '' : 'status-no'}">
+                            ${check(hotel.amenities.walkToRestaurants)} Walkable Restaurants
+                        </div>
                     </div>
                 </div>
 
-                <div class="amenities-grid">
-                    <div class="amenity-item ${hotel.amenities.breakfast ? '' : 'status-no'}">
-                        ${check(hotel.amenities.breakfast)} Breakfast
-                    </div>
-                    <div class="amenity-item ${hotel.amenities.walkToRestaurants ? '' : 'status-no'}">
-                        ${check(hotel.amenities.walkToRestaurants)} Walkable Restaurants
-                    </div>
-                    <div class="amenity-item ${hotel.amenities.toReception ? '' : 'status-no'}">
-                        ${check(hotel.amenities.toReception)} Shuttle To Reception
-                    </div>
-                    <div class="amenity-item ${hotel.amenities.fromReception ? '' : 'status-no'}">
-                        ${check(hotel.amenities.fromReception)} Shuttle From Reception
-                    </div>
-                </div>
-
-                <a href="${hotel.link}" target="_blank" class="book-btn">View Rates</a>
+                <a href="${hotel.link}" target="_blank" class="book-btn">View Roomblock Info</a>
             </div>
         `;
 
