@@ -1977,12 +1977,15 @@ body {
         margin: 8px auto;
     }
 
-    .pamphlet-event-title { font-size: 1.5rem; }
+    .pamphlet-event-title { font-size: 2rem; }
+    .pamphlet-time        { font-size: 1.2rem; }
     .pamphlet-panel       { padding: 10px 16px; gap: 4px; }
+    .pamphlet-divider     { margin: 12px 0; }
     .pamphlet-rule        { display: none; }
     .pamphlet-details     { display: block; }
-    .pamphlet-actions     { margin-top: 4px; gap: 5px; }
-    .pamphlet-btn         { padding: 5px 12px; }
+    .pamphlet-actions     { margin-top: 4px; gap: 6px; flex-direction: row; justify-content: center; }
+    .pamphlet-btn         { padding: 4px 10px; font-size: 0.85rem; gap: 4px; }
+    .pamphlet-btn i.material-icons { font-size: 12px !important; }
 
     .info-section {
         width: 100%;

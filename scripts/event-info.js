@@ -11,7 +11,7 @@ const eventDetails = {
         details: "We joyfully invite you to celebrate our marriage at Emanuel Lutheran Church. Please plan to arrive by 3:15 PM. The ceremony will be held inside the church."
     },
     reception: {
-        title: "Cocktail Hour",
+        title: "Reception",
         time: "5:30 PM",
         endTime: "10:30 PM",
         timeStart: "20260815T173000",
