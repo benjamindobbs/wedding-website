@@ -5,7 +5,7 @@ const localRecsData = [
         name: "Vernon Diner",
         imageUrl: "../images/local-recs/vernon-diner.png",
         websiteUrl: "https://www.vernondiner.com/",
-        flavorText: "The local (former 24/7) diner. Exactly what you're picturing, and better than you're thinking"
+        flavorText: "The local (former 24/7) diner. Jess and Ben shared some of their first meals together here with Elliot"
     },
     {
         category: "Breakfast",

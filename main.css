@@ -750,12 +750,21 @@ body {
 }
 
 /* --- Detail view: scrapbook card --- */
-#party-detail-view {
+#party-detail-view,
+#story-detail-view {
     max-width: 1000px;
     margin: 40px auto;
     padding: 20px 5% 60px;
     background: transparent;
     overflow: hidden;
+}
+
+#story-detail-view .detail-info #story-detail-name {
+    font-family: "Great Vibes", cursive;
+    font-size: clamp(1.5rem, 4vw, 3rem);
+    color: #2d2416;
+    margin: 4px 0 16px;
+    line-height: 1.2;
 }
 
 /*
@@ -959,6 +968,18 @@ body {
     object-fit: contain;
 }
 
+.detail-photo.has-extra-image {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.detail-photo.has-extra-image img {
+    aspect-ratio: unset;
+    width: 100%;
+    object-fit: cover;
+}
+
 #photo-detail-view .photo-caption-title {
     font-family: "Great Vibes", cursive;
     font-size: 2.2rem;
@@ -1032,11 +1053,20 @@ body {
     align-items: center;
 }
 
+.story-image-wrap {
+    cursor: pointer;
+}
+
 .story-image-wrap .polaroid {
     transform: rotate(var(--rotation, 0deg));
-    transition: transform 0.3s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
     max-width: 340px;
     width: 100%;
+}
+
+.story-image-wrap:hover .polaroid {
+    transform: rotate(0deg) scale(1.05) translateY(-6px);
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
 }
 
 .story-image-wrap .polaroid-caption {
@@ -1913,7 +1943,8 @@ body {
         margin: 0 auto;
     }
 
-    .detail-info #detail-name {
+    .detail-info #detail-name,
+    #story-detail-view .detail-info #story-detail-name {
         font-size: clamp(1.2rem, 6vw, 2.5rem);
         text-align: center;
     }
