@@ -65,7 +65,7 @@ const localRecsData = [
         name: "The Shops at Evergreen Walk",
         imageUrl: "../images/local-recs/evergreen-walk.jpg",
         websiteUrl: "https://theshopsatevergreenwalk.com/",
-        flavorText: "Promenade mall with an assortment of restaraunts, stores, and treats."
+        flavorText: "Promenade mall with an assortment of restaurants, stores, and treats."
     },
     {
         category: "Things to Do",

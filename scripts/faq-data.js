@@ -1,7 +1,7 @@
 // @ts-nocheck
 const faqData = [
     {q:"How do I RSVP?",
-      a:"Please kindly scan the QR code on your invitation, or follow this link to fill out our <a href=\"../rsvp/\"> RSVP form</a>. RSVP forms need to be completed once by one member of your party listed on the invitation.<br/><br/>The form will ask you to enter the full name of a member of your party to begin. Please note, you will need to enter your name as it appears on your invitation.<br/><br/>Once you are able to proceed, you will need to RSVP with your information including entree choice, dietary restrictions if applicable, and let us know if you will be using the shuttle we provide for the reception. Once you fill in your answers to the questions, you will be able to add additional family member’s or significant other’s answers by selecting \"Add another guest.\"<br/><br/>Once you have completed all of the questions for each guest in your party, please select \"Review RSVP\" and submit the form once all of the information is correct.",
+      a:"Please kindly scan the QR code on your invitation, or follow this link to fill out our <a href=\"../rsvp/\"> RSVP form</a>. RSVP forms need to be completed once by one member of your party listed on the invitation.<br/><br/>The form will ask you to enter the full name of a member of your party to begin. Please note, you will need to enter your name as it appears on your invitation.<br/><br/>Once you are able to proceed, you will need to RSVP with your information including entree choice, dietary restrictions if applicable, and let us know if you will be using the shuttle we provide for the reception. Once you fill in your answers to the questions, you will be able to add additional family members’ or significant others’ answers by selecting \"Add another guest.\"<br/><br/>Once you have completed all of the questions for each guest in your party, please select \"Review RSVP\" and submit the form once all of the information is correct.",
       category: "events"
     },
     {q:"Where do I park for the Ceremony?",
@@ -25,7 +25,7 @@ const faqData = [
         category:"travel"
     },
     {q:"Can I use ride-share (Uber/Lyft) to and from the ceremony/reception?",
-        a:"Ride-share will likely be available to and from the ceremony, but we recommend you schedule the ride in advance in order to ensure you are able to arrive on-time. Ride-share is NOT available to and from the reception, as indicated by our venue. Please plan to arrive via shuttle or personal vehicle.",
+        a:"Ride-share will likely be available to and from the ceremony, but we recommend you schedule the ride in advance in order to ensure you are able to arrive on time. Ride-share is NOT available to and from the reception, as indicated by our venue. Please plan to arrive via shuttle or personal vehicle.",
         category:"travel"
     },
     {
@@ -50,7 +50,7 @@ const faqData = [
         category:"events"
     },
     {q:"When will extended family photos take place?",
-        a:"Jess and Ben are very excited to celebrate with so many out of town family members! If you are a member of the Dobbs, Carman, Polito, or Hokanson family, please make sure to arrive on-time or a few minutes early to the cocktail hour.<br/><br/>Family photos will take place at the start of cocktail hour. You will be directed to proceed to the \"wedding garden,\" which overlooks the golf course.<br/><br/>We want to ensure everyone is included in the photos, so please make sure to join us at the start of cocktail hour for those large group photos!!",
+        a:"Jess and Ben are very excited to celebrate with so many out of town family members! If you are a member of the Dobbs, Carman, Polito, or Hokanson family, please make sure to arrive on time or a few minutes early to the cocktail hour.<br/><br/>Family photos will take place at the start of cocktail hour. You will be directed to proceed to the \"wedding garden,\" which overlooks the golf course.<br/><br/>We want to ensure everyone is included in the photos, so please make sure to join us at the start of cocktail hour for those large group photos!!",
         category:"events"
     },
     {q:"When do I need to RSVP by?",
