@@ -15,7 +15,7 @@ const groupDatabase ={
 'LANG':['Sue Lang','James Lang'],
 'GNZO':['Evan Gonzales','Victoria Feldman'],
 'MRGS':['Marcus Ubarry','Cynthia Petersons'],
-'EMAN':['Elliot Bushman','Sara Fries'],
+'EMAN':['Elliot Bushman'],
 'BARN':["Brian Arnesen"],
 'THKM':['Dan Aitken','Alexa Meller'],
 'JKJN':['Jack Marsalisi','Jen Aguilar'],
