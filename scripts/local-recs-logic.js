@@ -5,7 +5,7 @@ const localRecsData = [
         name: "Vernon Diner",
         imageUrl: "../images/local-recs/vernon-diner.png",
         websiteUrl: "https://www.vernondiner.com/",
-        flavorText: "The local (former 24/7) diner. Exactly what you're picturing, and better than you're thinking"
+        flavorText: "The local (former 24/7) diner. Exactly what you're picturing, and better than you're thinking."
     },
     {
         category: "Breakfast",
@@ -35,7 +35,7 @@ const localRecsData = [
         name: "Burtons Grill",
         imageUrl: "../images/local-recs/burtons.jpg",
         websiteUrl: "https://burtonsgrill.com/locations/ct/south-windsor/",
-        flavorText: "Add a description here."
+        flavorText: "Upscale American bar and grill that is walkable from the Cambria hotel."
     },
     {
         category: "Lunch/Dinner",
@@ -56,7 +56,7 @@ const localRecsData = [
         name: "Main Pub",
         imageUrl: "../images/local-recs/main-pub.jpg",
         websiteUrl: "https://mainpub.com/",
-        flavorText: "British style pub with patio seating. Great place to grab a drink or food and enjoy a nice day."
+        flavorText: "British style pub with patio seating. Great place to grab a drink or food, and enjoy a nice day."
     },
 
     // Things to Do
@@ -65,14 +65,14 @@ const localRecsData = [
         name: "The Shops at Evergreen Walk",
         imageUrl: "../images/local-recs/evergreen-walk.jpg",
         websiteUrl: "https://theshopsatevergreenwalk.com/",
-        flavorText: "Promenade mall with an assortment of restaurants, stores, and treats."
+        flavorText: "Promenade mall with an assortment of restaurants, stores, and treats. You may want to visit Munson’s Chocolates, as that is where Jess worked her first job!"
     },
     {
         category: "Things to Do",
         name: "Wickham Park",
         imageUrl: "../images/local-recs/wickham.jpg",
         websiteUrl: "https://wickhampark.org/",
-        flavorText: "Beautiful local park with gardens, disc golf, and an aviary. There is a $10 parking fee"
+        flavorText: "Beautiful local park with gardens, disc golf, and an aviary. There is a $10 parking fee."
     }
 ];
 

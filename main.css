@@ -97,6 +97,17 @@ body {
     color: var(--text-main);
 }
 
+.section-subtext {
+    font-family: 'Georgia', serif;
+    font-size: 1rem;
+    text-align: center;
+    color: var(--text-main);
+    max-width: 640px;
+    margin: 0 auto 24px;
+    line-height: 1.7;
+    font-style: italic;
+}
+
 /* Shared intro block (photos.html, our-story.html) */
 .story-intro {
     text-align: center;
@@ -819,7 +830,8 @@ body {
     display: grid;
     grid-template-columns: 1fr 1.2fr;
     gap: 50px;
-    align-items: center;
+    align-items: start;
+    padding-top: 20px;
 }
 
 .detail-info {
@@ -856,6 +868,7 @@ body {
     font-style: italic;
     /* Simulate handwritten ink — slightly uneven baseline feel */
     text-shadow: 0.3px 0.3px 0 rgba(0,0,0,0.05);
+    white-space: pre-line;
 }
 
 .back-btn {
@@ -1898,7 +1911,9 @@ body {
     .member-card:nth-child(3n) { margin-top: 0; }
 
     .detail-layout {
-        grid-template-columns: 1fr;
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
         gap: 30px;
     }
 
@@ -1907,19 +1922,34 @@ body {
         transform: rotate(0deg);
     }
 
+    .detail-info {
+        display: contents;
+    }
+
+    .detail-info-header {
+        order: 1;
+        padding-left: 0;
+        text-align: center;
+    }
+
     .detail-photo {
         transform: rotate(0deg);
         max-width: 400px;
         margin: 0 auto;
+        order: 2;
     }
 
-    .detail-info #detail-name {
-        font-size: clamp(1.2rem, 6vw, 2.5rem);
+    .detail-info-body {
+        order: 3;
         text-align: center;
     }
 
-    .detail-info {
-        padding-left: 0;
+    .detail-info #detail-name {
+        font-size: clamp(2rem, 9vw, 3.2rem);
+        text-align: center;
+    }
+
+    #detail-subtitle {
         text-align: center;
     }
 

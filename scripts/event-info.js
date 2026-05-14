@@ -30,7 +30,7 @@ const eventDetails = {
         venue: "Cambria Hotel",
         address: "1000 Long Leaf Ln, South Windsor, CT",
         mapsUrl: "https://maps.google.com/?q=1000+Long+Leaf+Ln,+South+Windsor,+CT+06074",
-        details: "We invite you to join us for a relaxed gathering at the Cambria Hotel bar following the reception. The hotel bar remains open until midnight — we hope you will raise a final glass with us and close the evening together."
+        details: "We invite you to join us for a relaxed gathering at the Cambria Hotel bar following the reception. The hotel bar remains open until midnight. We hope you will join us, buy a drink, and close the evening together."
     }
 };
 

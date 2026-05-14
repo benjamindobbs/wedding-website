@@ -1,7 +1,7 @@
 // @ts-nocheck
 const faqData = [
     {q:"How do I RSVP?",
-      a:"Please kindly scan the QR code on your invitation, or follow this link to fill out our <a href=\"../rsvp/\"> RSVP form</a>. RSVP forms need to be completed once by one member of your party listed on the invitation.<br/><br/>The form will ask you to enter the full name of a member of your party to begin. Please note, you will need to enter your name as it appears on your invitation.<br/><br/>Once you are able to proceed, you will need to RSVP with your information including entree choice, dietary restrictions if applicable, and let us know if you will be using the shuttle we provide for the reception. Once you fill in your answers to the questions, you will be able to add additional family members’ or significant others’ answers by selecting \"Add another guest.\"<br/><br/>Once you have completed all of the questions for each guest in your party, please select \"Review RSVP\" and submit the form once all of the information is correct.",
+      a:"Please kindly scan the QR code on your invitation, or follow this link to fill out our <a href=\"../rsvp/\"> RSVP form</a>. RSVP forms need to be completed once by one member of your party listed on the invitation.<br/><br/>The form will ask you to enter the full name of a member of your party to begin.<br/><br/>Once you are able to proceed, you will need to RSVP with your information including entree choice, dietary restrictions if applicable, and let us know if you will be using the shuttle we provide for the reception. Once you fill in your answers to the questions, you will be able to add additional family members’ or significant others’ answers by selecting \"Add another guest.\"<br/><br/>Once you have completed all of the questions for each guest in your party, please select \"Review RSVP\" and submit the form once all of the information is correct.",
       category: "events"
     },
     {q:"Where do I park for the Ceremony?",
@@ -17,7 +17,7 @@ const faqData = [
         category: "events"
     },
     {q:"Where can I stay?",
-        a:"Please review the options listed on our <a href=\"../travel/\"> travel page </a>, as you will find recommended hotels and hotel block information. We are recommending guests stay in the Manchester/South Windsor area.",
+        a:"Please review the options listed on our <a href=\"../travel/\"> travel page</a>, as you will find recommended hotels and hotel block information. We are recommending guests stay in the Manchester/South Windsor area.",
         category: "travel"
     },
     {q:"Will there be a shuttle?",
@@ -34,7 +34,7 @@ const faqData = [
         category: "events"
     },
     {q: "What is the password to the registry?",
-        a: "It is the same as the password to this website and is printed on the back of the RSVP card",
+        a: "The password is: whosthatbrideitsjess!",
         category: "other"
     },
     {q: "What is the dress code?",
@@ -54,7 +54,7 @@ const faqData = [
         category:"events"
     },
     {q:"When do I need to RSVP by?",
-        a:"Please complete the RSVP by July 1st",
+        a:"Please complete the RSVP by July 1st.",
         category:"events"
     }
 ];

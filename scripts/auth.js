@@ -8,8 +8,7 @@ function checkPassword() {
     const errorMsg = document.getElementById('password-error');
 
     if (entered.replace(/\s+/g, '').toLowerCase() === SITE_PASSWORD.replace(/\s+/g, '').toLowerCase()) {
-        // Save to session so they don't have to re-enter on refresh
-        sessionStorage.setItem('siteAuth', 'true');
+        localStorage.setItem('siteAuth', 'true');
         showSite();
     } else {
         errorMsg.style.display = 'block';
@@ -27,7 +26,7 @@ function showSite() {
 
 // Check on page load if they are already authorized
 document.addEventListener('DOMContentLoaded', () => {
-    if (sessionStorage.getItem('siteAuth') === 'true') {
+    if (localStorage.getItem('siteAuth') === 'true') {
         showSite();
     }
 });
@@ -35,7 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
 // Guard for inner pages: redirect to homepage if not authenticated
 (function () {
     const isHomepage = !!document.getElementById('password-overlay');
-    if (!isHomepage && sessionStorage.getItem('siteAuth') !== 'true') {
+    if (!isHomepage && localStorage.getItem('siteAuth') !== 'true') {
         const root = document.body.dataset.root || '../';
         window.location.replace(root + 'index.html');
     }
@@ -61,7 +60,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Check session auth on load (immediate show, no fade)
-    if (sessionStorage.getItem('siteAuth') === 'true') {
+    if (localStorage.getItem('siteAuth') === 'true') {
         document.getElementById('password-overlay').style.display = 'none';
         document.getElementById('main-site-content').style.display = 'block';
     }
