@@ -139,6 +139,10 @@ document.addEventListener('DOMContentLoaded', () => {
             maxGroupSize = familyList.length;
             isWelcomeDrinksEligible = welcomeDrinksGroups.has(code);
 
+            if (maxGroupSize === 1) {
+                document.getElementById('add-guest-btn').style.display = 'none';
+            }
+
             primarySelect.innerHTML = '<option value="" disabled selected>-- Select Your Name --</option>';
             familyList.forEach(name => {
                 const opt = document.createElement('option');
@@ -222,7 +226,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <div id="transport-section-${guestCount}" class="transport-section" style="display: none;">
                 <div class="form-group">
                     <label>Shuttle Service</label>
-                    <select name="transport-${guestCount}">
+                    <select name="transport-${guestCount}" required>
                         <option value="" disabled selected>Choose an option</option>
                         <option value="Yes">Yes, please</option>
                         <option value="No">No, thank you</option>
@@ -257,11 +261,12 @@ function validateGuestFields() {
     const currentCount = nameSelects.length;
     const idx = currentCount - 1;
 
-    // 1. Check if the group is already full
-    if (currentCount >= maxGroupSize) {
+    // 1. Check if the group is already full and the current guest is complete
+    const currentNameForLimit = nameSelects[idx];
+    if (currentCount >= maxGroupSize && maxGroupSize > 0 && currentNameForLimit && currentNameForLimit.value !== "") {
         addGuestBtn.disabled = true;
         addGuestBtn.innerText = "Group Limit Reached";
-        return; // Stop here
+        return;
     }
 
     // 2. Otherwise, run your existing sleek validation
@@ -299,10 +304,26 @@ function validateGuestFields() {
 
     // --- 5. REVIEW STEP ---
     const reviewContainer = document.getElementById('rsvp-review-container');
+    const incompleteModal = document.getElementById('incomplete-party-modal');
+
+    document.getElementById('modal-add-guest-btn').addEventListener('click', () => {
+        incompleteModal.style.display = 'none';
+        document.getElementById('add-guest-btn').click();
+    });
+
+    document.getElementById('modal-proceed-btn').addEventListener('click', () => {
+        incompleteModal.style.display = 'none';
+        buildAndShowReview();
+    });
 
     rsvpForm.addEventListener('submit', (e) => {
         e.preventDefault();
-        buildAndShowReview();
+        const currentCount = rsvpForm.querySelectorAll('.guest-name-select').length;
+        if (currentCount < maxGroupSize) {
+            incompleteModal.style.display = 'flex';
+        } else {
+            buildAndShowReview();
+        }
     });
 
     function buildAndShowReview() {

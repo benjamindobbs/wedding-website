@@ -1450,6 +1450,8 @@ body {
 .form-group select,
 .form-group input[type="email"],
 .form-group textarea {
+    width: 100%;
+    box-sizing: border-box;
     padding: 12px;
     border: 1px solid #e2e8f0;
     border-radius: 8px;
