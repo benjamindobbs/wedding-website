@@ -33,6 +33,7 @@
         </div>
     </div>
 
+    <div id="story-list-view">
     <div class="story-container">
         <div class="story-intro">
             <h1 class="header" style="font-size: 4rem;">Our Story</h1>
@@ -215,7 +216,36 @@
             </div>
         </section>
     </div>
+    </div>
 
+    <div id="story-detail-view" style="display: none;">
+        <div class="back-btn" onclick="closeStory()">
+            <i class="material-icons">arrow_back</i> Back to Our Story
+        </div>
+        <div class="detail-card">
+            <div class="detail-layout">
+                <div class="detail-photo">
+                    <img id="story-detail-img" src="" alt="">
+                    <img id="story-detail-img2" src="" alt="" style="display:none;">
+                </div>
+                <div class="detail-info">
+                    <p id="story-detail-subtitle" class="line-1"></p>
+                    <h2 id="story-detail-name" class="header-detail"></h2>
+                    <div id="story-detail-flavor" class="flavor-text"></div>
+                    <div class="scrapbook-nav-wrapper">
+                        <div class="nav-item prev" onclick="prevStoryEntry()">
+                            <i class="material-icons">west</i> <span>PREV</span>
+                        </div>
+                        <div class="nav-item next" onclick="nextStoryEntry()">
+                            <span>NEXT</span> <i class="material-icons">east</i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../scripts/story-detail-logic.js"></script>
     <script src="../scripts/auth.js"></script>
     <script src="../scripts/nav.js" defer></script>
 </body>
