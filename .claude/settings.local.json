@@ -9,7 +9,9 @@
       "Bash(Select-Object -First 50)",
       "Bash(xargs wc -l)",
       "Bash(grep -n \"password\\\\|auth\\\\|session\\\\|cookie\\\\|login\\\\|token\" \"c:\\\\Users\\\\beja\\\\Documents\\\\GitHub\\\\wedding-website\\\\registry\\\\index.html\" 2>/dev/null)",
-      "Read(//c/Users/beja/Documents/GitHub/wedding-website/registry/**)"
+      "Read(//c/Users/beja/Documents/GitHub/wedding-website/registry/**)",
+      "Bash(grep -n *)",
+      "Bash(git add *)"
     ]
   }
 }
