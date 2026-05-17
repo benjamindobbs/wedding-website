@@ -25,10 +25,10 @@ const storyEntries = [
     },
     {
         image: "../images/gallery-photos/jan-2022.JPG",
-        extraImage: "../images/secret-pics/jump.jpg",
+        // extraImage: "../images/secret-pics/jump.jpg",
         caption: "Jan '22 — NYE",
         date: "June 2021 – May 2022",
-        text:"While we were making this website we looked through a lot of pictures. Normally how it works is that I use my camera to take photos at an event, I upload every photo, and Jess painstakingly pulls out the ones where my eyes are open and actually smiling (I just cannot smile for cameras). While looking through my hard drive of this night I found the photo taken right before the good one. I've included it for your enjoyment (please don't tell her). This was at the first NYE party we hosted at our current house (which going forward will be referred to as 20MS), Jess picked up the decorations you see since 20MS was entirely occupied by 20 year old boys. She was lucky we even had silverware, let alone NYE decorations. Jess knows all the hosting tricks I never learned from my introverted parents. Jess knows a lot of things I don't, really useful stuff too, I really like having her around :) "
+        text:"While we were making this website we looked through a lot of pictures. Normally how it works is that I use my camera to take photos at an event, I upload every photo, and Jess painstakingly pulls out the ones where my eyes are open and actually smiling (I just cannot smile for cameras). This was at the first NYE party we hosted at our current house (which going forward will be referred to as 20MS), Jess picked up the decorations you see since 20MS was entirely occupied by 20 year old boys. She was lucky we even had silverware, let alone NYE decorations. Jess knows all the hosting tricks I never learned from my introverted parents. Jess knows a lot of things I don't, really useful stuff too, I really like having her around :) "
     },
     {
         image: "../images/gallery-photos/feb-2023.JPG",
