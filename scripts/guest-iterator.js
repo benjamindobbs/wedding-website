@@ -78,7 +78,7 @@ const groupDatabase ={
 
 // Add invitation codes here to show the welcome drinks RSVP question to that party
 const welcomeDrinksGroups = new Set([
-  'POTG','SSTR','BRTR','LOUC','KDOB','JFON','RDOB','ANNE','SHERY','SHARN','GNZO','MRGS','EMAN','BARN','THKM','POTB','KYLE','ROSE','KAMP','HOLZ','PLTO','FITZ','PNIK','FOGL','LANA','DMNK','HEND','CADN','LIVY','POND','FRND'
+  'POTG','SSTR','BRTR','LOUC','KDOB','JFON','RDOB','ANNE','SHERY','SHARN','GNZO','MRGS','EMAN','BARN','THKM','POTB','KYLE','ROSE','KAMP','HOLZ','PLTO','FITZ','PNIK','FOGL','LANA','DMNK','HEND','CADN','LIVY','POND','FRND','LUSN','MAGN'
 ]);
 
 function stripTitle(name) {
