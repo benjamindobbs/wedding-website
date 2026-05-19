@@ -226,7 +226,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <div id="transport-section-${guestCount}" class="transport-section" style="display: none;">
                 <div class="form-group">
                     <label>Shuttle Service</label>
-                    <select name="transport-${guestCount}" required>
+                    <select name="transport-${guestCount}">
                         <option value="" disabled selected>Choose an option</option>
                         <option value="Yes">Yes, please</option>
                         <option value="No">No, thank you</option>
@@ -424,11 +424,17 @@ function validateGuestFields() {
 
             if (e.target.value === 'yes') {
                 if (foodSec) foodSec.style.display = 'block';
-                if (transSec) transSec.style.display = 'block';
+                if (transSec) {
+                    transSec.style.display = 'block';
+                    transSec.querySelectorAll('select').forEach(s => s.required = true);
+                }
                 if (isWelcomeDrinksEligible && welcomeDrinksSec) welcomeDrinksSec.style.display = 'block';
             } else {
                 if (foodSec) foodSec.style.display = 'none';
-                if (transSec) transSec.style.display = 'none';
+                if (transSec) {
+                    transSec.style.display = 'none';
+                    transSec.querySelectorAll('select').forEach(s => s.required = false);
+                }
                 if (welcomeDrinksSec) welcomeDrinksSec.style.display = 'none';
             }
         }
