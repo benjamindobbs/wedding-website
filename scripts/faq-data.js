@@ -38,7 +38,7 @@ const faqData = [
         category: "other"
     },
     {q: "What is the dress code?",
-        a:"If you’re anything like us, you don’t understand wedding dress code language, so please accept these requests instead:<ul> <li> Please wear either a suit or a long dress. </li> <li> Dresses are encouraged to be colorful, but preferably not solid blue. </li> <li> All wedding events will take place indoors, so no need to worry about heels on grass.</li><li>As always, do not wear white!</li></ul>",
+        a:"If you’re anything like us, you don’t understand wedding dress code language, so please accept these requests instead:<ul> <li> Please wear either a suit or a midi/floor length dress. </li> <li> Dresses are encouraged to be colorful, but preferably not solid blue. </li> <li> All wedding events will take place indoors, so no need to worry about heels on grass.</li><li>As always, do not wear white!</li></ul>",
         category:"events"
     },
     {q:"Is there an open bar?",
