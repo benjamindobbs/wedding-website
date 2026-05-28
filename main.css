@@ -725,19 +725,19 @@ body {
 
 /* --- Directory: scattered polaroid grid (mirrors photo gallery) --- */
 #party-directory {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
     gap: 70px 40px;
     padding: 60px 5% 100px;
     max-width: 1400px;
     margin: 0 auto;
-    justify-items: center;
 }
 
 .member-card {
     position: relative;
-    width: 100%;
-    max-width: 220px;
+    width: 220px;
+    flex-shrink: 0;
     cursor: pointer;
     transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     transform: rotate(var(--rotation, 0deg));
@@ -1930,7 +1930,6 @@ body {
 /* --- Tablet (≤1024px) --- */
 @media (max-width: 1024px) {
     #party-directory {
-        grid-template-columns: repeat(3, 1fr);
         gap: 50px 30px;
         padding: 30px 5%;
     }
@@ -2121,9 +2120,12 @@ body {
 /* --- Small phones (≤480px) --- */
 @media (max-width: 480px) {
     #party-directory {
-        grid-template-columns: repeat(2, 1fr);
         gap: 40px 20px;
         padding: 20px 4% 60px;
+    }
+
+    .member-card {
+        width: calc(50% - 10px);
     }
 
     .nav-tab {
