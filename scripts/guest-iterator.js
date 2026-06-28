@@ -47,7 +47,7 @@ const groupDatabase ={
 'HEND':['Amy Henderson','Jim Henderson'],
 'YSLS':['Aria Yslas','James Yslas'],
 'HDRS':['Jaeger Henderson','Stormy Henderson'],
-'CADN':['Caden Henderson'],
+'CADN':['Caden Henderson','Christine Medina'],
 'SAVG':['Carol Savidge','Ed Savidge'],
 'BUSH':['Susan Bushman','Mark Bushman'],
 'EBSH':['Ethan Bushman','Sydney Fournier'],
